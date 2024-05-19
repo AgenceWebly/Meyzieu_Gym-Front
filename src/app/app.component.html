@@ -1,2 +1,11 @@
-<h1>MEYZIEU GYM</h1>
-<p>Association sportive</p>
+<div class="container">
+  <app-menu class="menu"></app-menu>
+  <div class="content">
+    <main class="left-content">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer class="footer"></app-footer>
+  </div>
+</div>
+
+<router-outlet />
