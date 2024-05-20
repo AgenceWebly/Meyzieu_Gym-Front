@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 export const routes: Routes = [
   {
@@ -37,5 +38,9 @@ export const routes: Routes = [
   {
     path: 'deconnexion',
     component: HomeComponent
-  }
+  },
+  {
+    path: 'creation-compte',
+    component: SignUpComponent
+  },
 ];

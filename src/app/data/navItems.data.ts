@@ -55,4 +55,10 @@ export const navItems: NavItem[] = [
     text: 'Déconnexion',
     category: 3,
   },
+  {
+    path: '/creation-compte',
+    icon: 'fa-light fa-user-plus',
+    text: 'Créer un compte',
+    category: 3,
+  },
 ]
