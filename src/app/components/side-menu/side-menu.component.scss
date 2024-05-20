@@ -1,0 +1,30 @@
+@import "variables";
+@import "mixins";
+
+.side-nav {
+  @include border-shadow-radius;
+  margin: $default-margin;
+  background: $color-white-background;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: calc(100% - $default-margin * 2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .welcome-container {
+    margin: $default-margin 0;
+    padding: calc($default-padding / 2);
+    display: flex;
+    align-items: center;
+    img {
+      height: 50px;
+    }
+  }
+}
+
+
+
+

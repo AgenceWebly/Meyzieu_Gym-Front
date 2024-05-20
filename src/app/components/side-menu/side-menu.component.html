@@ -1,0 +1,16 @@
+<nav class="side-nav">
+  <div class="welcome-container">
+    <img src="assets/icons/logo.jpg" alt="logo" />
+    <span>Bonjour Benjamin&nbsp;!</span>
+  </div>
+
+    @for (category of [1, 2, 3]; track $index) {
+      <ul>
+        @for (navItem of navItems; track navItem.path) {
+          @if (navItem.category === category) {
+            <app-nav-item [navItem]="navItem"></app-nav-item>
+          }
+        }
+      </ul>
+    }
+</nav>

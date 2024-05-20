@@ -1,0 +1,53 @@
+@import 'variables';
+
+.burger-nav {
+  background: $color-white-background;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50vw;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .closed-menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .burger-button {
+    font-size: 24px;
+    cursor: pointer;
+    text-align: right;
+    margin: $default-margin;
+  }
+
+  .welcome-container {
+    padding: calc($default-padding / 2);
+    display: flex;
+    align-items: center;
+    img {
+      height: 50px;
+    }
+  }
+
+  .side-nav {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: $color-white-background;
+    width: 50vw;
+    height: fit-content;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(120vh);
+    transition: transform 0.7s ease-in-out;
+
+    &.open {
+      transform: translateY(0);
+    }
+
+  }
+}
