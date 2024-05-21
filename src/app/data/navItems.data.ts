@@ -60,5 +60,6 @@ export const navItems: NavItem[] = [
     icon: 'fa-light fa-user-plus',
     text: 'Créer un compte',
     category: 3,
-  },
+  }
+
 ]
