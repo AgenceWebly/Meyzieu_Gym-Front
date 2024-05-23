@@ -1,138 +1,140 @@
 <main>
-  <h1>Bienvenue sur votre plateforme Meyzieu Gym !</h1>
-  <h2>S'inscrire</h2>
-  <p>Déjà inscrit ? Je me connecte !</p>
-  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" #signUpStatus="ngForm">
-    <fieldset>
-      <label for="lastname">Nom</label>
-      <input
-        type="text"
-        name="lastname"
-        id="lastname"
-        formControlName="lastname"
-        placeholder="Nom"
-        autocomplete="family-name"
-      />
-      <div *ngIf="signUpForm.get('lastname')?.invalid && signUpForm.get('lastname')?.touched">
-        <small *ngIf="signUpForm.get('lastname')?.errors?.['required']">Le nom est requis.</small>
-        <small *ngIf="signUpForm.get('lastname')?.errors?.['minlength']">Le nom doit contenir au moins 2 caractères.</small>
-        <small *ngIf="signUpForm.get('lastname')?.errors?.['pattern']">Le nom ne peut contenir que des lettres et des espaces.</small>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <label for="firstname">Prénom</label>
-      <input
-        type="text"
-        name="firstname"
-        id="firstname"
-        formControlName="firstname"
-        placeholder="Prénom"
-        autocomplete="given-name"
-      />
-      <div *ngIf="signUpForm.get('firstname')?.invalid && signUpForm.get('firstname')?.touched">
-        <small *ngIf="signUpForm.get('firstname')?.errors?.['required']">Le prénom est requis.</small>
-        <small *ngIf="signUpForm.get('firstname')?.errors?.['minlength']">Le prénom doit contenir au moins 2 caractères.</small>
-        <small *ngIf="signUpForm.get('firstname')?.errors?.['pattern']">Le prénom ne peut contenir que des lettres et des espaces.</small>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <label for="phone">Téléphone</label>
-      <input id="phone" formControlName="phone" type="text" autocomplete="tel"/>
-      <div *ngIf="signUpForm.get('phone')?.invalid && signUpForm.get('phone')?.touched">
-        <small *ngIf="signUpForm.get('phone')?.errors?.['required']">Le téléphone est requis.</small>
-        <small *ngIf="signUpForm.get('phone')?.errors?.['phoneFormat']">Numéro de téléphone invalide.</small>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <label for="address">Adresse</label>
-      <input
-        id="address"
-        formControlName="address"
-        type="search"
-        placeholder="Adresse"
-        autocomplete="street-address"
-      />
-      <div *ngIf="signUpForm.get('address')?.invalid && signUpForm.get('address')?.touched">
-        <small *ngIf="signUpForm.get('address')?.errors?.['required']">L'adresse est requise.</small>
-        <small *ngIf="signUpForm.get('address')?.errors?.['minlength']">L'adresse doit contenir au moins 5 caractères.</small>
-      </div>
-
-      <ul *ngIf="addressSuggestions.length > 0">
-        <li
-          *ngFor="let suggestion of addressSuggestions; let i = index"
-          (click)="selectAddress(suggestion)"
-        >
-          {{ suggestion.properties.label }}
-        </li>
-      </ul>
-    </fieldset>
-
-    <fieldset formGroupName="emails">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        placeholder="Email"
-        autocomplete="email"
-      />
-      <div *ngIf="signUpForm.get('emails.email')?.invalid && signUpForm.get('emails.email')?.touched">
-        <small *ngIf="signUpForm.get('emails.email')?.errors?.['required']">L'email est requis.</small>
-        <small *ngIf="signUpForm.get('emails.email')?.errors?.['email']">Email invalide.</small>
-      </div>
-
-      <label for="confirmEmail">Confirmation de l'email</label>
-      <input
-        type="email"
-        id="confirmEmail"
-        formControlName="confirmEmail"
-        placeholder="Confirmation de l'email"
-        autocomplete="email"
-      />
-      <div *ngIf="signUpForm.get('emails')?.errors?.['notEqual'] && signUpForm.get('emails.confirmEmail')?.touched">
-        <small>Les emails ne correspondent pas.</small>
-      </div>
-    </fieldset>
-
-    <fieldset formGroupName="passwords">
-      <label for="password">Mot de passe</label>
-      <div class="password-container">
+  <div class="form-container">
+    <h1>Bienvenue sur votre plateforme Meyzieu Gym&nbsp;!</h1>
+    <h2>S'inscrire</h2>
+    <p>Déjà inscrit&nbsp;? <span class="link">Je me connecte&nbsp;!</span></p>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" #signUpStatus="ngForm">
+      <fieldset>
+        <label for="lastname">Nom</label>
         <input
-          [type]="showPassword ? 'text' : 'password'"
-          id="password"
-          formControlName="password"
-          placeholder="Mot de passe"
+          type="text"
+          name="lastname"
+          id="lastname"
+          formControlName="lastname"
+          placeholder="Nom"
+          autocomplete="family-name"
         />
-        <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: #b2b2b2" (click)="toggleShowPassword()"></i>
-      </div>
-      <div class="password-strength-bar">
-        <div [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrengthPercent"></div>
-      </div>
-      <div *ngIf="passwordMessage">{{ passwordMessage }}</div>
-      <div *ngIf="signUpForm.get('passwords.password')?.invalid && signUpForm.get('passwords.password')?.touched">
-        <small *ngIf="signUpForm.get('passwords.password')?.errors?.['required']">Le mot de passe est requis.</small>
-        <small *ngIf="signUpForm.get('passwords.password')?.errors?.['passwordFormat']">Le mot de passe doit contenir au moins 8 caractères.</small>
-      </div>
+        <div *ngIf="signUpForm.get('lastname')?.invalid && signUpForm.get('lastname')?.touched">
+          <small *ngIf="signUpForm.get('lastname')?.errors?.['required']">Le nom est requis.</small>
+          <small *ngIf="signUpForm.get('lastname')?.errors?.['minlength']">Le nom doit contenir au moins 2 caractères.</small>
+          <small *ngIf="signUpForm.get('lastname')?.errors?.['pattern']">Le nom ne peut contenir que des lettres et des espaces.</small>
+        </div>
+      </fieldset>
 
-      <label for="confirmPassword">Confirmation du mot de passe</label>
-      <div class="password-container">
+      <fieldset>
+        <label for="firstname">Prénom</label>
         <input
-          [type]="showConfirmPassword ? 'text' : 'password'"
-          id="confirmPassword"
-          formControlName="confirmPassword"
-          placeholder="Confirmation du mot de passe"
-          autocomplete="new-password"
+          type="text"
+          name="firstname"
+          id="firstname"
+          formControlName="firstname"
+          placeholder="Prénom"
+          autocomplete="given-name"
         />
-        <i class="fa" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: #b2b2b2" (click)="toggleShowConfirmPassword()"></i>
-      </div>
-      <div *ngIf="signUpForm.get('passwords')?.errors?.['notEqual'] && signUpForm.get('passwords.confirmPassword')?.touched">
-        <small>Les mots de passe ne correspondent pas.</small>
-      </div>
-    </fieldset>
+        <div *ngIf="signUpForm.get('firstname')?.invalid && signUpForm.get('firstname')?.touched">
+          <small *ngIf="signUpForm.get('firstname')?.errors?.['required']">Le prénom est requis.</small>
+          <small *ngIf="signUpForm.get('firstname')?.errors?.['minlength']">Le prénom doit contenir au moins 2 caractères.</small>
+          <small *ngIf="signUpForm.get('firstname')?.errors?.['pattern']">Le prénom ne peut contenir que des lettres et des espaces.</small>
+        </div>
+      </fieldset>
 
-    <button>Valider mon inscription</button>
-  </form>
+      <fieldset>
+        <label for="phone">Téléphone</label>
+        <input id="phone" formControlName="phone" type="text" autocomplete="tel"/>
+        <div *ngIf="signUpForm.get('phone')?.invalid && signUpForm.get('phone')?.touched">
+          <small *ngIf="signUpForm.get('phone')?.errors?.['required']">Le téléphone est requis.</small>
+          <small *ngIf="signUpForm.get('phone')?.errors?.['phoneFormat']">Numéro de téléphone invalide.</small>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="address">Adresse</label>
+        <input
+          id="address"
+          formControlName="address"
+          type="search"
+          placeholder="Adresse"
+          autocomplete="street-address"
+        />
+        <div *ngIf="signUpForm.get('address')?.invalid && signUpForm.get('address')?.touched">
+          <small *ngIf="signUpForm.get('address')?.errors?.['required']">L'adresse est requise.</small>
+          <small *ngIf="signUpForm.get('address')?.errors?.['minlength']">L'adresse doit contenir au moins 5 caractères.</small>
+        </div>
+
+        <ul *ngIf="addressSuggestions.length > 0">
+          <li
+            *ngFor="let suggestion of addressSuggestions; let i = index"
+            (click)="selectAddress(suggestion)"
+          >
+            {{ suggestion.properties.label }}
+          </li>
+        </ul>
+      </fieldset>
+
+      <fieldset formGroupName="emails">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Email"
+          autocomplete="email"
+        />
+        <div *ngIf="signUpForm.get('emails.email')?.invalid && signUpForm.get('emails.email')?.touched">
+          <small *ngIf="signUpForm.get('emails.email')?.errors?.['required']">L'email est requis.</small>
+          <small *ngIf="signUpForm.get('emails.email')?.errors?.['email']">Email invalide.</small>
+        </div>
+
+        <label for="confirmEmail">Confirmation de l'email</label>
+        <input
+          type="email"
+          id="confirmEmail"
+          formControlName="confirmEmail"
+          placeholder="Confirmation de l'email"
+          autocomplete="email"
+        />
+        <div *ngIf="signUpForm.get('emails')?.errors?.['notEqual'] && signUpForm.get('emails.confirmEmail')?.touched">
+          <small>Les emails ne correspondent pas.</small>
+        </div>
+      </fieldset>
+
+      <fieldset formGroupName="passwords">
+        <label for="password">Mot de passe</label>
+        <div class="password-container">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Mot de passe"
+          />
+          <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: #b2b2b2" (click)="toggleShowPassword()"></i>
+        </div>
+        <div class="password-strength-bar">
+          <div [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrengthPercent"></div>
+        </div>
+        <div *ngIf="passwordMessage">{{ passwordMessage }}</div>
+        <div *ngIf="signUpForm.get('passwords.password')?.invalid && signUpForm.get('passwords.password')?.touched">
+          <small *ngIf="signUpForm.get('passwords.password')?.errors?.['required']">Le mot de passe est requis.</small>
+          <small *ngIf="signUpForm.get('passwords.password')?.errors?.['passwordFormat']">Le mot de passe doit contenir au moins 8 caractères.</small>
+        </div>
+
+        <label for="confirmPassword">Confirmation du mot de passe</label>
+        <div class="password-container">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="Confirmation du mot de passe"
+            autocomplete="new-password"
+          />
+          <i class="fa" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: #b2b2b2" (click)="toggleShowConfirmPassword()"></i>
+        </div>
+        <div *ngIf="signUpForm.get('passwords')?.errors?.['notEqual'] && signUpForm.get('passwords.confirmPassword')?.touched">
+          <small>Les mots de passe ne correspondent pas.</small>
+        </div>
+      </fieldset>
+
+      <button>Valider mon inscription</button>
+    </form>
+  </div>
 </main>

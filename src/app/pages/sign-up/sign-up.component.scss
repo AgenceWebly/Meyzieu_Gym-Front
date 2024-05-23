@@ -1,15 +1,6 @@
 @import "variables";
 @import "mixins";
 
-// Variables
-$background-color: #f9f9f9;
-$text-color: #333;
-$input-border-color: #ccc;
-$input-border-hover-color: #eee;
-$suggestion-hover-color: #f1f1f1;
-$border-radius: 5px;
-$error-color: #d9534f;
-
 main {
   @include border-shadow-radius;
   min-height: 90vh;
@@ -29,17 +20,24 @@ main {
     font-size: 1.2em;
   }
 
-  // Paragraph
   p {
     margin-bottom: $default-margin;
     font-size: 1em;
   }
 
-  // Form styles
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    
+    @media (min-width: 769px) {
+      padding: $default-padding * 2;
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;
-    gap: $default-padding;
+    gap: calc($default-padding / 2);
 
     fieldset {
       border: none;
@@ -55,7 +53,7 @@ main {
       input {
         padding: calc($default-padding / 2);
         font-size: 1em;
-        border: 1px solid $input-border-color;
+        border: 1px solid $border-color;
         border-radius: $border-radius;
         width: 100%;
         box-sizing: border-box;
@@ -80,7 +78,7 @@ main {
       small {
         color: $error-color;
         display: block;
-        margin-top: -calc($default-padding / 4);
+        margin-top: calc($default-padding / 4);
         margin-bottom: calc($default-padding / 4);
       }
 
@@ -89,7 +87,7 @@ main {
         height: 10px;
         background-color: #e0e0e0;
         border-radius: 5px;
-        margin-top: 5px;
+        margin: 4px 0 8px 0;
         overflow: hidden;
 
         div {
@@ -114,7 +112,7 @@ main {
         list-style-type: none;
         padding: 0;
         margin: 10px 0;
-        border: 1px solid $input-border-color;
+        border: 1px solid $border-color;
         border-radius: $border-radius;
         background-color: #fff;
 
@@ -128,7 +126,7 @@ main {
           }
 
           &:hover {
-            background-color: $suggestion-hover-color;
+            background-color: #f1f1f1;
           }
         }
       }
@@ -138,14 +136,14 @@ main {
       padding: $default-padding;
       font-size: 1em;
       color: #fff;
-      background-color: #007bff;
+      background-color: $color-primary;
       border: none;
       border-radius: $border-radius;
       cursor: pointer;
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: $color-primary-hover;
       }
     }
   }

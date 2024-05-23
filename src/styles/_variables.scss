@@ -4,6 +4,7 @@ $font-text: "Nunito", sans-serif;
 
 // Colors
 $color-primary: #ea33f7;
+$color-primary-hover: #ff66ff;
 $color-text: #333333;
 $color-white-background: #ffffff;
 $color-background: rgb(228,228,241);
@@ -16,7 +17,11 @@ $color-hover-shadow: rgba(255, 187, 250, 0.6);
 $border-color: #ccc;
 $shadow-color: rgba(0, 0, 0, 0.1);
 $border-radius: 5px;
+$input-border-hover-color: #eee;
 
 // Box Model
 $default-margin: 16px;
 $default-padding: 16px;
+
+// Error
+$error-color: #d9534f;
