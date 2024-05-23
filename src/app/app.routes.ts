@@ -1,41 +1,46 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 export const routes: Routes = [
   {
     path: 'accueil',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'profil',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'adherents',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'entrainements',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'competitions',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'inscription',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'contact',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'options',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'deconnexion',
-    component: HomeComponent
-  }
+    component: HomeComponent,
+  },
+  {
+    path: 'creation-compte',
+    component: SignUpComponent,
+  },
 ];
