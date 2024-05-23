@@ -12,9 +12,17 @@
           placeholder="Email"
           autocomplete="email"
         />
-        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          <small *ngIf="loginForm.get('email')?.errors?.['required']">L'email est requis.</small>
-          <small *ngIf="loginForm.get('email')?.errors?.['email']">L'email n'est pas au bon format.</small>
+        <div
+          *ngIf="
+            loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+          "
+        >
+          <small *ngIf="loginForm.get('email')?.errors?.['required']"
+            >L'email est requis.</small
+          >
+          <small *ngIf="loginForm.get('email')?.errors?.['email']"
+            >L'email n'est pas au bon format.</small
+          >
         </div>
       </fieldset>
 
@@ -28,10 +36,22 @@
             placeholder="Mot de passe"
             autocomplete="current-password"
           />
-          <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: #b2b2b2" (click)="toggleShowPassword()"></i>
+          <i
+            class="fa"
+            [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+            style="color: #b2b2b2"
+            (click)="toggleShowPassword()"
+          ></i>
         </div>
-        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          <small *ngIf="loginForm.get('password')?.errors?.['required']">Le mot de passe est requis.</small>
+        <div
+          *ngIf="
+            loginForm.get('password')?.invalid &&
+            loginForm.get('password')?.touched
+          "
+        >
+          <small *ngIf="loginForm.get('password')?.errors?.['required']"
+            >Le mot de passe est requis.</small
+          >
         </div>
       </fieldset>
       <div *ngIf="loginError">
@@ -44,7 +64,9 @@
 
       <button>Se connecter</button>
     </form>
-    <p>Pas encore de compte&nbsp;? <span class="link">Je m'inscris&nbsp;!</span></p>
+    <p>
+      Pas encore de compte&nbsp;?
+      <a routerLink="/creation-compte" class="link">Je m'inscris&nbsp;!</a>
+    </p>
   </div>
 </main>
-
