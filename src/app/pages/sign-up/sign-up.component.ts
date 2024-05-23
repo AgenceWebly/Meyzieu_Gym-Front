@@ -35,7 +35,7 @@ export class SignUpComponent {
     phone: [null, [Validators.required, phoneFormatValidator()]],
     emails: this.fb.group(
       {
-        email: ['', Validators.required, Validators.email],
+        email: ['', [Validators.required, Validators.email]],
         confirmEmail: ['', Validators.required]
       },
       {

@@ -82,7 +82,7 @@
         />
         <div *ngIf="signUpForm.get('emails.email')?.invalid && signUpForm.get('emails.email')?.touched">
           <small *ngIf="signUpForm.get('emails.email')?.errors?.['required']">L'email est requis.</small>
-          <small *ngIf="signUpForm.get('emails.email')?.errors?.['email']">Email invalide.</small>
+          <small *ngIf="signUpForm.get('emails.email')?.errors?.['email']">L'email n'est pas au bon format.</small>
         </div>
 
         <label for="confirmEmail">Confirmation de l'email</label>
@@ -106,6 +106,7 @@
             id="password"
             formControlName="password"
             placeholder="Mot de passe"
+            autocomplete="new-password"
           />
           <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: #b2b2b2" (click)="toggleShowPassword()"></i>
         </div>
@@ -125,7 +126,6 @@
             id="confirmPassword"
             formControlName="confirmPassword"
             placeholder="Confirmation du mot de passe"
-            autocomplete="new-password"
           />
           <i class="fa" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'" style="color: #b2b2b2" (click)="toggleShowConfirmPassword()"></i>
         </div>
