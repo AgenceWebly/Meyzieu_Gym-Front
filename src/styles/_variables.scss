@@ -5,4 +5,18 @@ $font-text: "Nunito", sans-serif;
 // Colors
 $color-primary: #ea33f7;
 $color-text: #333333;
-$color-background: #ffffff;
+$color-white-background: #ffffff;
+$color-background: rgb(228,228,241);
+$color-menu-active-background: rgb(255,187,250);
+$color-hover-background: rgb(255, 220, 250);
+$color-hover-shadow: rgba(255, 187, 250, 0.6);
+
+
+// Border
+$border-color: #ccc;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$border-radius: 5px;
+
+// Box Model
+$default-margin: 16px;
+$default-padding: 16px;

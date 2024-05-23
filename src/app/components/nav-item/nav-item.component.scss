@@ -1,0 +1,30 @@
+@import "variables";
+@import "mixins";
+
+li {
+  margin: calc($default-margin/2) 0;
+  padding: calc($default-padding / 2);
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+
+  &.active-link {
+    background-color: $color-menu-active-background;
+  }
+
+  &:hover {
+    background-color: $color-hover-background;
+    box-shadow: 0 4px 8px $color-hover-shadow;
+  }
+
+  a {
+    font-family: $font-title;
+    font-size: 14px;
+  }
+}
+
+.icon-container {
+  display: inline-block;
+  width: 18%;
+  text-align: center;
+  margin-right: 5%;
+}

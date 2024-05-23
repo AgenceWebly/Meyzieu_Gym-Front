@@ -1,0 +1,6 @@
+@import 'variables';
+
+@mixin border-shadow-radius($border-color: $border-color, $shadow-color: $shadow-color, $border-radius: $border-radius) {
+  box-shadow: 0 2px 4px $shadow-color;
+  border-radius: $border-radius;
+}
