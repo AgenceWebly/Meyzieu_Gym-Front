@@ -3,6 +3,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfilComponent } from './pages/profil/profil.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   {
@@ -10,9 +11,14 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'profil/edit',
+    component: EditProfileComponent
+  },
+  {
     path: 'profil',
     component: ProfilComponent,
   },
+
   {
     path: 'adherents',
     component: HomeComponent,

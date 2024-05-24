@@ -1,0 +1,163 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 90vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .form-container {
+    margin: 0 auto;
+    max-width: 700px;
+    position: relative;
+
+    @media (min-width: 769px) {
+      padding: calc($default-padding * 2);
+  }
+
+    h1 {
+      margin-bottom: calc($default-margin * 2);
+      font-size: 1.4em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: calc($default-padding / 2);
+      max-width: 600px;
+
+      fieldset {
+        border: none;
+        padding: 0;
+        margin: 0 0 $default-margin 0;
+
+        label {
+          font-size: 1em;
+          margin-bottom: 5px;
+          display: block;
+        }
+
+        input {
+          padding: calc($default-padding / 2);
+          font-size: 1em;
+          border: 1px solid $border-color;
+          border-radius: $border-radius;
+          width: 100%;
+          box-sizing: border-box;
+          margin-bottom: calc($default-padding / 4);
+        }
+
+        .password-container {
+          position: relative;
+          input {
+            padding-right: 2em;
+          }
+
+          i {
+            position: absolute;
+            right: 0.5em;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+          }
+        }
+
+        small {
+          color: $error-color;
+          display: block;
+          margin-top: calc($default-padding / 4);
+          margin-bottom: calc($default-padding / 4);
+        }
+
+        .password-strength-bar {
+          width: 100%;
+          height: 10px;
+          background-color: #e0e0e0;
+          border-radius: 5px;
+          margin: 4px 0 8px 0;
+          overflow: hidden;
+
+          div {
+            height: 100%;
+            transition: width 0.3s ease-in-out;
+          }
+
+          .weak {
+            background-color: red;
+          }
+
+          .medium {
+            background-color: orange;
+          }
+
+          .strong {
+            background-color: green;
+          }
+        }
+
+        ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 10px 0;
+          border: 1px solid $border-color;
+          border-radius: $border-radius;
+          background-color: #fff;
+
+          li {
+            padding: calc($default-padding / 2);
+            cursor: pointer;
+            border-bottom: 1px solid $input-border-hover-color;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &:hover {
+              background-color: #f1f1f1;
+            }
+          }
+        }
+      }
+
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: $default-margin;
+
+        @media screen {
+          flex-direction: row;
+          justify-content: flex-end;
+        }
+        button {
+          padding: $default-padding;
+          font-size: 1em;
+          color: #fff;
+          background-color: $color-primary;
+          border: none;
+          border-radius: $border-radius;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: $color-primary-hover;
+          }
+        }
+  
+        .back-button {
+          color: $color-primary;
+          background-color: #fff;
+          border: solid 1px $color-primary;
+  
+          &:hover {
+            background-color: #fff;
+          }
+        }
+      }
+    }
+
+      
+  }
+}
