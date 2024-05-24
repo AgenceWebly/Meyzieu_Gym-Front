@@ -7,11 +7,12 @@ import { phoneFormatValidator } from '../../shared/validators/phone-format.valid
 import { passwordFormatValidator } from '../../shared/validators/password-format.validator';
 import { AddressFeature } from '../../models/addressFeature.model';
 import { passwordStrengthValidator } from '../../shared/validators/password-strength.validator';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })

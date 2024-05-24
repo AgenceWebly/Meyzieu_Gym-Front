@@ -2,7 +2,7 @@
   <div class="form-container">
     <h1>Bienvenue sur votre plateforme Meyzieu Gym&nbsp;!</h1>
     <h2>S'inscrire</h2>
-    <p>Déjà inscrit&nbsp;? <span class="link">Je me connecte&nbsp;!</span></p>
+    <p>Déjà inscrit&nbsp;? <a routerLink="/connexion" class="link">Je me connecte&nbsp;!</a></p>
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" #signUpStatus="ngForm">
       <fieldset>
         <label for="lastname">Nom</label>

@@ -56,6 +56,12 @@ export const navItems: NavItem[] = [
     category: 3,
   },
   {
+    path: '/connexion',
+    icon: 'fa-light fa-left-to-bracket',
+    text: 'Me connecter',
+    category: 3,
+  },
+  {
     path: '/creation-compte',
     icon: 'fa-light fa-user-plus',
     text: 'Créer un compte',

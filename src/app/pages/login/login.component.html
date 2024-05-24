@@ -1,0 +1,72 @@
+<main>
+  <div class="form-container">
+    <h1>Bienvenue sur votre plateforme Meyzieu Gym&nbsp;!</h1>
+    <h2>Se connecter</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #loginStatus="ngForm">
+      <fieldset>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Email"
+          autocomplete="email"
+        />
+        <div
+          *ngIf="
+            loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+          "
+        >
+          <small *ngIf="loginForm.get('email')?.errors?.['required']"
+            >L'email est requis.</small
+          >
+          <small *ngIf="loginForm.get('email')?.errors?.['email']"
+            >L'email n'est pas au bon format.</small
+          >
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="password">Mot de passe</label>
+        <div class="password-container">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Mot de passe"
+            autocomplete="current-password"
+          />
+          <i
+            class="fa"
+            [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+            style="color: #b2b2b2"
+            (click)="toggleShowPassword()"
+          ></i>
+        </div>
+        <div
+          *ngIf="
+            loginForm.get('password')?.invalid &&
+            loginForm.get('password')?.touched
+          "
+        >
+          <small *ngIf="loginForm.get('password')?.errors?.['required']"
+            >Le mot de passe est requis.</small
+          >
+        </div>
+      </fieldset>
+      <div *ngIf="loginError">
+        <small class="error-message">{{ loginError }}</small>
+      </div>
+
+      <div class="forgot-password">
+        <a href="#">Mot de passe oublié ?</a>
+      </div>
+
+      <button>Se connecter</button>
+    </form>
+    <p>
+      Pas encore de compte&nbsp;?
+      <a routerLink="/creation-compte" class="link">Je m'inscris&nbsp;!</a>
+    </p>
+  </div>
+</main>
