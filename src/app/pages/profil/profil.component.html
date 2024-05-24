@@ -1,0 +1,44 @@
+<main>
+  <div class="profile-container">
+    <h1>Mon Profil</h1>
+    <div class="profile-info">
+      <div class="profile-item">
+        <label>Nom</label>
+        <span>{{ user.lastname }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Prénom</label>
+        <span>{{ user.firstname }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Téléphone</label>
+        <span>{{ user.phone }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Adresse</label>
+        <span>{{ user.address }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Email</label>
+        <span>{{ user.email }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="user.rib" class="documents-section">
+      <h2>Documents rattachés</h2>
+      <div class="document-card">
+        <a [href]="user.rib" target="_blank" class="document-link">
+          <button class="document-button">
+            <i class="fa fa-file-pdf document-icon"></i> Relevé d'Identité Bancaire
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button (click)="editProfile()">
+        <i class="fa fa-edit"></i> Modifier le profil
+      </button>
+    </div>
+  </div>
+</main>
