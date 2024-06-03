@@ -24,15 +24,33 @@
       </div>
     </div>
 
-    <div *ngIf="user.rib" class="documents-section">
+    <div class="documents-section">
       <h2>Documents rattachés</h2>
+
+      @if (user.rib) {
       <div class="document-card">
         <a [href]="user.rib" target="_blank" class="document-link">
           <button class="document-button">
-            <i class="fa fa-file-pdf document-icon"></i> Relevé d'Identité Bancaire
+            <i class="fa fa-file-pdf document-icon"></i> Relevé d'Identité
+            Bancaire
           </button>
         </a>
       </div>
+      } @else {
+      <p>Vous n'avez aucun document rattaché à votre compte.</p>
+      <p>Télécharger votre relevé d'identité bancaire</p>
+      <p-fileUpload
+        mode="basic"
+        name="demo[]"
+        chooseIcon="pi pi-upload"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        accept="image/*"
+        maxFileSize="1000000"
+        (onUpload)="onUpload($event)"
+        [auto]="true"
+        chooseLabel="Télécharger mon RIB"
+      />
+      }
     </div>
 
     <div class="button-container">
