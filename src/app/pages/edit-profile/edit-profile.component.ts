@@ -35,6 +35,8 @@ export class EditProfileComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.loadUserData();
+    
     this.editProfileForm.get('address')?.valueChanges.subscribe((value) => {
       if (value && value.length >= 4) {
         this.addressService.searchAddress(value).subscribe((response) => {
@@ -48,7 +50,7 @@ export class EditProfileComponent implements OnInit {
       }
     });
 
-    this.loadUserData();
+
   }
 
   loadUserData(): void {
