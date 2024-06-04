@@ -9,6 +9,6 @@ export function phoneFormatValidator(): ValidatorFn {
 
     const isValid = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(value.replace(/[\s.]/g, ''));
     
-    return isValid ? null : { phone: true };
+    return isValid ? null : { phoneFormat: true };
   };
 }
