@@ -1,7 +1,11 @@
 <main>
   <div class="form-container">
     <h1>Modifier mon Profil</h1>
-    <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" #editProfileStatus="ngForm">
+    <form
+      [formGroup]="editProfileForm"
+      (ngSubmit)="onSubmit()"
+      #editProfileStatus="ngForm"
+    >
       <fieldset>
         <label for="lastname">Nom</label>
         <input
@@ -13,8 +17,23 @@
           autocomplete="family-name"
           readonly
         />
+        <div
+          *ngIf="
+            editProfileForm.get('lastname')?.invalid &&
+            editProfileForm.get('lastname')?.touched
+          "
+        >
+          <small *ngIf="editProfileForm.get('lastname')?.errors?.['required']"
+            >Le nom est requis.</small
+          >
+          <small *ngIf="editProfileForm.get('lastname')?.errors?.['minlength']"
+            >Le nom doit contenir au moins 2 caractères.</small
+          >
+          <small *ngIf="editProfileForm.get('lastname')?.errors?.['pattern']"
+            >Le nom ne peut contenir que des lettres et des espaces.</small
+          >
+        </div>
       </fieldset>
-
       <fieldset>
         <label for="firstname">Prénom</label>
         <input
@@ -26,17 +45,69 @@
           autocomplete="given-name"
           readonly
         />
-      </fieldset>
-
-      <fieldset>
-        <label for="phone">Téléphone</label>
-        <input id="phone" formControlName="phone" type="text" autocomplete="tel"/>
-        <div *ngIf="editProfileForm.get('phone')?.invalid && editProfileForm.get('phone')?.touched">
-          <small *ngIf="editProfileForm.get('phone')?.errors?.['required']">Le téléphone est requis.</small>
-          <small *ngIf="editProfileForm.get('phone')?.errors?.['phoneFormat']">Numéro de téléphone invalide.</small>
+        <div
+          *ngIf="
+            editProfileForm.get('firstname')?.invalid &&
+            editProfileForm.get('firstname')?.touched
+          "
+        >
+          <small *ngIf="editProfileForm.get('firstname')?.errors?.['required']"
+            >Le prénom est requis.</small
+          >
+          <small *ngIf="editProfileForm.get('firstname')?.errors?.['minlength']"
+            >Le prénom doit contenir au moins 2 caractères.</small
+          >
+          <small *ngIf="editProfileForm.get('firstname')?.errors?.['pattern']"
+            >Le prénom ne peut contenir que des lettres et des espaces.</small
+          >
         </div>
       </fieldset>
-
+      <fieldset>
+        <label for="occupation">Profession</label>
+        <input
+          type="text"
+          name="occupation"
+          id="occupation"
+          formControlName="occupation"
+          placeholder="Profession"
+        />
+        <div
+          *ngIf="
+            editProfileForm.get('occupation')?.invalid &&
+            editProfileForm.get('occupation')?.touched
+          "
+        >
+          <small *ngIf="editProfileForm.get('occupation')?.errors?.['required']"
+            >La profession est requise.</small
+          >
+          <small
+            *ngIf="editProfileForm.get('occupation')?.errors?.['minlength']"
+            >La profession doit contenir au moins 2 caractères.</small
+          >
+        </div>
+      </fieldset>
+      <fieldset>
+        <label for="phone">Téléphone</label>
+        <input
+          id="phone"
+          formControlName="phone"
+          type="text"
+          autocomplete="tel"
+        />
+        <div
+          *ngIf="
+            editProfileForm.get('phone')?.invalid &&
+            editProfileForm.get('phone')?.touched
+          "
+        >
+          <small *ngIf="editProfileForm.get('phone')?.errors?.['required']"
+            >Le téléphone est requis.</small
+          >
+          <small *ngIf="editProfileForm.get('phone')?.errors?.['phoneFormat']"
+            >Numéro de téléphone invalide.</small
+          >
+        </div>
+      </fieldset>
       <fieldset>
         <label for="address">Adresse</label>
         <input
@@ -46,11 +117,19 @@
           placeholder="Adresse"
           autocomplete="street-address"
         />
-        <div *ngIf="editProfileForm.get('address')?.invalid && editProfileForm.get('address')?.touched">
-          <small *ngIf="editProfileForm.get('address')?.errors?.['required']">L'adresse est requise.</small>
-          <small *ngIf="editProfileForm.get('address')?.errors?.['minlength']">L'adresse doit contenir au moins 5 caractères.</small>
+        <div
+          *ngIf="
+            editProfileForm.get('address')?.invalid &&
+            editProfileForm.get('address')?.touched
+          "
+        >
+          <small *ngIf="editProfileForm.get('address')?.errors?.['required']"
+            >L'adresse est requise.</small
+          >
+          <small *ngIf="editProfileForm.get('address')?.errors?.['minlength']"
+            >L'adresse doit contenir au moins 5 caractères.</small
+          >
         </div>
-
         <ul *ngIf="addressSuggestions.length > 0">
           <li
             *ngFor="let suggestion of addressSuggestions; let i = index"
@@ -60,7 +139,6 @@
           </li>
         </ul>
       </fieldset>
-
       <fieldset>
         <label for="email">Email</label>
         <input
@@ -71,15 +149,24 @@
           autocomplete="email"
           readonly
         />
+        <div
+          *ngIf="
+            editProfileForm.get('email')?.invalid &&
+            editProfileForm.get('email')?.touched
+          "
+        >
+          <small *ngIf="editProfileForm.get('email')?.errors?.['required']"
+            >L'email est requis.</small
+          >
+          <small *ngIf="editProfileForm.get('email')?.errors?.['email']"
+            >L'email n'est pas au bon format.</small
+          >
+        </div>
       </fieldset>
       <div class="buttons-container">
-        <button class="back-button" (click)="goBack()">
-          Annuler
-        </button>
+        <button class="back-button" (click)="goBack()">Annuler</button>
         <button type="submit">Valider les modifications</button>
       </div>
-      
     </form>
   </div>
 </main>
-

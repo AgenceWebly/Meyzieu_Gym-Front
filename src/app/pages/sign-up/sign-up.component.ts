@@ -4,7 +4,6 @@ import { AddressService } from '../../shared/services/address.service';
 import { CommonModule } from '@angular/common';
 import { checkEqualityValidator } from '../../shared/validators/check-equality.validator';
 import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
-import { passwordFormatValidator } from '../../shared/validators/password-format.validator';
 import { AddressFeature } from '../../models/addressFeature.model';
 import { passwordStrengthValidator } from '../../shared/validators/password-strength.validator';
 import { Router, RouterLink } from '@angular/router';

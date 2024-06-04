@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
-
   addressSuggestions: any[] = [];
   passwordStrengthClass = 'weak';
   passwordStrengthPercent = 0;
@@ -27,30 +26,52 @@ export class EditProfileComponent implements OnInit {
   router = inject(Router);
 
   editProfileForm = this.fb.group({
-    lastname: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
-    firstname: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    lastname: [
+      { value: '', disabled: true },
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern(/^[a-zA-Z\s]*$/),
+      ],
+    ],
+    firstname: [
+      { value: '', disabled: true },
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern(/^[a-zA-Z\s]*$/),
+      ],
+    ],
     address: ['', [Validators.required, Validators.minLength(5)]],
     phone: ['', [Validators.required, phoneFormatValidator()]],
-    email: [{ value: '', disabled: true }, [Validators.required, Validators.email]]
+    email: [
+      { value: '', disabled: true },
+      [Validators.required, Validators.email],
+    ],
+    occupation: ['', [Validators.required, Validators.minLength(2)]],
   });
 
   ngOnInit(): void {
     this.loadUserData();
 
-    this.editProfileForm.get('address')?.valueChanges.subscribe((value: any) => {
-      if (value && value.length >= 4) {
-        this.addressService.searchAddress(value).subscribe((response: any) => {
-          const res = response.features.some((item: AddressFeature) => item.properties.label === value)
-          if (!res) {
-            this.addressSuggestions = response.features;
-          }
-        });
-      } else {
-        this.addressSuggestions = [];
-      }
-    });
-
-
+    this.editProfileForm
+      .get('address')
+      ?.valueChanges.subscribe((value: any) => {
+        if (value && value.length >= 4) {
+          this.addressService
+            .searchAddress(value)
+            .subscribe((response: any) => {
+              const res = response.features.some(
+                (item: AddressFeature) => item.properties.label === value
+              );
+              if (!res) {
+                this.addressSuggestions = response.features;
+              }
+            });
+        } else {
+          this.addressSuggestions = [];
+        }
+      });
   }
 
   loadUserData(): void {
@@ -60,7 +81,8 @@ export class EditProfileComponent implements OnInit {
       firstname: 'Amina',
       phone: '0649819299',
       address: '46 rue de la République 69330 Meyzieu',
-      email: 'amina.aitm@gmail.com'
+      email: 'amina.aitm@gmail.com',
+      occupation: 'Formatrice',
     };
 
     this.editProfileForm.patchValue({
@@ -68,7 +90,8 @@ export class EditProfileComponent implements OnInit {
       firstname: user.firstname,
       phone: user.phone,
       address: user.address,
-      email: user.email
+      email: user.email,
+      occupation: user.occupation,
     });
   }
 
