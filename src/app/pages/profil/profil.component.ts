@@ -29,6 +29,12 @@ export class ProfilComponent {
   }
 
   onUpload(event: any) {
-    console.log(event);
+    const file = event.target.files[0];
+    if (file) {
+      // Vous pouvez gérer le téléchargement du fichier ici
+      console.log('File uploaded:', file);
+      // Mettre à jour l'utilisateur avec le lien vers le fichier RIB téléchargé
+      //this.user.rib = URL.createObjectURL(file); // Remplacez par votre logique pour obtenir l'URL du fichier
+    }
   }
 }
