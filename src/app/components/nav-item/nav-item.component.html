@@ -1,8 +1,12 @@
-<li routerLinkActive="active-link">
-  <a [routerLink]="navItem.path" (click)="closeMenu()">
-    <div class="icon-container">
-      <i [class]="navItem.icon"></i>
-    </div>
-    {{ navItem.text }}
-  </a>
-</li>
+
+  @if (hasRole(navItem.userType)) {
+    <li routerLinkActive="active-link">
+      <a [routerLink]="navItem.path" (click)="closeMenu()">
+        <div class="icon-container">
+          <i [class]="navItem.icon"></i>
+        </div>
+        {{ navItem.text }}
+      </a>
+    </li>
+  }
+  

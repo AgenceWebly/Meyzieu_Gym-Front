@@ -22,12 +22,8 @@ export class LogoutComponent {
   logout(): void {
     this.authService.logout().subscribe({
       next: (res) => {
-        console.log(res);
-        console.log('toto');
-
         this.storageService.clean();
-
-        this.router.navigate(['/connexion']);
+        window.location.reload();
       },
       error: (err) => {
         console.log(err);

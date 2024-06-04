@@ -54,7 +54,7 @@ export class LoginComponent {
             this.isLoginFailed = false;
             this.isLoggedIn = true;
             this.roles = this.storageService.getUser().roles;
-            this.router.navigate(['/']);
+            window.location.reload();
           },
           error: err => {
             this.loginError = "Identifiants incorrects. Veuillez réessayer.";
