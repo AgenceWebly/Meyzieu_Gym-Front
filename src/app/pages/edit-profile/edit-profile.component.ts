@@ -36,10 +36,10 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserData();
-    
-    this.editProfileForm.get('address')?.valueChanges.subscribe((value) => {
+
+    this.editProfileForm.get('address')?.valueChanges.subscribe((value: any) => {
       if (value && value.length >= 4) {
-        this.addressService.searchAddress(value).subscribe((response) => {
+        this.addressService.searchAddress(value).subscribe((response: any) => {
           const res = response.features.some((item: AddressFeature) => item.properties.label === value)
           if (!res) {
             this.addressSuggestions = response.features;

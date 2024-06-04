@@ -5,5 +5,6 @@ export interface User {
   address: string;
   phone: string | null;
   email: string;
+  occupation: string | null;
   rib: string | null;
 }

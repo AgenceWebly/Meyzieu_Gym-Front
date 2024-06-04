@@ -129,7 +129,6 @@ export class SignUpComponent {
       occupation: this.signUpForm.value.occupation
     }
 
-    console.log(signupForm);
     this.authService.signup(signupForm).subscribe(() => {
       this.router.navigate(['/connexion']);
     });

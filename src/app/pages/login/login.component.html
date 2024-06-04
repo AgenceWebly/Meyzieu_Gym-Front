@@ -2,7 +2,7 @@
   <div class="form-container">
     <h1>Bienvenue sur votre plateforme Meyzieu Gym&nbsp;!</h1>
     <h2>Se connecter</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #loginStatus="ngForm">
+    <form [formGroup]="loginForm" (ngSubmit)="loginStatus.valid && login()" #loginStatus="ngForm">
       <fieldset>
         <label for="email">Email</label>
         <input
