@@ -1,0 +1,244 @@
+@import "variables";
+@import "mixins";
+
+.hidden-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+main {
+  @include border-shadow-radius;
+  min-height: 90vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .form-container {
+    max-width: 800px;
+    margin: 0 auto;
+
+    .flex-container {
+      display: flex;
+      justify-content: space-between;
+
+      fieldset {
+        width: 45%;
+      }
+
+      .form-group {
+        width: 45%;
+      }
+    }
+  }
+
+  h1 {
+    font-family: $font-title;
+    margin-bottom: $default-margin;
+  }
+
+  h2 {
+    font-size: 1em;
+    margin-bottom: $default-margin;
+  }
+
+  .form-group {
+    margin-bottom: $default-margin;
+
+    input,
+    select {
+      width: 100%;
+      padding: calc($default-padding/2);
+      font-size: 1em;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      @include box-shadow($shadow-color);
+
+      &:focus {
+        border-color: $input-border-hover-color;
+      }
+    }
+
+    small {
+      color: $error-color;
+      font-size: 0.875em;
+    }
+
+    img {
+      display: block;
+      max-width: 150px;
+      margin: 1em 0;
+    }
+
+    .form-group {
+      margin-top: $default-margin;
+
+      button {
+        background: none;
+        border: none;
+        color: $color-primary;
+        cursor: pointer;
+        font-size: 1em;
+        padding: 0;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 $default-margin 0;
+
+    .gender-choice-container {
+      display: flex;
+      gap: $default-margin;
+
+      .gender-container {
+        display: flex;
+
+        input {
+          margin-right: $default-margin;
+        }
+      }
+    }
+
+    input:not([type="checkbox"]) {
+      padding: calc($default-padding / 2);
+      font-size: 1em;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: calc($default-padding / 4);
+    }
+  }
+
+  button:not(.add-contact-button):not(.remove-contact-button) {
+    width: 100%;
+    padding: $default-padding;
+    font-size: 1em;
+    color: #fff;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:disabled {
+      background-color: lighten($color-primary, 30%);
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-hover;
+    }
+  }
+
+  .contact-container {
+    position: relative;
+    margin-bottom: calc($default-margin*2);
+  }
+
+  .remove-contact-button, .add-contact-button {
+    border: none;
+    background-color: transparent;
+    color: $color-text;
+    width: fit-content;
+    padding-top: 0;
+    cursor: pointer;
+  }
+
+  .add-contact-button {
+    color: $color-primary;
+    i {
+      color: $color-primary;
+    }
+  }
+
+  .remove-contact-button {
+    position: absolute;
+    right: 0;
+  }
+
+  i {
+    margin-right: calc($default-margin/2);
+  }
+
+  select {
+    width: 100%;
+    padding: calc($default-padding/2);
+    font-size: 1em;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    @include box-shadow($shadow-color);
+
+    &:focus {
+      border-color: $input-border-hover-color;
+    }
+  }
+
+  .image-input {
+    display: flex;
+    align-items: center;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  label span {
+    padding: 8px 12px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  label span:hover {
+    color: black;
+  }
+
+  .poster {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+
+  .input-label-container {
+    margin-top: calc($default-margin/2);
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    accent-color: $color-primary;
+  }
+
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .loader {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-left-color: $color-primary-hover;
+    animation: spin 1.5s linear infinite;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+}

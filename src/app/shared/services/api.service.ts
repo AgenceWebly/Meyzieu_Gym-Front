@@ -13,9 +13,15 @@ const httpOptions = {
 })
 export class ApiService {
 
+  private apiUrl = 'http://localhost:8080/api';
+
   constructor(private http: HttpClient) {}
 
   getCurrentUserDataFromApi(currentUserId: number): Observable<any> {
     return this.http.get<any>(AUTH_API + '/users/' + currentUserId, httpOptions);
+  }
+
+  getMembers(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/users/${userId}/members`);
   }
 }

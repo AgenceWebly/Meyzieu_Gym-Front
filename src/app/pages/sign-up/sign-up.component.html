@@ -17,7 +17,7 @@
         <div *ngIf="signUpForm.get('lastname')?.invalid && signUpForm.get('lastname')?.touched">
           <small *ngIf="signUpForm.get('lastname')?.errors?.['required']">Le nom est requis.</small>
           <small *ngIf="signUpForm.get('lastname')?.errors?.['minlength']">Le nom doit contenir au moins 2 caractères.</small>
-          <small *ngIf="signUpForm.get('lastname')?.errors?.['pattern']">Le nom ne peut contenir que des lettres et des espaces.</small>
+          <small *ngIf="signUpForm.get('lastname')?.errors?.['pattern']">Le nom ne peut contenir que des lettres, des tirets et des espaces.</small>
         </div>
       </fieldset>
 
@@ -34,7 +34,7 @@
         <div *ngIf="signUpForm.get('firstname')?.invalid && signUpForm.get('firstname')?.touched">
           <small *ngIf="signUpForm.get('firstname')?.errors?.['required']">Le prénom est requis.</small>
           <small *ngIf="signUpForm.get('firstname')?.errors?.['minlength']">Le prénom doit contenir au moins 2 caractères.</small>
-          <small *ngIf="signUpForm.get('firstname')?.errors?.['pattern']">Le prénom ne peut contenir que des lettres et des espaces.</small>
+          <small *ngIf="signUpForm.get('firstname')?.errors?.['pattern']">Le prénom ne peut contenir que des lettres, des tirets et des espaces.</small>
         </div>
       </fieldset>
 

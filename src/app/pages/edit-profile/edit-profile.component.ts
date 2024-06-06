@@ -31,7 +31,7 @@ export class EditProfileComponent implements OnInit {
       [
         Validators.required,
         Validators.minLength(2),
-        Validators.pattern(/^[a-zA-Z\s]*$/),
+        Validators.pattern(/^[a-zA-Z\s-]*$/),
       ],
     ],
     firstname: [
@@ -39,7 +39,7 @@ export class EditProfileComponent implements OnInit {
       [
         Validators.required,
         Validators.minLength(2),
-        Validators.pattern(/^[a-zA-Z\s]*$/),
+        Validators.pattern(/^[a-zA-Z\s-]*$/),
       ],
     ],
     address: ['', [Validators.required, Validators.minLength(5)]],

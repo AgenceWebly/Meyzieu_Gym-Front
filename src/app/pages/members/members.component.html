@@ -1,0 +1,14 @@
+<main class="members-container">
+  <h1>Adhérents</h1>
+  <div class="members-list">
+    <div *ngFor="let member of members" class="member-card">
+      <img [src]="member.photoUrl" alt="{{ member.firstname }} {{ member.lastname }}">
+      <div class="member-info">
+        <h2>{{ member.firstname }} {{ member.lastname }}</h2>
+        <p>Groupe {{ member.group }}</p>
+        <p>Saison {{ member.season }}</p>
+      </div>
+    </div>
+  </div>
+</main>
+
