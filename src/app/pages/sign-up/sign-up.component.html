@@ -3,7 +3,7 @@
     <h1>Bienvenue sur votre plateforme Meyzieu Gym&nbsp;!</h1>
     <h2>S'inscrire</h2>
     <p>Déjà inscrit&nbsp;? <a routerLink="/connexion" class="link">Je me connecte&nbsp;!</a></p>
-    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" #signUpStatus="ngForm">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUpStatus.valid && signup()" #signUpStatus="ngForm">
       <fieldset>
         <label for="lastname">Nom</label>
         <input
@@ -35,6 +35,21 @@
           <small *ngIf="signUpForm.get('firstname')?.errors?.['required']">Le prénom est requis.</small>
           <small *ngIf="signUpForm.get('firstname')?.errors?.['minlength']">Le prénom doit contenir au moins 2 caractères.</small>
           <small *ngIf="signUpForm.get('firstname')?.errors?.['pattern']">Le prénom ne peut contenir que des lettres et des espaces.</small>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="occupation">Profession</label>
+        <input
+          type="text"
+          name="occupation"
+          id="occupation"
+          formControlName="occupation"
+          placeholder="Profession"
+        />
+        <div *ngIf="signUpForm.get('occupation')?.invalid && signUpForm.get('occupation')?.touched">
+          <small *ngIf="signUpForm.get('occupation')?.errors?.['required']">La profession est requise.</small>
+          <small *ngIf="signUpForm.get('occupation')?.errors?.['minlength']">La profession doit contenir au moins 2 caractères.</small>
         </div>
       </fieldset>
 
@@ -134,7 +149,7 @@
         </div>
       </fieldset>
 
-      <button>Valider mon inscription</button>
+      <button type="submit">Valider mon inscription</button>
     </form>
   </div>
 </main>

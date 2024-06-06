@@ -4,10 +4,10 @@ import { AddressService } from '../../shared/services/address.service';
 import { CommonModule } from '@angular/common';
 import { checkEqualityValidator } from '../../shared/validators/check-equality.validator';
 import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
-import { passwordFormatValidator } from '../../shared/validators/password-format.validator';
 import { AddressFeature } from '../../models/addressFeature.model';
 import { passwordStrengthValidator } from '../../shared/validators/password-strength.validator';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -28,12 +28,15 @@ export class SignUpComponent {
 
   fb = inject(FormBuilder);
   addressService = inject(AddressService);
+  authService = inject(AuthService);
+  router = inject(Router);
 
   signUpForm = this.fb.group({
     lastname: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
     firstname: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
     address: ['', [Validators.required, Validators.minLength(5)]],
     phone: [null, [Validators.required, phoneFormatValidator()]],
+    occupation: ['', [Validators.required, Validators.minLength(2)]],
     emails: this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -114,7 +117,19 @@ export class SignUpComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  onSubmit() {
-    console.log(this.signUpForm.value);
+  signup() {
+    const signupForm = {
+      firstname: this.signUpForm.value.firstname,
+      lastname: this.signUpForm.value.lastname,
+      email: this.signUpForm.value.emails.email,
+      password: this.signUpForm.value.passwords.password,
+      phoneNumber: this.signUpForm.value.phone,
+      address: this.signUpForm.value.address,
+      occupation: this.signUpForm.value.occupation
+    }
+
+    this.authService.signup(signupForm).subscribe(() => {
+      this.router.navigate(['/connexion']);
+    });
   }
 }

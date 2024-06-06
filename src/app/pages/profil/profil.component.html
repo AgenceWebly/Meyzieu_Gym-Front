@@ -1,54 +1,58 @@
-<main>
-  <div class="profile-container">
-    <h1>Mon Profil</h1>
-    <div class="profile-info">
-      <div class="profile-item">
-        <label>Nom</label>
-        <span>{{ user.lastname }}</span>
-      </div>
-      <div class="profile-item">
-        <label>Prénom</label>
-        <span>{{ user.firstname }}</span>
-      </div>
-      <div class="profile-item">
-        <label>Téléphone</label>
-        <span>{{ user.phone }}</span>
-      </div>
-      <div class="profile-item">
-        <label>Adresse</label>
-        <span>{{ user.address }}</span>
-      </div>
-      <div class="profile-item">
-        <label>Email</label>
-        <span>{{ user.email }}</span>
-      </div>
-    </div>
-
-    <div class="documents-section">
-      <h2>Documents rattachés</h2>
-
-      @if (user.rib) {
-        <div class="document-card">
-          <a [href]="user.rib" target="_blank" class="document-link">
-            <button class="document-button">
-              <i class="fa fa-file-pdf document-icon"></i> Relevé d'Identité
-              Bancaire
-            </button>
-          </a>
+  <main>
+    <div class="profile-container">
+      <h1>Mon Profil</h1>
+      <div class="profile-info">
+        <div class="profile-item">
+          <label>Nom</label>
+          <span>{{ currentUser.lastname }}</span>
         </div>
-      } @else {
-        <p>Vous n'avez aucun document rattaché à votre compte.</p>
-        <label for="upload">
-          <span><i class="fa-light fa-upload"></i>Télécharger mon RIB</span>
-          <input type="file" id="upload" (change)="onUpload($event)" />
-        </label>
-      }
-    </div>
+        <div class="profile-item">
+          <label>Prénom</label>
+          <span>{{ currentUser.firstname }}</span>
+        </div>
+        <div class="profile-item">
+          <label>Profession</label>
+          <span>{{ currentUser.occupation }}</span>
+        </div>
+        <div class="profile-item">
+          <label>Téléphone</label>
+          <span>{{ currentUser.phone }}</span>
+        </div>
+        <div class="profile-item">
+          <label>Adresse</label>
+          <span>{{ currentUser.address }}</span>
+        </div>
+        <div class="profile-item">
+          <label>Email</label>
+          <span>{{ currentUser.email }}</span>
+        </div>
+      </div>
 
-    <div class="button-container">
-      <button (click)="editProfile()">
-        <i class="fa fa-edit"></i> Modifier le profil
-      </button>
+      <div class="documents-section">
+        <h2>Documents rattachés</h2>
+
+        @if (currentUser.rib) {
+          <div class="document-card">
+            <a [href]="currentUser.rib" target="_blank" class="document-link">
+              <button class="document-button">
+                <i class="fa fa-file-pdf document-icon"></i> Relevé d'Identité
+                Bancaire
+              </button>
+            </a>
+          </div>
+        } @else {
+          <p>Vous n'avez aucun document rattaché à votre compte.</p>
+          <label for="upload">
+            <span><i class="fa-light fa-upload"></i>Télécharger mon RIB</span>
+            <input type="file" id="upload" (change)="onUpload($event)" />
+          </label>
+        }
+      </div>
+
+      <div class="button-container">
+        <button (click)="editProfile()">
+          <i class="fa fa-edit"></i> Modifier le profil
+        </button>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
