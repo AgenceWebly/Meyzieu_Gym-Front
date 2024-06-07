@@ -9,6 +9,8 @@ import { authGuard } from './shared/guards/auth.guard';
 import { MembersComponent } from './pages/members/members.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { AddMemberComponent } from './pages/add-member/add-member.component';
+import { SeasonsComponent } from './pages/admin/season/seasons/seasons.component';
+import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.component';
 
 export const routes: Routes = [
   {
@@ -130,6 +132,22 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: {
       userType: 'visitorOnly'
+    }
+  },
+  {
+    path: 'admin',
+    component: AdminHomeComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin'
+    }
+  },
+  {
+    path: 'admin/saisons',
+    component: SeasonsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin'
     }
   },
 ];

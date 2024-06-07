@@ -1,0 +1,10 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+}
