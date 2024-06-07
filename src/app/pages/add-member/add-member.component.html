@@ -9,7 +9,7 @@
         <img *ngIf="!loading" class="poster" [src]="imageUrl" alt="Photo de l'adhérent" />
         <label for="photo">
           <span>Charger une photo de l'adhérent</span>
-          <input type="file" id="photo" (change)="handleImageUpload($event)" />
+          <input type="file" id="photo" (change)="handleFileUpload($event)" />
         </label>
       </fieldset>
 
@@ -216,17 +216,17 @@
               <input
                 id="emergencyContactPhone-{{ i }}"
                 type="text"
-                formControlName="phone"
+                formControlName="phoneNumber"
               />
               <div
                 *ngIf="
-                  contact.get('phone')?.invalid && contact.get('phone')?.touched
+                  contact.get('phoneNumber')?.invalid && contact.get('phoneNumber')?.touched
                 "
               >
-                <small *ngIf="contact.get('phone')?.errors?.['required']"
+                <small *ngIf="contact.get('phoneNumber')?.errors?.['required']"
                   >Le téléphone est requis.</small
                 >
-                <small *ngIf="contact.get('phone')?.errors?.['phoneFormat']"
+                <small *ngIf="contact.get('phoneNumber')?.errors?.['phoneFormat']"
                   >Numéro de téléphone invalide.</small
                 >
               </div>

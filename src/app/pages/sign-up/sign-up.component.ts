@@ -35,7 +35,7 @@ export class SignUpComponent {
     lastname: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
     firstname: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
     address: ['', [Validators.required, Validators.minLength(5)]],
-    phone: [null, [Validators.required, phoneFormatValidator()]],
+    phoneNumber: [null, [Validators.required, phoneFormatValidator()]],
     occupation: ['', [Validators.required, Validators.minLength(2)]],
     emails: this.fb.group(
       {
@@ -123,7 +123,7 @@ export class SignUpComponent {
       lastname: this.signUpForm.value.lastname,
       email: this.signUpForm.value.emails.email,
       password: this.signUpForm.value.passwords.password,
-      phoneNumber: this.signUpForm.value.phone,
+      phoneNumber: this.signUpForm.value.phoneNumber,
       address: this.signUpForm.value.address,
       occupation: this.signUpForm.value.occupation
     }

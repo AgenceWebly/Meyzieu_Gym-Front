@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
+import { UploadFileService } from '../../shared/services/upload-file.service';
 
 @Component({
   selector: 'app-add-member',
@@ -49,6 +50,7 @@ export class AddMemberComponent {
   fb = inject(FormBuilder);
   http = inject(HttpClient);
   router = inject(Router);
+  fileUploadService = inject(UploadFileService);
 
   addMemberForm = this.fb.group({
     gender: ['', Validators.required],
@@ -103,7 +105,7 @@ export class AddMemberComponent {
         ],
       ],
       relationship: ['', Validators.required],
-      phone: [null, [Validators.required, phoneFormatValidator()]],
+      phoneNumber: [null, [Validators.required, phoneFormatValidator()]],
     });
     this.contacts.push(contactGroup);
   }
@@ -112,22 +114,14 @@ export class AddMemberComponent {
     this.contacts.removeAt(index);
   }
 
-  handleImageUpload(event: any) {
+  handleFileUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
       this.loading = true;
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', 'meyzieugym');
-      this.http
-        .post(
-          'https://api.cloudinary.com/v1_1/dz632zpoz/image/upload',
-          formData
-        )
-        .subscribe((response: any) => {
-          this.imageUrl = response.secure_url;
-          this.loading = false;
-        });
+      this.fileUploadService.uploadFile(file).subscribe((response: any) => {
+        this.imageUrl = response.secure_url;
+        this.loading = false;
+      });
     }
   }
 
@@ -136,7 +130,9 @@ export class AddMemberComponent {
       const formData = { ...this.addMemberForm.value, photoUrl: this.imageUrl };
       this.http.post('/users/userId/members', formData).subscribe({
         next: (response) => {
-          this.router.navigate(['/questionnaire-medical']);
+          console.log(response);
+          const memberId = 1;
+          this.router.navigate(['inscription/cours?member=' + '1']);
         },
         error: (err) => {
           console.error('Error adding member:', err);

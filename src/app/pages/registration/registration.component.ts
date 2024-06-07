@@ -34,6 +34,6 @@ export class RegistrationComponent {
   }
 
   addNewMember(): void {
-    this.router.navigate(['/nouvel-adherent']);
+    this.router.navigate(['inscription/nouvel-adherent']);
   }
 }

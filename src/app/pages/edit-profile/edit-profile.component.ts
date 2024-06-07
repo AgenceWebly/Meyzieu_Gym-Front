@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
 import { AddressFeature } from '../../models/addressFeature.model';
 import { Router } from '@angular/router';
+import { StorageService } from '../../shared/services/storage.service';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -15,15 +17,13 @@ import { Router } from '@angular/router';
 })
 export class EditProfileComponent implements OnInit {
   addressSuggestions: any[] = [];
-  passwordStrengthClass = 'weak';
-  passwordStrengthPercent = 0;
-  passwordMessage = '';
-  showPassword: boolean = false;
-  showConfirmPassword: boolean = false;
+  currentUserId!: number;
 
   fb = inject(FormBuilder);
   addressService = inject(AddressService);
   router = inject(Router);
+  storageService = inject(StorageService);
+  apiService = inject(ApiService);
 
   editProfileForm = this.fb.group({
     lastname: [
@@ -43,7 +43,7 @@ export class EditProfileComponent implements OnInit {
       ],
     ],
     address: ['', [Validators.required, Validators.minLength(5)]],
-    phone: ['', [Validators.required, phoneFormatValidator()]],
+    phoneNumber: ['', [Validators.required, phoneFormatValidator()]],
     email: [
       { value: '', disabled: true },
       [Validators.required, Validators.email],
@@ -75,23 +75,21 @@ export class EditProfileComponent implements OnInit {
   }
 
   loadUserData(): void {
-    const user = {
-      id: 1,
-      lastname: 'CHAKIR',
-      firstname: 'Amina',
-      phone: '0649819299',
-      address: '46 rue de la République 69330 Meyzieu',
-      email: 'amina.aitm@gmail.com',
-      occupation: 'Formatrice',
-    };
-
-    this.editProfileForm.patchValue({
-      lastname: user.lastname,
-      firstname: user.firstname,
-      phone: user.phone,
-      address: user.address,
-      email: user.email,
-      occupation: user.occupation,
+    this.currentUserId = this.storageService.getUser().id;
+    this.apiService.getCurrentUserDataFromApi(this.currentUserId).subscribe({
+      next: (user) => {
+        this.editProfileForm.patchValue({
+          lastname: user.lastname,
+          firstname: user.firstname,
+          phoneNumber: user.phoneNumber,
+          address: user.address,
+          email: user.email,
+          occupation: user.occupation,
+        });
+      },
+      error: (err) => {
+        console.log(err.message);
+      },
     });
   }
 
@@ -105,6 +103,15 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.editProfileForm.value);
+    this.apiService
+      .updateUser(this.editProfileForm.value, this.currentUserId)
+      .subscribe({
+        next: (data) => {
+          this.router.navigate(['/profil']);
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
   }
 }
