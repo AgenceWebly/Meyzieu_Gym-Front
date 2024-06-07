@@ -77,6 +77,13 @@ export const navItems: NavItem[] = [
     text: 'Créer un compte',
     category: 3,
     userType: 'visitorOnly'
-  }
+  },
+  {
+    path: '/admin',
+    icon: 'fa-light fa-user-plus',
+    text: 'Admin',
+    category: 1,
+    userType: 'ROLE_ADMIN'
+  },
 
 ]

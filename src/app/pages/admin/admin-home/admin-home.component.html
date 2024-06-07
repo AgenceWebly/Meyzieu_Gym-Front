@@ -1,20 +1,26 @@
 <main>
-  <h1>Dashboard Admin</h1>
-  <nav>
-    <ul>
-      <li>
+  <div class="header">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+    </div>
+    <h1>Dashboard Admin</h1>
+  </div>
+
+  <nav class="cards-container">
+    <ul >
+      <li class="card">
         <a routerLink="/admin/saisons" routerLinkActive="active-link">Gestion des saisons</a>
       </li>
-      <li>
+      <li class="card">
         <a routerLink="/admin/cours" routerLinkActive="active-link">Gestion des cours</a>
       </li>
-      <li>
+      <li class="card">
         <a routerLink="/admin/adherents" routerLinkActive="active-link">Gestion des adhérents</a>
       </li>
-      <li>
+      <li class="card">
         <a routerLink="/admin/utilisateurs" routerLinkActive="active-link">Gestion des utilisateurs</a>
       </li>
-      <li>
+      <li class="card">
         <a routerLink="/admin/entraineurs" routerLinkActive="active-link">Gestion des entraineurs</a>
       </li>
     </ul>

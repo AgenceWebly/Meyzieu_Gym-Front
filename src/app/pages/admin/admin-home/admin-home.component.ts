@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
@@ -10,4 +10,9 @@ import { RouterLink } from '@angular/router';
 })
 export class AdminHomeComponent {
 
+  router = inject(Router);
+
+  goBack() {
+    this.router.navigate(['/admin/saisons']);
+  }
 }

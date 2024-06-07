@@ -12,6 +12,7 @@ import { AddMemberComponent } from './pages/add-member/add-member.component';
 import { SeasonsComponent } from './pages/admin/season/seasons/seasons.component';
 import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.component';
 import { CreateSeasonComponent } from './pages/admin/season/create-season/create-season.component';
+import { EditSeasonComponent } from './pages/admin/season/edit-season/edit-season.component';
 
 export const routes: Routes = [
   {
@@ -136,14 +137,6 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'admin',
-    component: AdminHomeComponent,
-    canActivate: [authGuard],
-    data: {
-      userType: 'admin',
-    },
-  },
-  {
     path: 'admin/saisons/nouvelle-saison',
     component: CreateSeasonComponent,
     canActivate: [authGuard],
@@ -152,8 +145,24 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'admin/saisons/:id',
+    component: EditSeasonComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
     path: 'admin/saisons',
     component: SeasonsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin',
+    component: AdminHomeComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',
