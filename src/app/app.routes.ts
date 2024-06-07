@@ -11,6 +11,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { AddMemberComponent } from './pages/add-member/add-member.component';
 import { SeasonsComponent } from './pages/admin/season/seasons/seasons.component';
 import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.component';
+import { CreateSeasonComponent } from './pages/admin/season/create-season/create-season.component';
 
 export const routes: Routes = [
   {
@@ -22,16 +23,16 @@ export const routes: Routes = [
     component: EditProfileComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'user'
-    }
+      userType: 'user',
+    },
   },
   {
     path: 'profil',
     component: ProfilComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'user'
-    }
+      userType: 'user',
+    },
   },
 
   {
@@ -39,64 +40,64 @@ export const routes: Routes = [
     component: MembersComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'entrainements',
     component: HomeComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'competitions',
     component: HomeComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'inscription',
     component: RegistrationComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'inscription',
     component: RegistrationComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'inscription/nouvel-adherent',
     component: AddMemberComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'inscription/cours',
     component: RegistrationComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'inscription/questionnaire-medical',
     component: RegistrationComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'guardian'
-    }
+      userType: 'guardian',
+    },
   },
   {
     path: 'contact',
@@ -107,47 +108,55 @@ export const routes: Routes = [
     component: HomeComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'user'
-    }
+      userType: 'user',
+    },
   },
   {
     path: 'deconnexion',
     component: LogoutComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'user'
-    }
+      userType: 'user',
+    },
   },
   {
     path: 'creation-compte',
     component: SignUpComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'visitorOnly'
-    }
+      userType: 'visitorOnly',
+    },
   },
   {
     path: 'connexion',
     component: LoginComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'visitorOnly'
-    }
+      userType: 'visitorOnly',
+    },
   },
   {
     path: 'admin',
     component: AdminHomeComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'admin'
-    }
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/saisons/nouvelle-saison',
+    component: CreateSeasonComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
   },
   {
     path: 'admin/saisons',
     component: SeasonsComponent,
     canActivate: [authGuard],
     data: {
-      userType: 'admin'
-    }
+      userType: 'admin',
+    },
   },
 ];

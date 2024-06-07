@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './seasons.component.html',
-  styleUrls: ['./seasons.component.scss']
+  styleUrls: ['./seasons.component.scss'],
 })
 export class SeasonsComponent {
   seasons: Season[] = [
@@ -31,18 +31,19 @@ export class SeasonsComponent {
   constructor(private router: Router) {}
 
   editSeason(seasonId: number) {
-    this.router.navigate(['/saisons', seasonId]);
+    this.router.navigate(['/admin/saisons', seasonId]);
   }
 
   addSeason() {
-    this.router.navigate(['/saisons/créer']);
+    this.router.navigate(['/admin/saisons/nouvelle-saison']);
   }
 
   filterSeasons() {
     if (this.searchYear) {
-      this.filteredSeasons = this.seasons.filter(season => 
-        season.startDate.getFullYear().toString() === this.searchYear ||
-        season.endDate.getFullYear().toString() === this.searchYear
+      this.filteredSeasons = this.seasons.filter(
+        (season) =>
+          season.startDate.getFullYear().toString() === this.searchYear ||
+          season.endDate.getFullYear().toString() === this.searchYear
       );
     } else {
       this.filteredSeasons = [...this.seasons];

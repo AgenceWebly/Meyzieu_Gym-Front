@@ -24,14 +24,12 @@ export class CreateSeasonComponent {
 
   submitForm() {
     if (this.seasonForm.valid) {
-      // Save the season data and navigate back to the seasons list
       console.log('Form Submitted', this.seasonForm.value);
-      // Here you would call your service to save the season data
-      this.router.navigate(['/seasons']);
+      //this.router.navigate(['/saisons']);
     }
   }
 
   cancel() {
-    this.router.navigate(['/seasons']);
+    this.router.navigate(['/admin/saisons']);
   }
 }
