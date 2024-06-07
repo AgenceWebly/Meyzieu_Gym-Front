@@ -81,7 +81,7 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'inscription/questionnaire-medical',
+    path: 'inscription/cours',
     component: RegistrationComponent,
     canActivate: [authGuard],
     data: {
@@ -89,7 +89,7 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'inscription/cours',
+    path: 'inscription/questionnaire-medical',
     component: RegistrationComponent,
     canActivate: [authGuard],
     data: {

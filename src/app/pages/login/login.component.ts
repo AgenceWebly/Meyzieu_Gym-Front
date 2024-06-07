@@ -10,7 +10,7 @@ import { StorageService } from '../../shared/services/storage.service';
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   showPassword: boolean = false;
@@ -45,22 +45,21 @@ export class LoginComponent {
     const loginForm = this.loginForm.value;
 
     if (loginForm.email && loginForm.password) {
-      this.authService
-        .login(loginForm.email, loginForm.password)
-        .subscribe({
-          next: data => {
-            this.storageService.saveUser(data);
-    
-            this.isLoginFailed = false;
-            this.isLoggedIn = true;
-            this.roles = this.storageService.getUser().roles;
-            window.location.reload();
-          },
-          error: err => {
-            this.loginError = "Identifiants incorrects. Veuillez réessayer.";
-            this.isLoginFailed = true;
-          }
-        });
+      this.authService.login(loginForm.email, loginForm.password).subscribe({
+        next: (data) => {
+
+          this.storageService.saveUser(data);
+
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.storageService.getUser().roles;
+          window.location.reload();
+        },
+        error: (err) => {
+          this.loginError = 'Identifiants incorrects. Veuillez réessayer.';
+          this.isLoginFailed = true;
+        },
+      });
     }
   }
 }

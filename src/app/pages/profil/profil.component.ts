@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
+import { UploadFileService } from '../../shared/services/upload-file.service';
 
 @Component({
   selector: 'app-profil',
@@ -13,23 +14,15 @@ import { ApiService } from '../../shared/services/api.service';
   styleUrl: './profil.component.scss',
 })
 export class ProfilComponent {
-  userTest: User = {
-    id: 1,
-    lastname: 'CHAKIR',
-    firstname: 'Amina',
-    address: '46 rue de la République 69330 Meyzieu',
-    phone: '0649819299',
-    email: 'amina.aitm@gmail.com',
-    occupation: 'Formatrice',
-    rib: '',
-  };
 
   currentUser: any;
+  loading: boolean = false;
   messageError = '';
 
   router = inject(Router);
   storageService = inject(StorageService);
   apiService = inject(ApiService);
+  uploadFileService = inject(UploadFileService);
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
@@ -48,13 +41,30 @@ export class ProfilComponent {
     this.router.navigate(['/profil/edit']);
   }
 
-  onUpload(event: any) {
+  handleRibUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
-      // Vous pouvez gérer le téléchargement du fichier
-      console.log('File uploaded:', file);
-      // Mettre à jour l'utilisateur avec le lien vers le fichier RIB téléchargé
-      //this.user.rib = URL.createObjectURL(file); // Remplacez par votre logique pour obtenir l'URL du fichier
+      this.loading = true;
+      this.uploadFileService.uploadFile(file).subscribe({
+        next: (response: any) => {
+          this.currentUser = { ...this.currentUser, rib: response.secure_url };
+          
+          // this.apiService.updateUser(this.currentUser, this.currentUser.id).subscribe({
+          //   next: () => {
+          //     this.loading = false;
+          //     //this.router.navigate(['/profile']);
+          //   },
+          //   error: (err) => {
+          //     console.error('Error updating user:', err);
+          //     this.loading = false;
+          //   }
+          // });
+        },
+        error: (err) => {
+          console.error('Upload failed', err);
+          this.loading = false;
+        }
+      });
     }
   }
 }

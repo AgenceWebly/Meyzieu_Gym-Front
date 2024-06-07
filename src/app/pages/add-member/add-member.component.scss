@@ -25,10 +25,19 @@ main {
 
     .flex-container {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
 
+      @media (min-width: 769px) {
+        flex-direction: row;
+      }
+
       fieldset {
-        width: 45%;
+        width: 100%;
+
+        @media (min-width: 769px) {
+          width: 45%;
+        }
       }
 
       .form-group {
@@ -44,7 +53,7 @@ main {
 
   h2 {
     font-size: 1em;
-    margin-bottom: $default-margin;
+    margin: $default-margin 0;
   }
 
   .form-group {
@@ -211,7 +220,7 @@ main {
   }
 
   .input-label-container {
-    margin-top: calc($default-margin/2);
+    margin: $default-margin 0;
   }
 
   input[type="radio"], input[type="checkbox"] {
