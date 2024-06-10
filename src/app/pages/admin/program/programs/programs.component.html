@@ -5,7 +5,7 @@
       type="text"
       [(ngModel)]="searchTerm"
       (input)="filterPrograms()"
-      placeholder="Rechercher par année"
+      placeholder="Rechercher par nom"
     />
     <button (click)="addProgram()" class="add-button">+</button>
   </div>
@@ -26,7 +26,7 @@
       >
         <td>{{ program.id }}</td>
         <td>{{ program.name }}</td>
-        <td>{{ program.isIncludingCompetition ? 'oui' : 'non' }}</td>
+        <td>{{ program.includingCompetition ? 'oui' : 'non' }}</td>
       </tr>
     </tbody>
   </table>

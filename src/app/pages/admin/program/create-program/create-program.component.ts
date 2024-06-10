@@ -16,10 +16,17 @@ export class CreateProgramComponent {
   fb = inject(FormBuilder);
   router = inject(Router);
   apiService = inject(ApiService);
+  charCount: number = 255;
 
   programForm = this.fb.group({
-    name: ['', Validators.required],
-    description: ['', Validators.required],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(100)],
+    ],
+    description: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(255)],
+    ],
     includingCompetition: [false],
   });
 
@@ -36,5 +43,14 @@ export class CreateProgramComponent {
 
   goBack() {
     this.router.navigate(['/admin/cours']);
+  }
+
+  updateCharacterCount(): void {
+    const descriptionControl = this.programForm.get('description');
+    if (descriptionControl && descriptionControl.value) {
+      this.charCount = 255 - descriptionControl.value.length;
+    } else {
+      this.charCount = 255;
+    }
   }
 }

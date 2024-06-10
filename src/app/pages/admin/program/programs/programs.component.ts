@@ -39,9 +39,10 @@ export class ProgramsComponent {
 
   filterPrograms() {
     if (this.searchTerm) {
-      this.filteredPrograms = this.programs.filter((program) => {
-        program.name === this.searchTerm;
-      });
+      this.filteredPrograms = this.programs.filter(
+        (program) =>
+          program.name.toLowerCase() === this.searchTerm.toLowerCase()
+      );
     } else {
       this.filteredPrograms = [...this.programs];
     }
