@@ -1,5 +1,5 @@
 <main>
-  <h1>Liste des saisons</h1>
+  <h1>Liste des cours</h1>
   <div class="toolbar">
     <input
       type="text"
@@ -26,7 +26,7 @@
       >
         <td>{{ program.id }}</td>
         <td>{{ program.name }}</td>
-        <td>{{ program.isIncludingCompetition }}</td>
+        <td>{{ program.isIncludingCompetition ? 'oui' : 'non' }}</td>
       </tr>
     </tbody>
   </table>

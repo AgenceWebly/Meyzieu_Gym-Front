@@ -14,6 +14,7 @@ import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.componen
 import { CreateSeasonComponent } from './pages/admin/season/create-season/create-season.component';
 import { EditSeasonComponent } from './pages/admin/season/edit-season/edit-season.component';
 import { ProgramsComponent } from './pages/admin/program/programs/programs.component';
+import { CreateProgramComponent } from './pages/admin/program/create-program/create-program.component';
 
 export const routes: Routes = [
   {
@@ -156,6 +157,14 @@ export const routes: Routes = [
   {
     path: 'admin/saisons',
     component: SeasonsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/cours/nouveau-cours',
+    component: CreateProgramComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

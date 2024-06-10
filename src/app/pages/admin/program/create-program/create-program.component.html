@@ -1,0 +1,46 @@
+<main>
+  <div class="header">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+    </div>
+    <h1>Créer un nouveau cours</h1>
+  </div>
+  <form [formGroup]="programForm" (ngSubmit)="submitForm()">
+    <fieldset>
+      <label for="name">Nom</label>
+      <input type="text" id="name" formControlName="name" />
+      <div
+        *ngIf="
+          programForm.get('name')?.invalid && programForm.get('name')?.touched
+        "
+      >
+        <small *ngIf="programForm.get('name')?.errors?.['required']"
+          >Le nom du cours est requis.</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div
+        *ngIf="
+          programForm.get('description')?.invalid &&
+          programForm.get('description')?.touched
+        "
+      >
+        <small *ngIf="programForm.get('description')?.errors?.['required']"
+          >La description est requise.</small
+        >
+      </div>
+    </fieldset>
+    <fieldset class="switch-container">
+      <label for="competition-switch">Groupe compétition ?</label>
+      <p-inputSwitch id="competition-switch" formControlName="includingCompetition"></p-inputSwitch>
+    </fieldset>
+
+    <button type="submit" [disabled]="programForm.invalid">
+      Créer le cours
+    </button>
+  </form>
+</main>
