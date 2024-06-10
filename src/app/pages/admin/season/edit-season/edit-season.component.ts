@@ -1,9 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
@@ -32,12 +28,16 @@ export class EditSeasonComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
       const idParam = params.get('id');
+
       if (idParam !== null) {
         this.seasonId = parseInt(idParam, 10);
+
         if (!isNaN(this.seasonId)) {
           this.apiService.getSeasonById(this.seasonId).subscribe((season) => {
             this.seasonForm.patchValue({
-              startDate: new Date(season.startDate).toISOString().substring(0, 10),
+              startDate: new Date(season.startDate)
+                .toISOString()
+                .substring(0, 10),
               endDate: new Date(season.endDate).toISOString().substring(0, 10),
             });
           });
@@ -52,9 +52,11 @@ export class EditSeasonComponent {
 
   submitForm(): void {
     if (this.seasonForm.valid) {
-      this.apiService.updateSeason(this.seasonForm.value).subscribe(() => {
-        this.router.navigate(['/saisons']);
-      });
+      this.apiService
+        .updateSeason(this.seasonForm.value, this.seasonId)
+        .subscribe(() => {
+          this.router.navigate(['/admin/saisons']);
+        });
     }
   }
 

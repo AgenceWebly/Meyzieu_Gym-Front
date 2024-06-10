@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Season } from '../../../../models/season.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../../../shared/services/api.service';
 
 @Component({
   selector: 'app-seasons',
@@ -12,23 +13,21 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./seasons.component.scss'],
 })
 export class SeasonsComponent {
-  seasons: Season[] = [
-    {
-      id: 1,
-      startDate: new Date('2023-09-01'),
-      endDate: new Date('2024-08-31'),
-    },
-    {
-      id: 2,
-      startDate: new Date('2024-09-01'),
-      endDate: new Date('2025-08-31'),
-    },
-  ];
+  seasons: Season[] = [];
 
-  filteredSeasons: Season[] = [...this.seasons];
+  filteredSeasons: Season[] = [];
   searchYear: string = '';
 
+  apiService = inject(ApiService);
+
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.apiService.getSeasons().subscribe((data) => {
+      this.seasons = data;
+      this.filteredSeasons = data;
+    });
+  }
 
   editSeason(seasonId: number) {
     this.router.navigate(['/admin/saisons', seasonId]);
@@ -40,11 +39,14 @@ export class SeasonsComponent {
 
   filterSeasons() {
     if (this.searchYear) {
-      this.filteredSeasons = this.seasons.filter(
-        (season) =>
-          season.startDate.getFullYear().toString() === this.searchYear ||
-          season.endDate.getFullYear().toString() === this.searchYear
-      );
+      this.filteredSeasons = this.seasons.filter((season) => {
+        const startDate = new Date(season.startDate);
+        const endDate = new Date(season.endDate);
+        return (
+          startDate.getFullYear().toString() === this.searchYear ||
+          endDate.getFullYear().toString() === this.searchYear
+        );
+      });
     } else {
       this.filteredSeasons = [...this.seasons];
     }

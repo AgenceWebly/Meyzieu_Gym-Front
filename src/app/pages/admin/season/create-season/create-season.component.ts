@@ -25,8 +25,10 @@ export class CreateSeasonComponent {
 
   submitForm() {
     if (this.seasonForm.valid) {
+      console.log(this.seasonForm.value);
+
       this.apiService.createSeason(this.seasonForm.value).subscribe(() => {
-        //this.router.navigate(['/saisons']);
+        this.router.navigate(['/admin/saisons']);
       });
     }
   }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -23,7 +23,14 @@ export class ApiService {
   }
 
   createMember(userId: number, newMember: any) {
-    return this.http.post<any>(AUTH_API + '/users/' + userId + '/members', newMember);
+    return this.http.post<any>(
+      AUTH_API + '/users/' + userId + '/members',
+      newMember
+    );
+  }
+
+  getSeasons(): Observable<any[]> {
+    return this.http.get<any[]>(`${AUTH_API}/seasons`);
   }
 
   getSeasonById(seasonId: number): Observable<any> {
@@ -31,11 +38,10 @@ export class ApiService {
   }
 
   createSeason(newSeason: any): Observable<any> {
-    return this.http.put<any>(`${AUTH_API}/seasons/`, newSeason);
+    return this.http.post<any>(`${AUTH_API}/seasons`, newSeason);
   }
 
-  updateSeason(updatedSeason: any): Observable<any> {
-    return this.http.put<any>(`${AUTH_API}/seasons/${updatedSeason.id}`, updatedSeason);
+  updateSeason(updatedSeason: any, seasonId: number): Observable<any> {
+    return this.http.put<any>(`${AUTH_API}/seasons/${seasonId}`, updatedSeason);
   }
-
 }
