@@ -1,5 +1,17 @@
+import { EmergencyContact } from "./emergencyContact.model";
+
 export interface Member {
-  lastname: string;
+  id: number;
   firstname: string;
-  birthday: Date;
+  lastname: string;
+  birthdate: Date;
+  gender: 'male' | 'female';
+  school: string;
+  isPhotoApproved: boolean;
+  isTransportApproved: boolean;
+  isFirstAidApproved: boolean;
+  isAllowedToLeave: boolean;
+  profilePictureUrl: string;
+  relationToMember: 'parent|grand-parent|relative|other';
+  emergencyContacts: EmergencyContact[];
 }

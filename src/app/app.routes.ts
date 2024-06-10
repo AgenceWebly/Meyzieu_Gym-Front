@@ -13,6 +13,7 @@ import { SeasonsComponent } from './pages/admin/season/seasons/seasons.component
 import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.component';
 import { CreateSeasonComponent } from './pages/admin/season/create-season/create-season.component';
 import { EditSeasonComponent } from './pages/admin/season/edit-season/edit-season.component';
+import { ProgramsComponent } from './pages/admin/program/programs/programs.component';
 
 export const routes: Routes = [
   {
@@ -155,6 +156,14 @@ export const routes: Routes = [
   {
     path: 'admin/saisons',
     component: SeasonsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/cours',
+    component: ProgramsComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

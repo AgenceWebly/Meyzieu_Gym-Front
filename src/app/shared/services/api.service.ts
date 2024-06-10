@@ -29,6 +29,7 @@ export class ApiService {
     );
   }
 
+  // S E A S O N S
   getSeasons(): Observable<any[]> {
     return this.http.get<any[]>(`${AUTH_API}/seasons`);
   }
@@ -43,5 +44,23 @@ export class ApiService {
 
   updateSeason(updatedSeason: any, seasonId: number): Observable<any> {
     return this.http.put<any>(`${AUTH_API}/seasons/${seasonId}`, updatedSeason);
+  }
+  
+
+  // P R O G R A M S
+  getPrograms(): Observable<any[]> {
+    return this.http.get<any[]>(`${AUTH_API}/programs`);
+  }
+
+  getProgramById(programId: number): Observable<any> {
+    return this.http.get<any>(`${AUTH_API}/programs/${programId}`);
+  }
+
+  createProgram(newProgram: any): Observable<any> {
+    return this.http.post<any>(`${AUTH_API}/programs`, newProgram);
+  }
+
+  updateProgram(updatedProgram: any, programId: number): Observable<any> {
+    return this.http.put<any>(`${AUTH_API}/programs/${programId}`, updatedProgram);
   }
 }
