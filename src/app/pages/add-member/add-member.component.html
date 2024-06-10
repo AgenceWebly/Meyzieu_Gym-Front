@@ -9,6 +9,7 @@
         <img *ngIf="!loading" class="poster" [src]="imageUrl" alt="Photo de l'adhérent" />
         <label for="photo">
           <span>Charger une photo de l'adhérent</span>
+          <div *ngIf="photoError" class="error-message" class="info">{{ photoError }}</div>
           <input type="file" id="photo" (change)="handleFileUpload($event)" />
         </label>
       </fieldset>
@@ -124,7 +125,7 @@
       </div>
 
       <fieldset formArrayName="emergencyContacts">
-        <h2>Personnes à contacter en cas d'urgence</h2>
+        <h2>Personnes à contacter en cas d'urgence <span>(1 contact minimum)</span></h2>
         <div
           *ngFor="let contact of contacts.controls; let i = index"
           [formGroupName]="i" class="contact-container"

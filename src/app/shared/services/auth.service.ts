@@ -16,10 +16,14 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(AUTH_API + '/signin', {
-      email: username,
-      password: password,
-    });
+    return this.http.post<any>(
+      AUTH_API + '/signin',
+      {
+        email: username,
+        password: password,
+      },
+      { withCredentials: true }
+    );
   }
 
   logout(): Observable<any> {

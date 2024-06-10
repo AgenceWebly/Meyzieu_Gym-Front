@@ -1,0 +1,33 @@
+<main>
+  <h1>Liste des saisons</h1>
+  <div class="toolbar">
+    <input
+      type="text"
+      [(ngModel)]="searchYear"
+      (input)="filterSeasons()"
+      placeholder="Rechercher par année"
+    />
+    <button (click)="addSeason()" class="add-button">+</button>
+  </div>
+
+  <table class="seasons-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Début de saison</th>
+        <th>Fin de saison</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let season of filteredSeasons"
+        (click)="editSeason(season.id)"
+        class="season-row"
+      >
+        <td>{{ season.id }}</td>
+        <td>{{ season.startDate | date : "dd/MM/yyyy" }}</td>
+        <td>{{ season.endDate | date : "dd/MM/yyyy" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>

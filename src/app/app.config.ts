@@ -7,7 +7,9 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { httpInterceptor } from './shared/interceptors/http.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(), provideAnimations(), provideHttpClient(
-    withInterceptors([httpInterceptor]),
-  )],
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([httpInterceptor])),
+    provideAnimations(),
+  ],
 };

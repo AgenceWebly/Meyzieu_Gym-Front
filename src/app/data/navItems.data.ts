@@ -9,6 +9,13 @@ export const navItems: NavItem[] = [
     userType: 'all'
   },
   {
+    path: '/admin',
+    icon: 'fa-light fa-lock',
+    text: 'Admin',
+    category: 1,
+    userType: 'ROLE_ADMIN'
+  },
+  {
     path: '/profil',
     icon: 'fa-light fa-user',
     text: 'Mon profil',

@@ -14,7 +14,7 @@
 
 main {
   @include border-shadow-radius;
-  min-height: 90vh;
+  min-height: 95vh;
   padding: $default-padding;
   margin: $default-margin;
   background-color: $color-white-background;
@@ -151,10 +151,11 @@ main {
 
   .contact-container {
     position: relative;
-    margin-bottom: calc($default-margin*2);
+    margin-bottom: calc($default-margin * 2);
   }
 
-  .remove-contact-button, .add-contact-button {
+  .remove-contact-button,
+  .add-contact-button {
     border: none;
     background-color: transparent;
     color: $color-text;
@@ -202,14 +203,27 @@ main {
   }
 
   label span {
-    padding: 8px 12px;
+    padding: 0 12px;
     color: #ccc;
     cursor: pointer;
     transition: 0.3s;
+    display: block;
   }
 
-  label span:hover {
+  label:hover span {
     color: black;
+  }
+
+  .info {
+    padding: 0 12px;
+    color: $color-hover-background;
+    cursor: pointer;
+    font-style: italic;
+    transition: 0.3s;
+  }
+
+  label:hover .info {
+    color: $color-primary;
   }
 
   .poster {
@@ -223,7 +237,8 @@ main {
     margin: $default-margin 0;
   }
 
-  input[type="radio"], input[type="checkbox"] {
+  input[type="radio"],
+  input[type="checkbox"] {
     accent-color: $color-primary;
   }
 
@@ -233,7 +248,7 @@ main {
     align-items: center;
     height: 60px;
   }
-  
+
   .loader {
     display: inline-block;
     width: 60px;
@@ -244,10 +259,18 @@ main {
     animation: spin 1.5s linear infinite;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+
+  h2 span {
+    font-size: 14px;
+    font-weight: 200;
   }
-  
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }
