@@ -21,6 +21,8 @@ import { UploadFileService } from '../../shared/services/upload-file.service';
 export class AddMemberComponent {
   imageUrl: string = 'assets/icons/no-image.webp';
   loading: boolean = false;
+  photoError: string = 'La photo de l\'adhérent est requise';
+
   relatedOptions = [
     { value: 'parent', label: 'Parent' },
     { value: 'grand-parent', label: 'Grand-parent' },
@@ -53,6 +55,7 @@ export class AddMemberComponent {
   fileUploadService = inject(UploadFileService);
 
   addMemberForm = this.fb.group({
+    photoUrl: [null, Validators.required],
     gender: ['', Validators.required],
     lastname: [
       '',
@@ -120,14 +123,16 @@ export class AddMemberComponent {
       this.loading = true;
       this.fileUploadService.uploadFile(file).subscribe((response: any) => {
         this.imageUrl = response.secure_url;
+        this.addMemberForm.get('photoUrl')?.setValue(response.secure_url);
         this.loading = false;
+        this.photoError = '';
       });
     }
   }
 
   addMember() {
     if (this.addMemberForm.valid) {
-      const formData = { ...this.addMemberForm.value, photoUrl: this.imageUrl };
+      const formData = { ...this.addMemberForm.value};
       this.http.post('/users/userId/members', formData).subscribe({
         next: (response) => {
           console.log(response);
