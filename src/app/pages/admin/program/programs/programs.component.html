@@ -1,0 +1,34 @@
+<main>
+  <h1>Liste des cours</h1>
+  <div class="toolbar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterPrograms()"
+      placeholder="Rechercher par nom"
+    />
+    <button (click)="addProgram()" class="add-button">+</button>
+  </div>
+
+  <table class="programs-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom du cours</th>
+        <th>En compétition ?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let program of filteredPrograms"
+        (click)="editProgram(program.id)"
+        class="program-row"
+      >
+        <td>{{ program.id }}</td>
+        <td>{{ program.name }}</td>
+        <td>{{ program.includingCompetition ? 'oui' : 'non' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
