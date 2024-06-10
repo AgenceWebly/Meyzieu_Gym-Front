@@ -45,7 +45,6 @@ export class ApiService {
   updateSeason(updatedSeason: any, seasonId: number): Observable<any> {
     return this.http.put<any>(`${AUTH_API}/seasons/${seasonId}`, updatedSeason);
   }
-  
 
   // P R O G R A M S
   getPrograms(): Observable<any[]> {
@@ -61,6 +60,18 @@ export class ApiService {
   }
 
   updateProgram(updatedProgram: any, programId: number): Observable<any> {
-    return this.http.put<any>(`${AUTH_API}/programs/${programId}`, updatedProgram);
+    return this.http.put<any>(
+      `${AUTH_API}/programs/${programId}`,
+      updatedProgram
+    );
+  }
+
+  // U S E R S
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${AUTH_API}/admin/users`);
+  }
+
+  getUserById(userId: number): Observable<any> {
+    return this.http.get<any>(`${AUTH_API}/admin/users/${userId}`);
   }
 }
