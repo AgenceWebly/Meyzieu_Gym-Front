@@ -10,14 +10,8 @@ const AUTH_API = 'http://localhost:8080/api';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getCurrentUserDataFromApi(currentUserId: number): Observable<any> {
-    return this.http.get<any>(`${AUTH_API}/users/${currentUserId}`);
-  }
 
-  updateUser(updatedUser: any, userId: number): Observable<any> {
-    return this.http.put<any>(`${AUTH_API}/users/${userId}`, updatedUser);
-  }
-
+  // M E M B E R S
   getMembers(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${AUTH_API}/users/${userId}/members`);
   }
@@ -73,5 +67,13 @@ export class ApiService {
 
   getUserById(userId: number): Observable<any> {
     return this.http.get<any>(`${AUTH_API}/admin/users/${userId}`);
+  }
+
+  getCurrentUserDataFromApi(currentUserId: number): Observable<any> {
+    return this.http.get<any>(`${AUTH_API}/users/${currentUserId}`);
+  }
+
+  updateUser(updatedUser: any, userId: number): Observable<any> {
+    return this.http.put<any>(`${AUTH_API}/users/${userId}`, updatedUser);
   }
 }

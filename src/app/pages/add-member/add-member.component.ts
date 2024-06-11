@@ -10,6 +10,8 @@ import {
 import { Router } from '@angular/router';
 import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
 import { UploadFileService } from '../../shared/services/upload-file.service';
+import { StorageService } from '../../shared/services/storage.service';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
   selector: 'app-add-member',
@@ -21,7 +23,8 @@ import { UploadFileService } from '../../shared/services/upload-file.service';
 export class AddMemberComponent {
   imageUrl: string = 'assets/icons/no-image.webp';
   loading: boolean = false;
-  photoError: string = 'La photo de l\'adhérent est requise';
+  photoError: string = "La photo de l'adhérent est requise";
+  currentUserId!: number;
 
   relatedOptions = [
     { value: 'parent', label: 'Parent' },
@@ -53,9 +56,11 @@ export class AddMemberComponent {
   http = inject(HttpClient);
   router = inject(Router);
   fileUploadService = inject(UploadFileService);
+  storageService = inject(StorageService);
+  apiService = inject(ApiService);
 
   addMemberForm = this.fb.group({
-    photoUrl: [null, Validators.required],
+    profilePictureUrl: [null, Validators.required],
     gender: ['', Validators.required],
     lastname: [
       '',
@@ -73,17 +78,22 @@ export class AddMemberComponent {
         Validators.pattern(/^[a-zA-Z\s-]*$/),
       ],
     ],
-    birthday: [null, [Validators.required]],
+    relationToMember: [['', Validators.required]],
+    birthdate: [null, [Validators.required]],
     school: ['', Validators.required],
     emergencyContacts: this.fb.array([]),
     authorizations: this.fb.group({
-      imageUse: [false],
-      medicalTreatment: [false],
-      leaveGymAlone: [false],
-      transport: [false],
+      photoApproved: [false],
+      firstAidApproved: [false],
+      allowedToLeave: [false],
+      transportApproved: [false],
       acceptRules: [false, Validators.requiredTrue],
     }),
   });
+
+  ngOnInit() {
+    this.currentUserId = this.storageService.getUser().id;
+  }
 
   get contacts() {
     return this.addMemberForm.get('emergencyContacts') as FormArray;
@@ -91,7 +101,7 @@ export class AddMemberComponent {
 
   addEmergencyContact() {
     const contactGroup = this.fb.group({
-      name: [
+      lastname: [
         '',
         [
           Validators.required,
@@ -107,7 +117,7 @@ export class AddMemberComponent {
           Validators.pattern(/^[a-zA-Z\s-]*$/),
         ],
       ],
-      relationship: ['', Validators.required],
+      relationToMember: ['', Validators.required],
       phoneNumber: [null, [Validators.required, phoneFormatValidator()]],
     });
     this.contacts.push(contactGroup);
@@ -123,7 +133,9 @@ export class AddMemberComponent {
       this.loading = true;
       this.fileUploadService.uploadFile(file).subscribe((response: any) => {
         this.imageUrl = response.secure_url;
-        this.addMemberForm.get('photoUrl')?.setValue(response.secure_url);
+        this.addMemberForm
+          .get('profilePictureUrl')
+          ?.setValue(response.secure_url);
         this.loading = false;
         this.photoError = '';
       });
@@ -132,12 +144,19 @@ export class AddMemberComponent {
 
   addMember() {
     if (this.addMemberForm.valid) {
-      const formData = { ...this.addMemberForm.value};
-      this.http.post('/users/userId/members', formData).subscribe({
+      const formData = {
+        ...this.addMemberForm.value,
+        isAllowedToLeave: this.addMemberForm.value.authorizations?.allowedToLeave,
+        firstAidApproved:
+          this.addMemberForm.value.authorizations?.firstAidApproved,
+        transportApproved:
+          this.addMemberForm.value.authorizations?.transportApproved,
+        photoApproved: this.addMemberForm.value.authorizations?.photoApproved,
+      };
+
+      this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
-          console.log(response);
-          const memberId = 1;
-          this.router.navigate(['inscription/cours?member=' + '1']);
+          this.router.navigate(['inscription/adherent/' + response + '/cours'])
         },
         error: (err) => {
           console.error('Error adding member:', err);

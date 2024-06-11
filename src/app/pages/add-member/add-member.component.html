@@ -6,10 +6,17 @@
         <div class="loader-container" *ngIf="loading">
           <div class="loader"></div>
         </div>
-        <img *ngIf="!loading" class="poster" [src]="imageUrl" alt="Photo de l'adhérent" />
+        <img
+          *ngIf="!loading"
+          class="poster"
+          [src]="imageUrl"
+          alt="Photo de l'adhérent"
+        />
         <label for="photo">
           <span>Charger une photo de l'adhérent</span>
-          <div *ngIf="photoError" class="error-message" class="info">{{ photoError }}</div>
+          <div *ngIf="photoError" class="error-message" class="info">
+            {{ photoError }}
+          </div>
           <input type="file" id="photo" (change)="handleFileUpload($event)" />
         </label>
       </fieldset>
@@ -87,15 +94,15 @@
 
       <div class="flex-container">
         <fieldset>
-          <label for="birthday">Date de naissance</label>
-          <input type="date" id="birthday" formControlName="birthday" />
+          <label for="birthdate">Date de naissance</label>
+          <input type="date" id="birthdate" formControlName="birthdate" />
           <div
             *ngIf="
-              addMemberForm.get('birthday')?.invalid &&
-              addMemberForm.get('birthday')?.touched
+              addMemberForm.get('birthdate')?.invalid &&
+              addMemberForm.get('birthdate')?.touched
             "
           >
-            <small *ngIf="addMemberForm.get('birthday')?.errors?.['required']"
+            <small *ngIf="addMemberForm.get('birthdate')?.errors?.['required']"
               >La date de naissance est requise.</small
             >
           </div>
@@ -104,9 +111,7 @@
         <fieldset>
           <label for="school">Établissement scolaire</label>
           <select id="school" formControlName="school">
-            <option value="" disabled selected>
-              Choisir
-            </option>
+            <option value="" disabled selected>Choisir</option>
             <option *ngFor="let option of schools" [value]="option.value">
               {{ option.label }}
             </option>
@@ -123,12 +128,40 @@
           </div>
         </fieldset>
       </div>
+      <fieldset>
+        <label for="relationToMember"
+          >Lien de parenté</label
+        >
+        <select
+          id="relationToMember"
+          formControlName="relationToMember"
+        >
+          <option value="" disabled selected>Choisir un lien de parenté</option>
+          <option *ngFor="let option of relatedOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            addMemberForm.get('relationToMember')?.invalid &&
+            addMemberForm.get('relationToMember')?.touched
+          "
+        >
+          <small *ngIf="addMemberForm.get('relationToMember')?.errors?.['required']"
+            >Le lien de parenté est requis.</small
+          >
+        </div>
+      </fieldset>
 
       <fieldset formArrayName="emergencyContacts">
-        <h2>Personnes à contacter en cas d'urgence <span>(1 contact minimum)</span></h2>
+        <h2>
+          Personnes à contacter en cas d'urgence
+          <span>(1 contact minimum)</span>
+        </h2>
         <div
           *ngFor="let contact of contacts.controls; let i = index"
-          [formGroupName]="i" class="contact-container"
+          [formGroupName]="i"
+          class="contact-container"
         >
           <div class="flex-container">
             <div class="form-group">
@@ -136,7 +169,7 @@
               <input
                 id="emergencyContactname-{{ i }}"
                 type="text"
-                formControlName="name"
+                formControlName="lastname"
               />
               <div
                 *ngIf="
@@ -188,7 +221,7 @@
               >
               <select
                 id="emergencyContactRelationship-{{ i }}"
-                formControlName="relationship"
+                formControlName="relationToMember"
               >
                 <option value="" disabled selected>
                   Choisir un lien de parenté
@@ -202,11 +235,11 @@
               </select>
               <div
                 *ngIf="
-                  contact.get('relationship')?.invalid &&
-                  contact.get('relationship')?.touched
+                  contact.get('relationToMember')?.invalid &&
+                  contact.get('relationToMember')?.touched
                 "
               >
-                <small *ngIf="contact.get('relationship')?.errors?.['required']"
+                <small *ngIf="contact.get('relationToMember')?.errors?.['required']"
                   >Le lien de parenté est requis.</small
                 >
               </div>
@@ -221,13 +254,15 @@
               />
               <div
                 *ngIf="
-                  contact.get('phoneNumber')?.invalid && contact.get('phoneNumber')?.touched
+                  contact.get('phoneNumber')?.invalid &&
+                  contact.get('phoneNumber')?.touched
                 "
               >
                 <small *ngIf="contact.get('phoneNumber')?.errors?.['required']"
                   >Le téléphone est requis.</small
                 >
-                <small *ngIf="contact.get('phoneNumber')?.errors?.['phoneFormat']"
+                <small
+                  *ngIf="contact.get('phoneNumber')?.errors?.['phoneFormat']"
                   >Numéro de téléphone invalide.</small
                 >
               </div>
@@ -242,9 +277,12 @@
             Supprimer ce contact
           </button>
         </div>
-        <button type="button" (click)="addEmergencyContact()" class="add-contact-button">
-          <i class="fa-light fa-circle-plus"></i> Ajouter
-          un contact
+        <button
+          type="button"
+          (click)="addEmergencyContact()"
+          class="add-contact-button"
+        >
+          <i class="fa-light fa-circle-plus"></i> Ajouter un contact
         </button>
       </fieldset>
 
@@ -252,8 +290,8 @@
         <h2>Autorisations</h2>
         <div formGroupName="authorizations" class="authorizations">
           <div class="input-label-container">
-            <input type="checkbox" formControlName="imageUse" id="imageUse" />
-            <label for="imageUse">
+            <input type="checkbox" formControlName="photoApproved" id="photoApproved" />
+            <label for="photoApproved">
               J'autorise l'association à utiliser l'image de l'adhérent à
               travers sa communication
             </label>
@@ -261,10 +299,10 @@
           <div class="input-label-container">
             <input
               type="checkbox"
-              formControlName="medicalTreatment"
-              id="medicalTreatment"
+              formControlName="firstAidApproved"
+              id="firstAidApproved"
             />
-            <label for="medicalTreatment">
+            <label for="firstAidApproved">
               J'autorise l'association à faire pratiquer tout acte médical au
               cas où l'état de l'adhérent le nécessiterait
             </label>
@@ -272,16 +310,16 @@
           <div class="input-label-container">
             <input
               type="checkbox"
-              formControlName="leaveGymAlone"
-              id="leaveGymAlone"
+              formControlName="allowedToLeave"
+              id="allowedToLeave"
             />
-            <label for="leaveGymAlone">
+            <label for="allowedToLeave">
               J'autorise l'adhérent à sortir seul du gymnase
             </label>
           </div>
           <div class="input-label-container">
-            <input type="checkbox" formControlName="transport" id="transport" />
-            <label for="transport">
+            <input type="checkbox" formControlName="transportApproved" id="transportApproved" />
+            <label for="transportApproved">
               J'autorise l'association à transporter l'adhérent pour se rendre
               sur les lieux de compétitions, manifestations et sorties
               organisées
