@@ -12,6 +12,14 @@ main {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media (min-width: 769px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     .back-arrow i {
       cursor: pointer;
@@ -144,7 +152,28 @@ main {
   }
 
   i {
-    margin-right: 0.5em;
-    color: #fff;
+    font-size: 24px;
+    margin-left: 8px;
+  }
+
+  .fa-user {
+    color: black;
+  }
+
+  .fa-lock {
+    color: orange;
+  }
+
+  .fa-dumbbell {
+    color: blue;
+  }
+
+  .fa-person-breastfeeding {
+    color: purple;
+  }
+
+  a {
+    color: $color-primary;
+    font-weight: 600;
   }
 }

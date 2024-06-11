@@ -15,7 +15,8 @@
         <th>ID</th>
         <th>Nom</th>
         <th>Prénom</th>
-        <th>Inscrit le</th>
+        <th>Email</th>
+        <th>Roles</th>
       </tr>
     </thead>
     <tbody>
@@ -25,9 +26,22 @@
         class="user-row"
       >
         <td>{{ user.id }}</td>
-        <td>{{ user.lastname }}</td>
-        <td>{{ user.firstname }}</td>
-        <td>{{ user.lastname }}</td>
+        <td>{{ user.lastname | uppercase }}</td>
+        <td>{{ user.firstname | titlecase }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <ul class="flex">
+            <li *ngFor="let role of user.roles">
+              <span [ngSwitch]="role">
+                <span *ngSwitchCase="'ROLE_ADMIN'"><i class="fa-regular fa-lock"></i></span>
+                <span *ngSwitchCase="'ROLE_USER'"></span>
+                <span *ngSwitchCase="'ROLE_TRAINER'"><i class="fa-light fa-dumbbell"></i></span>
+                <span *ngSwitchCase="'ROLE_GUARDIAN'"><i class="fa-light fa-person-breastfeeding"></i></span>
+                <span *ngSwitchDefault>Default</span>
+              </span>
+            </li>
+          </ul>
+        </td>
       </tr>
     </tbody>
   </table>

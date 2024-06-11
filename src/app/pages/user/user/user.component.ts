@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { User } from '../../../../../models/user.model';
 import { ApiService } from '../../../../../shared/services/api.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })

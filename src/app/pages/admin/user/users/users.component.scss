@@ -45,4 +45,21 @@ main {
       }
     }
   }
+
+  .flex {
+    display: flex;
+    gap: 8px;
+  }
+
+  .fa-lock {
+    color: orange;
+  }
+
+  .fa-dumbbell {
+    color: blue;
+  }
+
+  .fa-person-breastfeeding {
+    color: purple;
+  }
 }

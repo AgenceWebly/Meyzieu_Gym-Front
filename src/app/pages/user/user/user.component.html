@@ -4,25 +4,44 @@
     <div class="back-arrow" (click)="goBack()">
       <i class="fa fa-arrow-left"></i>
     </div>
-    <h1>Profil de {{ user.lastname }} {{ user.firstname }}</h1>
+    <h1>Profil de {{ user.lastname | uppercase }}&nbsp;{{ user.firstname | titlecase }}</h1>
+    <ul class="flex">
+      <li *ngFor="let role of user.roles" [title]="role">
+        <span [ngSwitch]="role">
+          <span *ngSwitchCase="'ROLE_ADMIN'"
+            ><i class="fa-regular fa-lock"></i
+          ></span>
+          <span *ngSwitchCase="'ROLE_USER'"
+            ><i class="fa-light fa-user"></i
+          ></span>
+          <span *ngSwitchCase="'ROLE_TRAINER'"
+            ><i class="fa-light fa-dumbbell"></i
+          ></span>
+          <span *ngSwitchCase="'ROLE_GUARDIAN'"
+            ><i class="fa-light fa-person-breastfeeding"></i
+          ></span>
+          <span *ngSwitchDefault>Default</span>
+        </span>
+      </li>
+    </ul>
   </div>
   <div class="profile-container">
     <div class="profile-info">
       <div class="profile-item">
         <label>Nom</label>
-        <span>{{ user.lastname }}</span>
+        <span>{{ user.lastname | uppercase }}</span>
       </div>
       <div class="profile-item">
         <label>Prénom</label>
-        <span>{{ user.firstname }}</span>
+        <span>{{ user.firstname | titlecase }}</span>
       </div>
       <div class="profile-item">
         <label>Profession</label>
-        <span>{{ user.occupation }}</span>
+        <span>{{ user.occupation | titlecase }}</span>
       </div>
       <div class="profile-item">
         <label>Téléphone</label>
-        <span>{{ user.phoneNumber }}</span>
+        <span><a [href]="'tel:' + user.phoneNumber">{{ user.phoneNumber }}</a></span>
       </div>
       <div class="profile-item">
         <label>Adresse</label>
@@ -30,7 +49,7 @@
       </div>
       <div class="profile-item">
         <label>Email</label>
-        <span>{{ user.email }}</span>
+        <span><a [href]="'mailto:' + user.email">{{ user.email | lowercase }}</a></span>
       </div>
     </div>
 
