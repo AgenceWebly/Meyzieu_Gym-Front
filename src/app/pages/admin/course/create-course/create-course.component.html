@@ -1,0 +1,184 @@
+<main>
+  <div class="header">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+    </div>
+    <h1>Créer un nouveau cours</h1>
+  </div>
+  <form [formGroup]="courseForm" (ngSubmit)="submitForm()">
+    <fieldset>
+      <label for="program">Programme</label>
+      <select id="program" formControlName="programId">
+        <option value="" disabled selected>Choisir</option>
+        <option *ngFor="let program of programs" [value]="program.id">
+          {{ program.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          courseForm.get('programId')?.invalid &&
+          courseForm.get('programId')?.touched
+        "
+      >
+        <small *ngIf="courseForm.get('programId')?.errors?.['required']"
+          >Le programme est requis.</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="season">Saison</label>
+      <select id="season" formControlName="seasonId">
+        <option value="" disabled selected>Choisir</option>
+        <option *ngFor="let season of seasons" [value]="season.id">
+          {{ season.startDate | date : "yyyy" }} /
+          {{ season.endDate | date : "yyyy" }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          courseForm.get('seasonId')?.invalid &&
+          courseForm.get('seasonId')?.touched
+        "
+      >
+        <small *ngIf="courseForm.get('seasonId')?.errors?.['required']"
+          >La saison est requise.</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="registrationStartDate">Date de début des inscriptions</label>
+      <input
+        type="datetime-local"
+        id="registrationStartDate"
+        formControlName="registrationStartDate"
+      />
+      <div
+        *ngIf="
+          courseForm.get('registrationStartDate')?.invalid &&
+          courseForm.get('registrationStartDate')?.touched
+        "
+      >
+        <small
+          *ngIf="courseForm.get('registrationStartDate')?.errors?.['required']"
+          >La date de début des inscriptions est requise.</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="registrationEndDate">Date de fin des inscriptions</label>
+      <input
+        type="datetime-local"
+        id="registrationEndDate"
+        formControlName="registrationEndDate"
+      />
+      <div
+        *ngIf="
+          courseForm.get('registrationEndDate')?.invalid &&
+          courseForm.get('registrationEndDate')?.touched
+        "
+      >
+        <small
+          *ngIf="courseForm.get('registrationEndDate')?.errors?.['required']"
+          >La date de fin des inscriptions est requise.</small
+        >
+        <small *ngIf="courseForm.errors?.['dateRangeInvalid']"
+          >La date de fin doit être postérieure à la date de début.</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="price">Prix</label>
+      <input type="number" id="price" formControlName="price" />
+      <div
+        *ngIf="
+          courseForm.get('price')?.invalid && courseForm.get('price')?.touched
+        "
+      >
+        <small *ngIf="courseForm.get('price')?.errors?.['required']"
+          >Le prix est requis.</small
+        >
+        <small *ngIf="courseForm.get('price')?.errors?.['min']"
+          >Le prix doit être supérieur à zéro.</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="maxMembers">Nombre maximum d'inscrits</label>
+      <input type="number" id="maxMembers" formControlName="maxMembers" />
+      <div
+        *ngIf="
+          courseForm.get('maxMembers')?.invalid &&
+          courseForm.get('maxMembers')?.touched
+        "
+      >
+        <small *ngIf="courseForm.get('maxMembers')?.errors?.['required']"
+          >Le nombre maximum d'inscrits est requis.</small
+        >
+        <small *ngIf="courseForm.get('maxMembers')?.errors?.['min']"
+          >Le nombre maximum d'inscrits doit être supérieur à zéro.</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="minAge">Âge minimum</label>
+      <input type="number" id="minAge" formControlName="minAge" />
+      <div
+        *ngIf="
+          courseForm.get('minAge')?.invalid && courseForm.get('minAge')?.touched
+        "
+      >
+        <small *ngIf="courseForm.get('minAge')?.errors?.['required']"
+          >L'âge minimum est requis.</small
+        >
+        <small *ngIf="courseForm.get('minAge')?.errors?.['min']"
+          >L'âge minimum doit être au moins de zéro.</small
+        >
+        <small *ngIf="courseForm.get('minAge')?.errors?.['max']"
+          >L'âge minimum doit être réaliste (0-100).</small
+        >
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="maxAge">Âge maximum</label>
+      <input type="number" id="maxAge" formControlName="maxAge" />
+      <div
+        *ngIf="
+          courseForm.get('maxAge')?.invalid && courseForm.get('maxAge')?.touched
+        "
+      >
+        <small *ngIf="courseForm.get('maxAge')?.errors?.['required']"
+          >L'âge maximum est requis.</small
+        >
+        <small *ngIf="courseForm.get('maxAge')?.errors?.['min']"
+          >L'âge maximum doit être au moins de zéro.</small
+        >
+        <small *ngIf="courseForm.get('maxAge')?.errors?.['max']"
+          >L'âge maximum doit être réaliste (0-100).</small
+        >
+      </div>
+      <div
+        *ngIf="
+          courseForm.get('minAge')?.valid &&
+          courseForm.get('minAge')?.touched &&
+          courseForm.get('maxAge')?.valid &&
+          courseForm.get('maxAge')?.touched
+        "
+      >
+        <small class="info"
+          >L'inscrit doit être né entre {{ maxYear }} et {{ minYear }}</small
+        >
+      </div>
+    </fieldset>
+
+    <button type="submit" [disabled]="courseForm.invalid">
+      Créer le cours
+    </button>
+  </form>
+</main>

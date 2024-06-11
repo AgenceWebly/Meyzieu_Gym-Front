@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './courses.component.html',
-  styleUrl: './courses.component.scss'
+  styleUrl: './courses.component.scss',
 })
 export class CoursesComponent {
   courses: Course[] = [];
@@ -40,9 +40,10 @@ export class CoursesComponent {
 
   filterCourses() {
     if (this.searchTerm) {
-      this.filteredCourses = this.courses.filter(
-        (course) =>
-          course.program.name.toLowerCase() === this.searchTerm.toLowerCase()
+      this.filteredCourses = this.courses.filter((course) =>
+        course.program.name
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredCourses = [...this.courses];

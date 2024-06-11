@@ -41,7 +41,7 @@ export class ProgramsComponent {
     if (this.searchTerm) {
       this.filteredPrograms = this.programs.filter(
         (program) =>
-          program.name.toLowerCase() === this.searchTerm.toLowerCase()
+          program.name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredPrograms = [...this.programs];

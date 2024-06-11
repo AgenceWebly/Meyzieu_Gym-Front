@@ -20,6 +20,7 @@ import { UsersComponent } from './pages/admin/user/users/users.component';
 import { UserComponent } from './pages/admin/user/user/user/user.component';
 import { AddProgramComponent } from './pages/add-program/add-program.component';
 import { CoursesComponent } from './pages/admin/course/courses/courses.component';
+import { CreateCourseComponent } from './pages/admin/course/create-course/create-course.component';
 
 export const routes: Routes = [
   {
@@ -193,7 +194,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/cours/nouveau-cours',
-    component: CreateProgramComponent,
+    component: CreateCourseComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

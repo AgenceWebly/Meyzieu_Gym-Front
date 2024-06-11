@@ -25,27 +25,23 @@ export class UsersComponent {
   ngOnInit() {
     this.apiService.getUsers().subscribe((data) => {
       this.users = data.sort(function compare(a, b) {
-        if (a.lastname < b.lastname)
-           return -1;
-        if (a.lastname > b.lastname )
-           return 1;
+        if (a.lastname < b.lastname) return -1;
+        if (a.lastname > b.lastname) return 1;
         return 0;
-      });;
+      });
       this.filteredUsers = data.sort(function compare(a, b) {
-        if (a.lastname < b.lastname)
-           return -1;
-        if (a.lastname > b.lastname )
-           return 1;
+        if (a.lastname < b.lastname) return -1;
+        if (a.lastname > b.lastname) return 1;
         return 0;
-      });;
+      });
       console.log(data);
     });
   }
 
   filterUsers() {
     if (this.searchTerm) {
-      this.filteredUsers = this.users.filter(
-        (user) => user.lastname.toLowerCase() === this.searchTerm.toLowerCase()
+      this.filteredUsers = this.users.filter((user) =>
+        user.lastname.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredUsers = [...this.users];
