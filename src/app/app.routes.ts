@@ -18,6 +18,7 @@ import { CreateProgramComponent } from './pages/admin/program/create-program/cre
 import { EditProgramComponent } from './pages/admin/program/edit-program/edit-program.component';
 import { UsersComponent } from './pages/admin/user/users/users.component';
 import { UserComponent } from './pages/admin/user/user/user/user.component';
+import { AddProgramComponent } from './pages/add-program/add-program.component';
 
 export const routes: Routes = [
   {
@@ -90,8 +91,8 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'inscription/cours',
-    component: RegistrationComponent,
+    path: 'inscription/adherent/:id/cours',
+    component: AddProgramComponent,
     canActivate: [authGuard],
     data: {
       userType: 'guardian',
