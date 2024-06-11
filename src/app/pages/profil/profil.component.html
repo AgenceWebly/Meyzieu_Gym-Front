@@ -5,7 +5,7 @@
     <div class="profile-info">
       <div class="profile-item">
         <label>Nom</label>
-        <span>{{ currentUser.lastname }}</span>
+        <span>{{ currentUser.lastname | uppercase }}</span>
       </div>
       <div class="profile-item">
         <label>Prénom</label>
@@ -13,7 +13,7 @@
       </div>
       <div class="profile-item">
         <label>Profession</label>
-        <span>{{ currentUser.occupation }}</span>
+        <span>{{ currentUser.occupation | titlecase }}</span>
       </div>
       <div class="profile-item">
         <label>Téléphone</label>
@@ -25,7 +25,7 @@
       </div>
       <div class="profile-item">
         <label>Email</label>
-        <span>{{ currentUser.email }}</span>
+        <span>{{ currentUser.email | lowercase }}</span>
       </div>
     </div>
 
@@ -44,7 +44,7 @@
       } @else {
       <p>Vous n'avez aucun document rattaché à votre compte.</p>
       <label for="upload">
-        <span><i class="fa-light fa-upload"></i>Télécharger mon RIB</span>
+        <span><i class="fa-light fa-upload"></i>Ajouter mon RIB</span>
         <input type="file" id="upload" (change)="handleRibUpload($event)" />
       </label>
       }
@@ -52,7 +52,7 @@
 
     <div class="button-container">
       <button (click)="editProfile()">
-        <i class="fa fa-edit"></i> Modifier le profil
+        <i class="fa fa-edit"></i> Modifier mon profil
       </button>
     </div>
   </div>

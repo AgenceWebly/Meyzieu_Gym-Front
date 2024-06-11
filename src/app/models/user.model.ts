@@ -7,4 +7,5 @@ export interface User {
   email: string;
   occupation: string | null;
   rib: string | null;
+  roles: string[];
 }
