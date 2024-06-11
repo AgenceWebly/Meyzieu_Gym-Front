@@ -30,11 +30,11 @@ export class ProgramsComponent {
   }
 
   editProgram(programId: number) {
-    this.router.navigate(['/admin/cours', programId]);
+    this.router.navigate(['/admin/programmes', programId]);
   }
 
   addProgram() {
-    this.router.navigate(['/admin/cours/nouveau-cours']);
+    this.router.navigate(['/admin/programmes/nouveau-programme']);
   }
 
   filterPrograms() {

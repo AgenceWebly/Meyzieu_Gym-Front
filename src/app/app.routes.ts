@@ -19,6 +19,7 @@ import { EditProgramComponent } from './pages/admin/program/edit-program/edit-pr
 import { UsersComponent } from './pages/admin/user/users/users.component';
 import { UserComponent } from './pages/admin/user/user/user/user.component';
 import { AddProgramComponent } from './pages/add-program/add-program.component';
+import { CoursesComponent } from './pages/admin/course/courses/courses.component';
 
 export const routes: Routes = [
   {
@@ -167,6 +168,30 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'admin/programmes/nouveau-programme',
+    component: CreateProgramComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/programmes/:id',
+    component: EditProgramComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/programmes',
+    component: ProgramsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
     path: 'admin/cours/nouveau-cours',
     component: CreateProgramComponent,
     canActivate: [authGuard],
@@ -184,7 +209,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/cours',
-    component: ProgramsComponent,
+    component: CoursesComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

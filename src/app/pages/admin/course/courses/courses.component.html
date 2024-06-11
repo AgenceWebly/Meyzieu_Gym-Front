@@ -1,36 +1,33 @@
 <main>
-  <h1>Liste des cours toutes saisons</h1>
+  <h1>Liste des cours</h1>
   <div class="toolbar">
     <input
       type="text"
       [(ngModel)]="searchTerm"
-      (input)="filterPrograms()"
+      (input)="filterCourses()"
       placeholder="Rechercher par nom"
     />
-    <button (click)="addProgram()" class="add-button">+</button>
+    <button (click)="addCourse()" class="add-button">+</button>
   </div>
 
-  <table class="programs-table">
+  <table class="courses-table">
     <thead>
       <tr>
         <th>ID</th>
         <th>Nom du cours</th>
-        <th>En compétition ?</th>
+        <th>Saison</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        *ngFor="let program of filteredPrograms"
-        (click)="editProgram(program.id)"
-        class="program-row"
+        *ngFor="let course of filteredCourses"
+        (click)="editCourse(course.id)"
+        class="course-row"
       >
-        <td>{{ program.id }}</td>
-        <td>{{ program.name }}</td>
-        <td>{{ program.includingCompetition ? 'oui' : 'non' }}</td>
+        <td>{{ course.id }}</td>
+        <td>{{ course.program.name }}</td>
+        <td>{{ course.season.startDate }} / {{ course.season.endDate }}</td>
       </tr>
     </tbody>
   </table>
 </main>
-
-
-

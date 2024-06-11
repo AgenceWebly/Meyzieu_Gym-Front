@@ -42,7 +42,7 @@ export class CoursesComponent {
     if (this.searchTerm) {
       this.filteredCourses = this.courses.filter(
         (course) =>
-          course.name.toLowerCase() === this.searchTerm.toLowerCase()
+          course.program.name.toLowerCase() === this.searchTerm.toLowerCase()
       );
     } else {
       this.filteredCourses = [...this.courses];
