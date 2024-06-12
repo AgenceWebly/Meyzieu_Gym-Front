@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
-  AbstractControl,
+  FormArray,
   FormBuilder,
   ReactiveFormsModule,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,6 +23,7 @@ export class CreateCourseComponent {
   programs: Program[] = [];
   minYear: number | null = null;
   maxYear: number | null = null;
+  daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
   fb = inject(FormBuilder);
   router = inject(Router);
@@ -39,6 +39,7 @@ export class CreateCourseComponent {
     maxMembers: [0, [Validators.required, Validators.min(1)]],
     minAge: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
     maxAge: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+    trainingSlots: this.fb.array([]),
   });
 
   constructor() {}
@@ -56,6 +57,23 @@ export class CreateCourseComponent {
     this.courseForm.get('maxAge')?.valueChanges.subscribe(() => {
       this.calculateYears();
     });
+  }
+
+  get trainingSlots() {
+    return this.courseForm.get('trainingSlots') as FormArray;
+  }
+
+  addTrainingSlot() {
+    const trainingSlotGroup = this.fb.group({
+      day: ['', Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
+    });
+    this.trainingSlots.push(trainingSlotGroup);
+  }
+
+  removeTrainingSlot(index: number) {
+    this.trainingSlots.removeAt(index);
   }
 
   submitForm() {
