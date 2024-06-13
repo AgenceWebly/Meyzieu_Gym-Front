@@ -1,3 +1,40 @@
-
 <main>
+  <h1>Groupes</h1>
+  @if (coursesFilteredByAge.length > 0) {
+  <div class="course-container" *ngFor="let course of coursesFilteredByAge">
+    <h2>
+      {{ course.program.name | titlecase }} (groupe de {{ course.maxMembers }})
+    </h2>
+    @if (course.trainingSlots.length > 1) {
+    <h3><i class="fa-light fa-calendar-days"></i> Entrainements</h3>
+    } @else if (course.trainingSlots.length === 1) {
+    <h3>Entrainement</h3>
+    }
+    <ul>
+      <li *ngFor="let trainingSlot of course.trainingSlots">
+        {{ trainingSlot.day | titlecase }} de {{ trainingSlot.startTime }} à
+        {{ trainingSlot.endTime }}
+      </li>
+    </ul>
+    <h3><i class="fa-solid fa-circle-info fa-2xs"></i> Places disponibles</h3>
+    <p>{{ course.program.description }}</p>
+
+    @if (discount > 0) {
+    <h3>
+      <span class="old-price">{{ course.price }} €</span>
+      {{ course.price - discount }} €
+    </h3>
+    <div>
+      Une réduction a été automatiquement appliquée pour cette
+      {{ membersRegisteredThisSeason }}ème adhésion cette saison dans la cadre
+      d'une fratrie.
+    </div>
+    } @else {
+    <h3>{{ course.price }} €</h3>
+    }
+    <button>Choisir ce cours</button>
+  </div>
+  } @else {
+  <div class="course-container">Aucun cours n'est disponible à ce jour</div>
+  }
 </main>

@@ -1,0 +1,26 @@
+<main>
+  <div class="form-container">
+    <h1>Questionnaire médical</h1>
+    <form [formGroup]="medicalForm" (ngSubmit)="submitMedicalForm()">
+      <fieldset>
+        <label for="gender" class="hidden-label">Genre</label>
+        <div class="gender-choice-container">
+          <div class="gender-container">
+            <input type="radio" formControlName="gender" value="male" />
+            <label> Masculin </label>
+          </div>
+
+          <div class="gender-container">
+            <input type="radio" formControlName="gender" value="female" />
+            <label> Féminin </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <button type="submit" [disabled]="medicalForm.invalid">
+        Poursuivre l'inscription
+      </button>
+    </form>
+  </div>
+</main>
+

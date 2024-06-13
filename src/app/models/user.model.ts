@@ -1,3 +1,5 @@
+import { Member } from "./member.model";
+
 export interface User {
   id: number;
   lastname: string;
@@ -8,4 +10,5 @@ export interface User {
   occupation: string | null;
   rib: string | null;
   roles: string[];
+  members: Member[];
 }
