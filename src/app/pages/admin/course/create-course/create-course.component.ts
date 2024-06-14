@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { Season } from '../../../../models/season.model';
 import { Program } from '../../../../models/program.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-course',
@@ -24,11 +25,13 @@ export class CreateCourseComponent {
   minYear: number | null = null;
   maxYear: number | null = null;
   daysOfWeek = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+  charCount: number = 255;
 
   fb = inject(FormBuilder);
   router = inject(Router);
   apiService = inject(ApiService);
-  charCount: number = 255;
+  toastr = inject(ToastrService);
+
 
   courseForm = this.fb.group({
     programId: ['', Validators.required],
@@ -45,12 +48,24 @@ export class CreateCourseComponent {
   constructor() {}
 
   ngOnInit() {
-    this.apiService.getPrograms().subscribe((response) => {
-      this.programs = response;
+    this.apiService.getPrograms().subscribe({
+      next: (response) => {
+        this.programs = response;
+      },
+      error: (err) => {
+        this.toastr.error('Une erreur est survenue', 'Erreur');
+      }
     });
-    this.apiService.getSeasons().subscribe((response) => {
-      this.seasons = response;
+    
+    this.apiService.getSeasons().subscribe({
+      next: (response) => {
+        this.seasons = response;
+      },
+      error: (err) => {
+        this.toastr.error('Une erreur est survenue', 'Erreur');
+      }
     });
+    
     this.courseForm.get('minAge')?.valueChanges.subscribe(() => {
       this.calculateYears();
     });
@@ -79,11 +94,19 @@ export class CreateCourseComponent {
   submitForm() {
     if (this.courseForm.valid) {
       console.log(this.courseForm.value);
-      this.apiService.createCourse(this.courseForm.value).subscribe(() => {
-        this.router.navigate(['/admin/cours']);
+      this.apiService.createCourse(this.courseForm.value).subscribe({
+        next: () => {
+          this.toastr.success('Cours créé avec succès', 'Succès');
+          this.router.navigate(['/admin/cours']);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la création du cours :', err);
+          this.toastr.error('Une erreur est survenue', 'Erreur');
+        }
       });
     }
   }
+
   calculateYears() {
     const currentYear = new Date().getFullYear();
     const minAge = this.courseForm.get('minAge')?.value;

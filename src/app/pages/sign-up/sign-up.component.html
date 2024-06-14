@@ -69,7 +69,6 @@
           formControlName="address"
           type="search"
           placeholder="Adresse"
-          autocomplete="street-address"
         />
         <div *ngIf="signUpForm.get('address')?.invalid && signUpForm.get('address')?.touched">
           <small *ngIf="signUpForm.get('address')?.errors?.['required']">L'adresse est requise.</small>

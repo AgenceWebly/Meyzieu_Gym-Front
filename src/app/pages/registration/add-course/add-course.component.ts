@@ -7,6 +7,7 @@ import { ApiService } from '../../../shared/services/api.service';
 import { Course } from '../../../models/course.model';
 import { StorageService } from '../../../shared/services/storage.service';
 import { User } from '../../../models/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-course',
@@ -31,25 +32,35 @@ export class AddCourseComponent {
   route = inject(ActivatedRoute);
   apiService = inject(ApiService);
   storageService = inject(StorageService);
+  toastr = inject(ToastrService);
 
   ngOnInit(): void {
-
     this.route.paramMap.subscribe((params: ParamMap) => {
       const idParam = params.get('id');
 
       if (idParam !== null) {
         this.memberId = parseInt(idParam, 10);
-        //Récupérer les info du member et filrer courses en fonction de l'age
+        // Récupérer les info du member et filtrer courses en fonction de l'âge
       } else {
-        console.error("ID de l'adhérent non trouvé");
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Erreur'
+        );
       }
     });
 
-    this.apiService.getCourses().subscribe((response) => {
-      console.log(response);
-
-      this.courses = response;
-      this.coursesFilteredByAge = response;
+    this.apiService.getCourses().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.courses = response;
+        this.coursesFilteredByAge = response;
+      },
+      error: (err) => {
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Erreur'
+        );
+      },
     });
 
     // this.currentUserId = this.storageService.getUser().id;
@@ -89,8 +100,16 @@ export class AddCourseComponent {
       isHealthCertificateRequired: null,
     };
 
-    this.apiService.createRegistration(registrationData).subscribe((data) => {
-      this.router.navigate(['/inscription/' + data + '/questionnaire-medical']);
+    this.apiService.createRegistration(registrationData).subscribe({
+      next: (data) => {
+        this.toastr.success('Inscription prise en compte', 'Succès');
+        this.router.navigate([
+          '/inscription/' + data + '/questionnaire-medical',
+        ]);
+      },
+      error: (err) => {
+        this.toastr.error("Erreur lors de l'inscription :" + err, 'Erreur');
+      },
     });
   }
 }

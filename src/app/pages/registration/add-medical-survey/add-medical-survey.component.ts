@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-medical-survey',
@@ -21,6 +22,7 @@ export class AddMedicalSurveyComponent {
   router = inject(Router);
   route = inject(ActivatedRoute);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   medicalForm = this.fb.group({
     q1: [null, Validators.required],
@@ -41,7 +43,10 @@ export class AddMedicalSurveyComponent {
       if (idParam !== null) {
         this.registrationId = parseInt(idParam, 10);
       } else {
-        console.error("ID de l'inscription non trouvé");
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Erreur'
+        );
       }
     });
 
@@ -65,18 +70,28 @@ export class AddMedicalSurveyComponent {
         healthCertificateFileUrl: null,
       };
 
-      this.router.navigate([
-        '/inscription/' + this.registrationId + '/paiement',
-      ]);
-
       this.apiService
         .updateRegistration(healthCertificateData, this.registrationId)
-        .subscribe((response: number) => {
-          console.log(response);
-          this.router.navigate([
-            '/inscription/' + this.registrationId + '/paiement',
-          ]);
+        .subscribe({
+          next: (response) => {
+            this.toastr.success('Informations prises en compte', 'Succès');
+            this.router.navigate([
+              '/inscription/' + this.registrationId + '/paiement',
+            ]);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastr.error(
+              'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+              'Erreur'
+            );
+          },
         });
+    } else {
+      this.toastr.error(
+        "Veuillez répondre à l'ensemble du questionnaire",
+        'Erreur'
+      );
     }
   }
 }

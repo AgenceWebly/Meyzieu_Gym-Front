@@ -4,6 +4,7 @@ import { User } from '../../../../models/user.model';
 import { ApiService } from '../../../../shared/services/api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -19,22 +20,23 @@ export class UsersComponent {
   searchTerm: string = '';
 
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.apiService.getUsers().subscribe((data) => {
-      this.users = data.sort(function compare(a, b) {
-        if (a.lastname < b.lastname) return -1;
-        if (a.lastname > b.lastname) return 1;
-        return 0;
-      });
-      this.filteredUsers = data.sort(function compare(a, b) {
-        if (a.lastname < b.lastname) return -1;
-        if (a.lastname > b.lastname) return 1;
-        return 0;
-      });
-      console.log(data);
+    this.apiService.getUsers().subscribe({
+      next: (data) => {
+        this.users = data.sort((a, b) => {
+          if (a.lastname < b.lastname) return -1;
+          if (a.lastname > b.lastname) return 1;
+          return 0;
+        });
+        this.filteredUsers = [...this.users];
+      },
+      error: (err) => {
+        this.toastr.error('Erreur : ' + err, 'Erreur');
+      },
     });
   }
 

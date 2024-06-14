@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-members',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './members.component.html',
-  styleUrl: './members.component.scss'
+  styleUrl: './members.component.scss',
 })
 export class MembersComponent {
   currentUser: any;
@@ -19,6 +20,7 @@ export class MembersComponent {
   router = inject(Router);
   storageService = inject(StorageService);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
@@ -28,7 +30,10 @@ export class MembersComponent {
       },
       error: (err: any) => {
         this.messageError = err.message;
-        console.log(err.message);
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Error'
+        );
       },
     });
   }

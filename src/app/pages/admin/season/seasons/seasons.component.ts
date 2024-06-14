@@ -4,6 +4,7 @@ import { Season } from '../../../../models/season.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../../shared/services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-seasons',
@@ -19,13 +20,19 @@ export class SeasonsComponent {
   searchYear: string = '';
 
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.apiService.getSeasons().subscribe((data) => {
-      this.seasons = data;
-      this.filteredSeasons = data;
+    this.apiService.getSeasons().subscribe({
+      next: (data) => {
+        this.seasons = data;
+        this.filteredSeasons = data;
+      },
+      error: (err) => {
+        this.toastr.error('Erreur : ' + err, 'Erreur');
+      },
     });
   }
 

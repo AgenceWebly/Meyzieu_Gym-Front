@@ -4,6 +4,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-payment',
@@ -20,6 +21,7 @@ export class AddPaymentComponent {
   router = inject(Router);
   route = inject(ActivatedRoute);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   paymentForm = this.fb.group({
     paymentMethod: ['', Validators.required],
@@ -32,7 +34,7 @@ export class AddPaymentComponent {
       if (idParam !== null) {
         this.registrationId = parseInt(idParam, 10);
       } else {
-        console.error("ID de l'inscription non trouvé");
+        this.toastr.error("ID de l'inscription non trouvé", 'Erreur');
       }
     });
   }
@@ -54,20 +56,33 @@ export class AddPaymentComponent {
         .updateRegistration(registrationData, this.registrationId)
         .subscribe({
           next: () => {
+            this.toastr.success('Mode de règlement pris en compte', 'Succès');
             if (selectedPaymentMethod.includes('cb')) {
-              this.router.navigate(['inscription/' + this.registrationId + '/confirmation'], {
-                queryParams: { method: selectedPaymentMethod },
-              });
+              this.router.navigate(
+                ['inscription/' + this.registrationId + '/confirmation'],
+                {
+                  queryParams: { method: selectedPaymentMethod },
+                }
+              );
             } else {
-              this.router.navigate(['inscription/' + this.registrationId + '/confirmation'], {
-                queryParams: { method: 'autre' },
-              });
+              this.router.navigate(
+                ['inscription/' + this.registrationId + '/confirmation'],
+                {
+                  queryParams: { method: 'autre' },
+                }
+              );
             }
           },
           error: (err) => {
             console.error('Error updating registration:', err);
+            this.toastr.error(
+              'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+              'Erreur'
+            );
           },
         });
+    } else {
+      this.toastr.error('Veuillez sélectionner un mode de paiement', 'Erreur');
     }
   }
 }
