@@ -18,8 +18,8 @@ import { User } from '../../../models/user.model';
 export class AddCourseComponent {
   memberId!: number;
   currentUserId!: number;
-  discount: number = 30;
-  membersRegisteredThisSeason: number = 2;
+  discount: number = 0;
+  membersRegisteredThisSeason: number = 1;
 
   courses: Course[] = [
     {

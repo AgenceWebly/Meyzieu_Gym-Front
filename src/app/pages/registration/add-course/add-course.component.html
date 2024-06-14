@@ -3,7 +3,7 @@
   @if (coursesFilteredByAge.length > 0) {
   <div class="course-container" *ngFor="let course of coursesFilteredByAge">
     <h2>
-      {{ course.program.name | titlecase }} (groupe de {{ course.maxMembers }})
+      {{ course.program.name | titlecase }}
     </h2>
     @if (course.trainingSlots.length > 1) {
     <h3><i class="fa-light fa-calendar-days"></i> Entrainements</h3>
@@ -16,7 +16,7 @@
         {{ trainingSlot.endTime }}
       </li>
     </ul>
-    <h3><i class="fa-solid fa-circle-info fa-2xs"></i> Places disponibles</h3>
+    <h3><i class="fa-solid fa-circle-info fa-2xs"></i> X places disponibles sur {{ course.maxMembers }}</h3>
     <p>{{ course.program.description }}</p>
 
     @if (discount > 0) {
