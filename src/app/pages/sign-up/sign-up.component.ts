@@ -9,6 +9,7 @@ import { passwordStrengthValidator } from '../../shared/validators/password-stre
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,6 +26,8 @@ export class SignUpComponent {
   passwordMessage = '';
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+
+  private destroy$ = new Subject<void>();
 
   fb = inject(FormBuilder);
   addressService = inject(AddressService);
@@ -88,9 +91,14 @@ export class SignUpComponent {
       }
     });
 
-    this.signUpForm.get('passwords.password')?.valueChanges.subscribe(() => {
+    this.signUpForm.get('passwords.password')?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.checkPasswordStrength();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   checkPasswordStrength(): void {

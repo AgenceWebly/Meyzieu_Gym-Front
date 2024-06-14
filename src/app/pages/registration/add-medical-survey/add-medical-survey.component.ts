@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-medical-survey',
@@ -16,6 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AddMedicalSurveyComponent {
   registrationId!: number;
   showHealthCertificateMessage: boolean = false;
+
+  private destroy$ = new Subject<void>();
 
   fb = inject(FormBuilder);
   http = inject(HttpClient);
@@ -37,7 +40,7 @@ export class AddMedicalSurveyComponent {
   });
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
+    this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params: ParamMap) => {
       const idParam = params.get('id');
 
       if (idParam !== null) {
@@ -50,9 +53,14 @@ export class AddMedicalSurveyComponent {
       }
     });
 
-    this.medicalForm.valueChanges.subscribe((values) => {
+    this.medicalForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((values) => {
       this.checkHealthCertificateRequirement(values);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   checkHealthCertificateRequirement(questions: any) {
