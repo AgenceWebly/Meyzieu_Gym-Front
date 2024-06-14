@@ -10,7 +10,6 @@ const AUTH_API = 'http://localhost:8080/api';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-
   // M E M B E R S
   getMembers(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${AUTH_API}/users/${userId}/members`);
@@ -57,6 +56,26 @@ export class ApiService {
     return this.http.put<any>(
       `${AUTH_API}/programs/${programId}`,
       updatedProgram
+    );
+  }
+
+  // C O U R S E S
+  getCourses(): Observable<any[]> {
+    return this.http.get<any[]>(`${AUTH_API}/courses`);
+  }
+
+  getCourseById(courseId: number): Observable<any> {
+    return this.http.get<any>(`${AUTH_API}/courses/${courseId}`);
+  }
+
+  createCourse(newCourse: any): Observable<any> {
+    return this.http.post<any>(`${AUTH_API}/courses`, newCourse);
+  }
+
+  updateCourse(updatedCourse: any, programId: number): Observable<any> {
+    return this.http.put<any>(
+      `${AUTH_API}/courses/${programId}`,
+      updatedCourse
     );
   }
 

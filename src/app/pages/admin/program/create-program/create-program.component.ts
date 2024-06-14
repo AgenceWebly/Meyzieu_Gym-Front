@@ -36,13 +36,13 @@ export class CreateProgramComponent {
     if (this.programForm.valid) {
       this.apiService.createProgram(this.programForm.value).subscribe(() => {
         console.log(this.programForm.value);
-        this.router.navigate(['/admin/cours']);
+        this.router.navigate(['/admin/programmes']);
       });
     }
   }
 
   goBack() {
-    this.router.navigate(['/admin/cours']);
+    this.router.navigate(['/admin/programmes']);
   }
 
   updateCharacterCount(): void {

@@ -30,18 +30,18 @@ export class ProgramsComponent {
   }
 
   editProgram(programId: number) {
-    this.router.navigate(['/admin/cours', programId]);
+    this.router.navigate(['/admin/programmes', programId]);
   }
 
   addProgram() {
-    this.router.navigate(['/admin/cours/nouveau-cours']);
+    this.router.navigate(['/admin/programmes/nouveau-programme']);
   }
 
   filterPrograms() {
     if (this.searchTerm) {
       this.filteredPrograms = this.programs.filter(
         (program) =>
-          program.name.toLowerCase() === this.searchTerm.toLowerCase()
+          program.name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredPrograms = [...this.programs];

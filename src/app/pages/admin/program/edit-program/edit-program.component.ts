@@ -45,10 +45,10 @@ export class EditProgramComponent {
               });
             });
         } else {
-          console.error('ID du cours invalide');
+          console.error('ID du programme invalide');
         }
       } else {
-        console.error('ID du cours non trouvé');
+        console.error('ID du programme non trouvé');
       }
     });
   }
@@ -58,12 +58,12 @@ export class EditProgramComponent {
       this.apiService
         .updateProgram(this.programForm.value, this.programId)
         .subscribe(() => {
-          this.router.navigate(['/admin/cours']);
+          this.router.navigate(['/admin/programmes']);
         });
     }
   }
 
   goBack(): void {
-    this.router.navigate(['/admin/cours']);
+    this.router.navigate(['/admin/programmes']);
   }
 }

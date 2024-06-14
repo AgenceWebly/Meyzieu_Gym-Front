@@ -1,0 +1,33 @@
+<main>
+  <h1>Liste des cours</h1>
+  <div class="toolbar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterCourses()"
+      placeholder="Rechercher par nom"
+    />
+    <button (click)="addCourse()" class="add-button">+</button>
+  </div>
+
+  <table class="courses-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom du cours</th>
+        <th>Saison</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let course of filteredCourses"
+        (click)="editCourse(course.id)"
+        class="course-row"
+      >
+        <td>{{ course.id }}</td>
+        <td>{{ course.program.name }}</td>
+        <td>{{ course.season.startDate }} / {{ course.season.endDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>

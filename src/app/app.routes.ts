@@ -18,6 +18,9 @@ import { CreateProgramComponent } from './pages/admin/program/create-program/cre
 import { EditProgramComponent } from './pages/admin/program/edit-program/edit-program.component';
 import { UsersComponent } from './pages/admin/user/users/users.component';
 import { UserComponent } from './pages/admin/user/user/user/user.component';
+import { AddProgramComponent } from './pages/add-program/add-program.component';
+import { CoursesComponent } from './pages/admin/course/courses/courses.component';
+import { CreateCourseComponent } from './pages/admin/course/create-course/create-course.component';
 
 export const routes: Routes = [
   {
@@ -90,8 +93,8 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'inscription/cours',
-    component: RegistrationComponent,
+    path: 'inscription/adherent/:id/cours',
+    component: AddProgramComponent,
     canActivate: [authGuard],
     data: {
       userType: 'guardian',
@@ -166,8 +169,32 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'admin/cours/nouveau-cours',
+    path: 'admin/programmes/nouveau-programme',
     component: CreateProgramComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/programmes/:id',
+    component: EditProgramComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/programmes',
+    component: ProgramsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/cours/nouveau-cours',
+    component: CreateCourseComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',
@@ -183,7 +210,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/cours',
-    component: ProgramsComponent,
+    component: CoursesComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',
