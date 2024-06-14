@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { StorageService } from '../../shared/services/storage.service';
-import { ApiService } from '../../shared/services/api.service';
 import { Router } from '@angular/router';
+import { StorageService } from '../../../shared/services/storage.service';
+import { ApiService } from '../../../shared/services/api.service';
 
 @Component({
   selector: 'app-registration',

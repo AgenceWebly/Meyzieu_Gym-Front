@@ -1,0 +1,75 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  h1 {
+    font-family: $font-title;
+    font-size: 2em;
+    margin-bottom: $default-margin;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    section {
+      h2 {
+        font-size: 1.5em;
+        margin: $default-margin 0;
+      }
+
+      fieldset {
+        border: none;
+        padding: 0;
+        margin-bottom: $default-margin;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        label {
+          display: block;
+          width: 70%;
+        }
+
+        div {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          input[type="radio"] {
+            accent-color: $color-primary;
+          }
+
+          label {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+
+    .info {
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-left: 5px solid $color-primary;
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    button {
+      @include button-submit-form;
+    }
+
+    .error-message {
+      color: $error-color;
+      font-size: 0.875em;
+      margin-top: 5px;
+    }
+  }
+}

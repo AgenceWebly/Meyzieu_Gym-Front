@@ -32,7 +32,7 @@
     } @else {
     <h3>{{ course.price }} €</h3>
     }
-    <button>Choisir ce cours</button>
+    <button (click)="registerCourse(course.id, course.price)">Choisir ce cours</button>
   </div>
   } @else {
   <div class="course-container">Aucun cours n'est disponible à ce jour</div>

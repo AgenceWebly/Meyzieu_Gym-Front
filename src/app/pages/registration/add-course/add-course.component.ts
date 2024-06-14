@@ -1,21 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ApiService } from '../../shared/services/api.service';
-import { Course } from '../../models/course.model';
-import { StorageService } from '../../shared/services/storage.service';
-import { User } from '../../models/user.model';
+import { ApiService } from '../../../shared/services/api.service';
+import { Course } from '../../../models/course.model';
+import { StorageService } from '../../../shared/services/storage.service';
+import { User } from '../../../models/user.model';
 
 @Component({
-  selector: 'app-add-program',
+  selector: 'app-add-course',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './add-program.component.html',
-  styleUrl: './add-program.component.scss',
+  templateUrl: './add-course.component.html',
+  styleUrl: './add-course.component.scss',
 })
-export class AddProgramComponent {
+export class AddCourseComponent {
   memberId!: number;
   currentUserId!: number;
   discount: number = 30;
@@ -237,5 +237,22 @@ export class AddProgramComponent {
     } else if (this.membersRegisteredThisSeason <= 3) {
       this.discount = 30;
     }
+  }
+
+  registerCourse(courseId: number, coursePrice: number) {
+    let registrationData = {
+      memberId: this.memberId,
+      courseId: courseId,
+      registrationFee: coursePrice - this.discount,
+      paymentMethod: 'aucun',
+      paymentStatus: 'non payé',
+      registrationStatus: 'inscription en cours',
+      healthCertificateFileUrl: null,
+      isHealthCertificateRequired: null,
+    };
+
+    this.apiService.createRegistration(registrationData).subscribe((data) => {
+      this.router.navigate(['/inscription/' + data + '/questionnaire-medical']);
+    });
   }
 }

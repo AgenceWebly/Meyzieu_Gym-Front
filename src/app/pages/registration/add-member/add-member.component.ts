@@ -8,10 +8,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
-import { UploadFileService } from '../../shared/services/upload-file.service';
-import { StorageService } from '../../shared/services/storage.service';
-import { ApiService } from '../../shared/services/api.service';
+import { phoneFormatValidator } from '../../../shared/validators/phone-format.validator';
+import { UploadFileService } from '../../../shared/services/upload-file.service';
+import { StorageService } from '../../../shared/services/storage.service';
+import { ApiService } from '../../../shared/services/api.service';
 
 @Component({
   selector: 'app-add-member',
@@ -146,7 +146,8 @@ export class AddMemberComponent {
     if (this.addMemberForm.valid) {
       const formData = {
         ...this.addMemberForm.value,
-        isAllowedToLeave: this.addMemberForm.value.authorizations?.allowedToLeave,
+        isAllowedToLeave:
+          this.addMemberForm.value.authorizations?.allowedToLeave,
         firstAidApproved:
           this.addMemberForm.value.authorizations?.firstAidApproved,
         transportApproved:
@@ -156,7 +157,7 @@ export class AddMemberComponent {
 
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
-          this.router.navigate(['inscription/adherent/' + response + '/cours'])
+          this.router.navigate(['inscription/adherent/' + response + '/cours']);
         },
         error: (err) => {
           console.error('Error adding member:', err);

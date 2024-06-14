@@ -95,4 +95,13 @@ export class ApiService {
   updateUser(updatedUser: any, userId: number): Observable<any> {
     return this.http.put<any>(`${AUTH_API}/users/${userId}`, updatedUser);
   }
+
+  // R E G I S T R A T I O N
+  createRegistration(newRegistration: any): Observable<any> {
+    return this.http.post<any>(`${AUTH_API}/registrations`, newRegistration);
+  }
+
+  updateRegistration(updatedRegistration: any): Observable<any> {
+    return this.http.put<any>(`${AUTH_API}/registrations/health-certificate`, updatedRegistration);
+  }
 }
