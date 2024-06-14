@@ -54,7 +54,7 @@
       <span>(1 entrainement par semaine minimum)</span>
     </h2>
 
-    <fieldset formArrayName="trainingSlots">
+    <fieldset formArrayName="createTrainingSlotDtos">
       <div
         *ngFor="let trainingSlot of trainingSlots.controls; let i = index"
         [formGroupName]="i"
@@ -66,7 +66,7 @@
             <select id="day-{{ i }}" formControlName="day">
               <option value="" disabled selected>Choisir un jour</option>
               <option *ngFor="let day of daysOfWeek" [value]="day">
-                {{ day }}
+                {{ day | titlecase }}
               </option>
             </select>
             <div
@@ -272,7 +272,8 @@
         "
       >
         <small class="info"
-          ><i class="fa-solid fa-circle-info"></i> L'inscrit doit être né entre {{ maxYear }} et {{ minYear }}</small
+          ><i class="fa-solid fa-circle-info"></i> L'inscrit doit être né entre
+          {{ maxYear }} et {{ minYear }}</small
         >
       </div>
     </div>

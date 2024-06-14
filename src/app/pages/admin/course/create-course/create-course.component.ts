@@ -23,7 +23,7 @@ export class CreateCourseComponent {
   programs: Program[] = [];
   minYear: number | null = null;
   maxYear: number | null = null;
-  daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+  daysOfWeek = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
 
   fb = inject(FormBuilder);
   router = inject(Router);
@@ -39,7 +39,7 @@ export class CreateCourseComponent {
     maxMembers: [0, [Validators.required, Validators.min(1)]],
     minAge: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
     maxAge: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
-    trainingSlots: this.fb.array([]),
+    createTrainingSlotDtos: this.fb.array([]),
   });
 
   constructor() {}
@@ -60,7 +60,7 @@ export class CreateCourseComponent {
   }
 
   get trainingSlots() {
-    return this.courseForm.get('trainingSlots') as FormArray;
+    return this.courseForm.get('createTrainingSlotDtos') as FormArray;
   }
 
   addTrainingSlot() {

@@ -22,6 +22,8 @@ import { CoursesComponent } from './pages/admin/course/courses/courses.component
 import { CreateCourseComponent } from './pages/admin/course/create-course/create-course.component';
 import { RegistrationComponent } from './pages/registration/registration/registration.component';
 import { AddMedicalSurveyComponent } from './pages/registration/add-medical-survey/add-medical-survey.component';
+import { AddPaymentComponent } from './pages/registration/add-payment/add-payment.component';
+import { ConfirmationComponent } from './pages/registration/confirmation/confirmation.component';
 
 export const routes: Routes = [
   {
@@ -104,6 +106,22 @@ export const routes: Routes = [
   {
     path: 'inscription/:id/questionnaire-medical',
     component: AddMedicalSurveyComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'guardian',
+    },
+  },
+  {
+    path: 'inscription/:id/paiement',
+    component: AddPaymentComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'guardian',
+    },
+  },
+  {
+    path: 'inscription/:id/confirmation',
+    component: ConfirmationComponent,
     canActivate: [authGuard],
     data: {
       userType: 'guardian',

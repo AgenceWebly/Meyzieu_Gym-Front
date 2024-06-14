@@ -1,1 +1,63 @@
-<p>add-payment works!</p>
+<main>
+  <div class="form-container">
+    <div class="summary-container">
+      <h1>Récapitulatif</h1>
+      <p>
+        Veuillez vérifier les informations renseignées avant de finaliser
+        l'inscription en ligne :
+      </p>
+      <p>Adhérent : <span>Jane Doe</span></p>
+      <p>Date de naissance : <span>16 septembre 2013</span></p>
+      <p>Groupe : <span>Perfectionnement 1</span></p>
+      <p>Entrainement : <span>lundi de 18h à 19h30</span></p>
+      <p>Prix : <span>190 Euros</span></p>
+    </div>
+
+    <div class="payment-methods-container">
+      <h2>Modes de règlement</h2>
+      <p>
+        Pour confirmer l'inscription de Jane, veuillez choisir le mode de
+        règlement souhaité :
+      </p>
+      <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
+        <div class="payment-method">
+          <input type="radio" id="payment1" name="payment" value="cb" />
+          <label for="payment1"
+            >Paiement sécurisé par carte bancaire via la site HelloAsso</label
+          >
+        </div>
+        <div class="payment-method">
+          <input type="radio" id="payment2" name="payment" value="cb3x" />
+          <label for="payment2"
+            >Paiement sécurisé en 3 fois par carte bancaire via la site
+            HelloAsso</label
+          >
+        </div>
+        <div class="payment-method">
+          <input type="radio" id="payment3" name="payment" value="cheque" />
+          <label for="payment3">Règlement par chèque</label>
+        </div>
+        <div class="payment-method">
+          <input
+            type="radio"
+            id="payment4"
+            name="payment"
+            value="cheque_vacances"
+          />
+          <label for="payment4"
+            >Règlement par chèques vacances (+2,5% de frais à ajouter à la
+            cotisation totale)</label
+          >
+        </div>
+        <div class="payment-method">
+          <input type="radio" id="payment5" name="payment" value="especes" />
+          <label for="payment5">Règlement en espèces</label>
+        </div>
+
+        <button type="submit" [disabled]="paymentForm.invalid">
+          Finaliser l'inscription
+        </button>
+      </form>
+    </div>
+  </div>
+</main>

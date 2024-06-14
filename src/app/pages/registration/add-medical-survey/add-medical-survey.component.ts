@@ -65,14 +65,17 @@ export class AddMedicalSurveyComponent {
         healthCertificateFileUrl: null,
       };
 
-      console.log(healthCertificateData);
+      this.router.navigate([
+        '/inscription/' + this.registrationId + '/paiement',
+      ]);
+
       this.apiService
-        .updateRegistration(healthCertificateData)
+        .updateRegistration(healthCertificateData, this.registrationId)
         .subscribe((response: number) => {
           console.log(response);
-          // this.router.navigate([
-          //   '/inscription/' + this.registrationId + /paiement',
-          // ]);
+          this.router.navigate([
+            '/inscription/' + this.registrationId + '/paiement',
+          ]);
         });
     }
   }

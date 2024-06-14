@@ -21,177 +21,7 @@ export class AddCourseComponent {
   discount: number = 0;
   membersRegisteredThisSeason: number = 1;
 
-  courses: Course[] = [
-    {
-      id: 1,
-      trainingSlots: [
-        {
-          id: 1,
-          day: 'lundi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-        {
-          id: 2,
-          day: 'vendredi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-      ],
-      program: {
-        id: 1,
-        name: 'Loisir Performance',
-        description:
-          "Cours loisirs performance pour s'entrainer à la gymnastique sur différents agrès, que l'on soit un garçon ou une fille",
-        includingCompetition: false,
-      },
-      season: {
-        id: 1,
-        startDate: new Date(),
-        endDate: new Date(),
-      },
-      registrationStartDate: new Date(),
-      registrationEndDate: new Date(),
-      price: 120,
-      maxMembers: 12,
-      minAge: 8,
-      maxAge: 12,
-    },
-    {
-      id: 1,
-      trainingSlots: [
-        {
-          id: 1,
-          day: 'lundi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-        {
-          id: 2,
-          day: 'vendredi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-      ],
-      program: {
-        id: 2,
-        name: 'Mini enchainement',
-        description:
-          "Cours Mini enchainement pour s'entrainer à la gymnastique sur différents agrès, que l'on soit un garçon ou une fille",
-        includingCompetition: false,
-      },
-      season: {
-        id: 1,
-        startDate: new Date(),
-        endDate: new Date(),
-      },
-      registrationStartDate: new Date(),
-      registrationEndDate: new Date(),
-      price: 180,
-      maxMembers: 10,
-      minAge: 3,
-      maxAge: 4,
-    },
-    {
-      id: 3,
-      trainingSlots: [
-        {
-          id: 1,
-          day: 'lundi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-      ],
-      program: {
-        id: 3,
-        name: 'Loisir',
-        description:
-          "Cours Loisir pour s'entrainer à la gymnastique sur différents agrès, que l'on soit un garçon ou une fille",
-        includingCompetition: false,
-      },
-      season: {
-        id: 1,
-        startDate: new Date(),
-        endDate: new Date(),
-      },
-      registrationStartDate: new Date(),
-      registrationEndDate: new Date(),
-      price: 300,
-      maxMembers: 10,
-      minAge: 9,
-      maxAge: 10,
-    },
-    {
-      id: 4,
-      trainingSlots: [
-        {
-          id: 1,
-          day: 'lundi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-        {
-          id: 2,
-          day: 'vendredi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-      ],
-      program: {
-        id: 3,
-        name: 'Loisir',
-        description:
-          "Cours Loisir pour s'entrainer à la gymnastique sur différents agrès, que l'on soit un garçon ou une fille",
-        includingCompetition: false,
-      },
-      season: {
-        id: 1,
-        startDate: new Date(),
-        endDate: new Date(),
-      },
-      registrationStartDate: new Date(),
-      registrationEndDate: new Date(),
-      price: 300,
-      maxMembers: 10,
-      minAge: 7,
-      maxAge: 8,
-    },
-    {
-      id: 5,
-      trainingSlots: [
-        {
-          id: 1,
-          day: 'lundi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-        {
-          id: 2,
-          day: 'vendredi',
-          startTime: '13:00',
-          endTime: '14:00',
-        },
-      ],
-      program: {
-        id: 4,
-        name: 'Compétition',
-        description:
-          "Cours compétition pour s'entrainer à la gymnastique sur différents agrès, que l'on soit un garçon ou une fille",
-        includingCompetition: true,
-      },
-      season: {
-        id: 1,
-        startDate: new Date(),
-        endDate: new Date(),
-      },
-      registrationStartDate: new Date(),
-      registrationEndDate: new Date(),
-      price: 400,
-      maxMembers: 10,
-      minAge: 9,
-      maxAge: 10,
-    },
-  ];
+  courses!: Course[];
 
   coursesFilteredByAge: Course[] = this.courses;
 
@@ -217,6 +47,13 @@ export class AddCourseComponent {
     this.currentUserId = this.storageService.getUser().id;
     this.apiService.getUserById(this.currentUserId).subscribe((user) => {
       this.calculateDiscount(user);
+    });
+
+    this.apiService.getCourses().subscribe((response) => {
+      console.log(response);
+
+      this.courses = response;
+      this.coursesFilteredByAge = response;
     });
   }
 
