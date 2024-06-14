@@ -21,28 +21,47 @@
       </p>
       <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
         <div class="payment-method">
-          <input type="radio" id="payment1" name="payment" value="cb" />
+          <input
+            type="radio"
+            id="payment1"
+            name="paymentMethod"
+            value="cb"
+            formControlName="paymentMethod"
+          />
           <label for="payment1"
             >Paiement sécurisé par carte bancaire via la site HelloAsso</label
           >
         </div>
         <div class="payment-method">
-          <input type="radio" id="payment2" name="payment" value="cb3x" />
+          <input
+            type="radio"
+            id="payment2"
+            name="paymentMethod"
+            value="cb3x"
+            formControlName="paymentMethod"
+          />
           <label for="payment2"
             >Paiement sécurisé en 3 fois par carte bancaire via la site
             HelloAsso</label
           >
         </div>
         <div class="payment-method">
-          <input type="radio" id="payment3" name="payment" value="cheque" />
+          <input
+            type="radio"
+            id="payment3"
+            name="paymentMethod"
+            value="cheque"
+            formControlName="paymentMethod"
+          />
           <label for="payment3">Règlement par chèque</label>
         </div>
         <div class="payment-method">
           <input
             type="radio"
             id="payment4"
-            name="payment"
+            name="paymentMethod"
             value="cheque_vacances"
+            formControlName="paymentMethod"
           />
           <label for="payment4"
             >Règlement par chèques vacances (+2,5% de frais à ajouter à la
@@ -50,7 +69,13 @@
           >
         </div>
         <div class="payment-method">
-          <input type="radio" id="payment5" name="payment" value="especes" />
+          <input
+            type="radio"
+            id="payment5"
+            name="paymentMethod"
+            value="especes"
+            formControlName="paymentMethod"
+          />
           <label for="payment5">Règlement en espèces</label>
         </div>
 

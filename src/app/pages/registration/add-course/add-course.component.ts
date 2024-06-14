@@ -33,6 +33,7 @@ export class AddCourseComponent {
   storageService = inject(StorageService);
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       const idParam = params.get('id');
 
@@ -44,17 +45,17 @@ export class AddCourseComponent {
       }
     });
 
-    this.currentUserId = this.storageService.getUser().id;
-    this.apiService.getUserById(this.currentUserId).subscribe((user) => {
-      this.calculateDiscount(user);
-    });
-
     this.apiService.getCourses().subscribe((response) => {
       console.log(response);
 
       this.courses = response;
       this.coursesFilteredByAge = response;
     });
+
+    // this.currentUserId = this.storageService.getUser().id;
+    // this.apiService.getUserById(this.currentUserId).subscribe((user) => {
+    //   this.calculateDiscount(user);
+    // });
   }
 
   calculateDiscount(user: User) {

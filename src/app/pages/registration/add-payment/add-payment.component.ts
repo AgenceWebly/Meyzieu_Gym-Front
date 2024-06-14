@@ -55,11 +55,11 @@ export class AddPaymentComponent {
         .subscribe({
           next: () => {
             if (selectedPaymentMethod.includes('cb')) {
-              this.router.navigate(['/confirmation'], {
+              this.router.navigate(['inscription/' + this.registrationId + '/confirmation'], {
                 queryParams: { method: selectedPaymentMethod },
               });
             } else {
-              this.router.navigate(['/confirmation'], {
+              this.router.navigate(['inscription/' + this.registrationId + '/confirmation'], {
                 queryParams: { method: 'autre' },
               });
             }
