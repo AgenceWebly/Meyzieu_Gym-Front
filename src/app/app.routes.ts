@@ -7,8 +7,7 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
 import { LogoutComponent } from './pages/logout/logout.component';
 import { authGuard } from './shared/guards/auth.guard';
 import { MembersComponent } from './pages/members/members.component';
-import { RegistrationComponent } from './pages/registration/registration.component';
-import { AddMemberComponent } from './pages/add-member/add-member.component';
+import { AddMemberComponent } from './pages/registration/add-member/add-member.component';
 import { SeasonsComponent } from './pages/admin/season/seasons/seasons.component';
 import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.component';
 import { CreateSeasonComponent } from './pages/admin/season/create-season/create-season.component';
@@ -18,9 +17,13 @@ import { CreateProgramComponent } from './pages/admin/program/create-program/cre
 import { EditProgramComponent } from './pages/admin/program/edit-program/edit-program.component';
 import { UsersComponent } from './pages/admin/user/users/users.component';
 import { UserComponent } from './pages/admin/user/user/user/user.component';
-import { AddProgramComponent } from './pages/add-program/add-program.component';
+import { AddCourseComponent } from './pages/registration/add-course/add-course.component';
 import { CoursesComponent } from './pages/admin/course/courses/courses.component';
 import { CreateCourseComponent } from './pages/admin/course/create-course/create-course.component';
+import { RegistrationComponent } from './pages/registration/registration/registration.component';
+import { AddMedicalSurveyComponent } from './pages/registration/add-medical-survey/add-medical-survey.component';
+import { AddPaymentComponent } from './pages/registration/add-payment/add-payment.component';
+import { ConfirmationComponent } from './pages/registration/confirmation/confirmation.component';
 
 export const routes: Routes = [
   {
@@ -94,15 +97,31 @@ export const routes: Routes = [
   },
   {
     path: 'inscription/adherent/:id/cours',
-    component: AddProgramComponent,
+    component: AddCourseComponent,
     canActivate: [authGuard],
     data: {
       userType: 'guardian',
     },
   },
   {
-    path: 'inscription/questionnaire-medical',
-    component: RegistrationComponent,
+    path: 'inscription/:id/questionnaire-medical',
+    component: AddMedicalSurveyComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'guardian',
+    },
+  },
+  {
+    path: 'inscription/:id/paiement',
+    component: AddPaymentComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'guardian',
+    },
+  },
+  {
+    path: 'inscription/:id/confirmation',
+    component: ConfirmationComponent,
     canActivate: [authGuard],
     data: {
       userType: 'guardian',

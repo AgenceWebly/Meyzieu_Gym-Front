@@ -1,4 +1,5 @@
 import { EmergencyContact } from "./emergencyContact.model";
+import { Registration } from "./registration.model";
 
 export interface Member {
   id: number;
@@ -14,4 +15,5 @@ export interface Member {
   profilePictureUrl: string;
   relationToMember: 'parent|grand-parent|relative|other';
   emergencyContacts: EmergencyContact[];
+  registrations: Registration[];
 }

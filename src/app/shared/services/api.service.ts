@@ -68,13 +68,15 @@ export class ApiService {
     return this.http.get<any>(`${AUTH_API}/courses/${courseId}`);
   }
 
+  //ADMIN
   createCourse(newCourse: any): Observable<any> {
-    return this.http.post<any>(`${AUTH_API}/courses`, newCourse);
+    return this.http.post<any>(`${AUTH_API}/admin/courses`, newCourse);
   }
 
+  //ADMIN
   updateCourse(updatedCourse: any, programId: number): Observable<any> {
     return this.http.put<any>(
-      `${AUTH_API}/courses/${programId}`,
+      `${AUTH_API}/admin/courses/${programId}`,
       updatedCourse
     );
   }
@@ -94,5 +96,20 @@ export class ApiService {
 
   updateUser(updatedUser: any, userId: number): Observable<any> {
     return this.http.put<any>(`${AUTH_API}/users/${userId}`, updatedUser);
+  }
+
+  // R E G I S T R A T I O N
+  createRegistration(newRegistration: any): Observable<any> {
+    return this.http.post<any>(`${AUTH_API}/registrations`, newRegistration);
+  }
+
+  updateRegistration(
+    updatedRegistration: any,
+    registrationId: number
+  ): Observable<any> {
+    return this.http.put<any>(
+      `${AUTH_API}/registrations/${registrationId}`,
+      updatedRegistration
+    );
   }
 }

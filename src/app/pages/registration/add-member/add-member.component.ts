@@ -8,10 +8,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
-import { UploadFileService } from '../../shared/services/upload-file.service';
-import { StorageService } from '../../shared/services/storage.service';
-import { ApiService } from '../../shared/services/api.service';
+import { phoneFormatValidator } from '../../../shared/validators/phone-format.validator';
+import { UploadFileService } from '../../../shared/services/upload-file.service';
+import { StorageService } from '../../../shared/services/storage.service';
+import { ApiService } from '../../../shared/services/api.service';
+import { schools } from '../../../data/schools.data';
+import { relationShips } from '../../../data/relationShips.data';
 
 @Component({
   selector: 'app-add-member',
@@ -26,31 +28,9 @@ export class AddMemberComponent {
   photoError: string = "La photo de l'adhérent est requise";
   currentUserId!: number;
 
-  relatedOptions = [
-    { value: 'parent', label: 'Parent' },
-    { value: 'grand-parent', label: 'Grand-parent' },
-    { value: 'relative', label: 'Tuteur légal' },
-    { value: 'other', label: 'Autre' },
-  ];
+  relatedOptions = relationShips;
 
-  schools = [
-    { value: 'École le carreau', label: 'École le carreau' },
-    { value: 'Ecole Condorcet', label: 'Ecole Condorcet' },
-    { value: "Ecole Jeanne d'Arc", label: "Ecole Jeanne d'Arc" },
-    { value: 'Ecole Les Calabres', label: 'Ecole Les Calabres ' },
-    { value: 'Ecole du Sacré Coeur', label: 'Ecole du Sacré Coeur' },
-    { value: 'Ecole Jacques Prévert', label: 'Ecole Jacques Prévert' },
-    { value: 'Ecole Marcel Pagnol', label: 'Ecole Marcel Pagnol' },
-    { value: 'Ecole Marie Curie', label: 'Ecole Marie Curie' },
-    { value: 'Ecole du Grand large', label: 'Ecole du Grand large' },
-    { value: 'Ecole jules ferry', label: 'Ecole jules ferry' },
-    { value: 'Ecole René Cassin', label: 'Ecole René Cassin' },
-    { value: 'Collège Olivier de Serres', label: 'Collège Olivier de Serres' },
-    { value: 'Collège Olivier de Serres', label: 'Collège Olivier de Serres' },
-    { value: 'Lycée Charlie Chaplin', label: 'Lycée Charlie Chaplin' },
-    { value: 'GS Privé Al Kindi', label: 'GS Privé Al Kindi' },
-    { value: 'Autre', label: 'Autre' },
-  ];
+  schools = schools;
 
   fb = inject(FormBuilder);
   http = inject(HttpClient);
@@ -146,7 +126,8 @@ export class AddMemberComponent {
     if (this.addMemberForm.valid) {
       const formData = {
         ...this.addMemberForm.value,
-        isAllowedToLeave: this.addMemberForm.value.authorizations?.allowedToLeave,
+        isAllowedToLeave:
+          this.addMemberForm.value.authorizations?.allowedToLeave,
         firstAidApproved:
           this.addMemberForm.value.authorizations?.firstAidApproved,
         transportApproved:
@@ -156,7 +137,7 @@ export class AddMemberComponent {
 
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
-          this.router.navigate(['inscription/adherent/' + response + '/cours'])
+          this.router.navigate(['inscription/adherent/' + response + '/cours']);
         },
         error: (err) => {
           console.error('Error adding member:', err);

@@ -1,0 +1,43 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  h1 {
+    margin-bottom: $default-margin;
+  }
+
+  h3 {
+    margin-top: $default-margin;
+  }
+
+  .course-container {
+    background-color: $color-hover-background;
+    padding: $default-padding;
+    margin-bottom: $default-margin;
+    border-radius: 10px;
+
+    .price {
+      font-weight: 700;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+    }
+
+    button {
+      background-color: $color-primary;
+      border: none;
+      padding: 8px;
+      margin-top: $default-margin;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}

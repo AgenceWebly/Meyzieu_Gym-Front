@@ -1,0 +1,40 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .confirmation-container {
+    max-width: 800px;
+    margin: 0 auto;
+
+    p {
+      margin: calc($default-margin * 2) 0;
+
+      a {
+        @include link;
+      }
+    }
+
+    ul {
+      li {
+        list-style-type: initial;
+        margin: $default-margin calc($default-margin * 2);
+      }
+    }
+  }
+
+  h1 {
+    font-family: $font-title;
+    margin-bottom: $default-margin;
+  }
+
+  h2 {
+    font-size: 1em;
+    margin: $default-margin 0;
+  }
+}
