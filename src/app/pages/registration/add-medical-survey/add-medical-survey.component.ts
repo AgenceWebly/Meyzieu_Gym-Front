@@ -76,6 +76,7 @@ export class AddMedicalSurveyComponent {
         id: this.registrationId,
         isHealthCertificateRequired: isHealthCertificateRequired,
         healthCertificateFileUrl: null,
+        registrationStatus: 'medical validated',
       };
 
       this.apiService

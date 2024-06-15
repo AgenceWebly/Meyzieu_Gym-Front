@@ -49,7 +49,7 @@ export class AddPaymentComponent {
         paymentStatus: selectedPaymentMethod.includes('cb')
           ? 'en attente'
           : 'non payé',
-        registrationStatus: 'inscription complétée',
+        registrationStatus: 'registration validated',
       };
 
       this.apiService

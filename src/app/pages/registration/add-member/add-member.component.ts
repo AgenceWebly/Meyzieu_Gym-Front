@@ -149,7 +149,13 @@ export class AddMemberComponent {
 
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
-          this.toastr.success('Adhérent ajouté avec succès', 'Succès');
+          let messageSuccess =
+            this.addMemberForm.value.gender === 'female'
+              ? this.addMemberForm.value.firstname +
+                ' a bien été ajoutée en tant que nouvel adhérent'
+              : this.addMemberForm.value.firstname +
+                ' a bien été ajouté en tant que nouvel adhérent';
+          this.toastr.success(messageSuccess, 'Succès');
           this.router.navigate(['inscription/adherent/' + response + '/cours']);
         },
         error: (err) => {

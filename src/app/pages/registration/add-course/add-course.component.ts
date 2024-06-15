@@ -41,6 +41,19 @@ export class AddCourseComponent {
       if (idParam !== null) {
         this.memberId = parseInt(idParam, 10);
         // Récupérer les info du member et filtrer courses en fonction de l'âge
+        this.apiService.getCourses().subscribe({
+          next: (response) => {
+            console.log(response);
+            this.courses = response;
+            this.coursesFilteredByAge = response;
+          },
+          error: (err) => {
+            this.toastr.error(
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
+              'Erreur'
+            );
+          },
+        });
       } else {
         this.toastr.error(
           'Une erreur est survenue, veuillez réessayer ultérieurement',
@@ -49,19 +62,7 @@ export class AddCourseComponent {
       }
     });
 
-    this.apiService.getCourses().subscribe({
-      next: (response) => {
-        console.log(response);
-        this.courses = response;
-        this.coursesFilteredByAge = response;
-      },
-      error: (err) => {
-        this.toastr.error(
-          'Une erreur est survenue, veuillez réessayer ultérieurement',
-          'Erreur'
-        );
-      },
-    });
+    
 
     // this.currentUserId = this.storageService.getUser().id;
     // this.apiService.getUserById(this.currentUserId).subscribe((user) => {
@@ -81,9 +82,9 @@ export class AddCourseComponent {
         }
       }
     }
-    if (this.membersRegisteredThisSeason === 2) {
+    if (this.membersRegisteredThisSeason === 1) {
       this.discount = 10;
-    } else if (this.membersRegisteredThisSeason <= 3) {
+    } else if (this.membersRegisteredThisSeason <= 2) {
       this.discount = 30;
     }
   }
@@ -95,7 +96,7 @@ export class AddCourseComponent {
       registrationFee: coursePrice - this.discount,
       paymentMethod: 'aucun',
       paymentStatus: 'non payé',
-      registrationStatus: 'inscription en cours',
+      registrationStatus: 'course validated',
       healthCertificateFileUrl: null,
       isHealthCertificateRequired: null,
     };
