@@ -43,8 +43,18 @@ export class AddCourseComponent {
         // Récupérer les info du member et filtrer courses en fonction de l'âge
         this.apiService.getCourses().subscribe({
           next: (response) => {
-            console.log(response);
-            this.courses = response;
+            this.courses = response.map((course) => {
+              course.trainingSlots = course.trainingSlots.map(
+                (slot: { startTime: string; endTime: string }) => {
+                  return {
+                    ...slot,
+                    startTime: this.convertToTime(slot.startTime),
+                    endTime: this.convertToTime(slot.endTime),
+                  };
+                }
+              );
+              return course;
+            });
             this.coursesFilteredByAge = response;
           },
           error: (err) => {
@@ -62,12 +72,17 @@ export class AddCourseComponent {
       }
     });
 
-    
-
     // this.currentUserId = this.storageService.getUser().id;
     // this.apiService.getUserById(this.currentUserId).subscribe((user) => {
     //   this.calculateDiscount(user);
     // });
+  }
+
+  convertToTime(timeString: string): Date {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0); // Setting hours, minutes, seconds, and milliseconds
+    return date;
   }
 
   calculateDiscount(user: User) {
@@ -103,13 +118,20 @@ export class AddCourseComponent {
 
     this.apiService.createRegistration(registrationData).subscribe({
       next: (data) => {
-        this.toastr.success('Inscription prise en compte', 'Succès');
+        this.toastr.success(
+          'Merci de répondre au questionnaire médical',
+          'Groupe pris en compte'
+        );
         this.router.navigate([
           '/inscription/' + data + '/questionnaire-medical',
         ]);
       },
       error: (err) => {
-        this.toastr.error("Erreur lors de l'inscription :" + err, 'Erreur');
+        console.log(err);
+        this.toastr.error(
+          'Une erreur est survenue : ' + err.error.message,
+          'Erreur'
+        );
       },
     });
   }

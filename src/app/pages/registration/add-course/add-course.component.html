@@ -5,6 +5,7 @@
     <h2>
       {{ course.program.name | titlecase }}
     </h2>
+    <p>{{ course.program.description }}</p>
     @if (course.trainingSlots.length > 1) {
     <h3><i class="fa-light fa-calendar-days"></i> Entrainements</h3>
     } @else if (course.trainingSlots.length === 1) {
@@ -12,12 +13,13 @@
     }
     <ul>
       <li *ngFor="let trainingSlot of course.trainingSlots">
-        {{ trainingSlot.day | titlecase }} de {{ trainingSlot.startTime }} à
-        {{ trainingSlot.endTime }}
+        {{ trainingSlot.day | titlecase }} de {{ trainingSlot.startTime | date:'HH:mm' }} à
+        {{ trainingSlot.endTime | date:'HH:mm' }}
       </li>
     </ul>
-    <h3><i class="fa-solid fa-circle-info fa-2xs"></i> {{ course.remainingSlots}} places disponibles sur {{ course.maxMembers }}</h3>
-    <p>{{ course.program.description }}</p>
+
+    <h3>Places disponibles</h3>
+    <p><i class="fa-solid fa-circle-info fa-2xs"></i> {{ course.remainingSlots}} places disponibles sur {{ course.maxMembers }}</p>
 
     @if (discount > 0) {
     <h3>
