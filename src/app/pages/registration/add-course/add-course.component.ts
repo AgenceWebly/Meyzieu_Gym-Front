@@ -43,18 +43,7 @@ export class AddCourseComponent {
         // Récupérer les info du member et filtrer courses en fonction de l'âge
         this.apiService.getCourses().subscribe({
           next: (response) => {
-            this.courses = response.map((course) => {
-              course.trainingSlots = course.trainingSlots.map(
-                (slot: { startTime: string; endTime: string }) => {
-                  return {
-                    ...slot,
-                    startTime: this.convertToTime(slot.startTime),
-                    endTime: this.convertToTime(slot.endTime),
-                  };
-                }
-              );
-              return course;
-            });
+            this.courses = response;
             this.coursesFilteredByAge = response;
           },
           error: (err) => {
@@ -78,12 +67,6 @@ export class AddCourseComponent {
     // });
   }
 
-  convertToTime(timeString: string): Date {
-    const [hours, minutes] = timeString.split(':').map(Number);
-    const date = new Date();
-    date.setHours(hours, minutes, 0, 0); // Setting hours, minutes, seconds, and milliseconds
-    return date;
-  }
 
   calculateDiscount(user: User) {
     for (const member of user.members) {

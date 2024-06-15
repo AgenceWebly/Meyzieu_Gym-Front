@@ -13,8 +13,9 @@
   <table class="courses-table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Nom du cours</th>
+
+        <th>Jours d'entrainement</th>
         <th>Saison</th>
       </tr>
     </thead>
@@ -24,9 +25,21 @@
         (click)="editCourse(course.id)"
         class="course-row"
       >
-        <td>{{ course.id }}</td>
         <td>{{ course.program.name }}</td>
-        <td>{{ course.season.startDate | date : "yyyy" }} / {{ course.season.endDate | date : "yyyy" }}</td>
+
+        <td>
+          <ul>
+            <li *ngFor="let slot of course.trainingSlots">
+              {{ slot.day }} de {{ slot.startTime | slice : 0 : 5 }} à
+              {{ slot.endTime | slice : 0 : 5 }}
+            </li>
+          </ul>
+        </td>
+
+        <td>
+          {{ course.season.startDate | date : "yyyy" }} /
+          {{ course.season.endDate | date : "yyyy" }}
+        </td>
       </tr>
     </tbody>
   </table>

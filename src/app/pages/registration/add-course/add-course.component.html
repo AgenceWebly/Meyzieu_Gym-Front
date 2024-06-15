@@ -13,8 +13,8 @@
     }
     <ul>
       <li *ngFor="let trainingSlot of course.trainingSlots">
-        {{ trainingSlot.day | titlecase }} de {{ trainingSlot.startTime | date:'HH:mm' }} à
-        {{ trainingSlot.endTime | date:'HH:mm' }}
+        {{ trainingSlot.day | titlecase }} de {{ trainingSlot.startTime | slice: 0 : 5  }} à
+        {{ trainingSlot.endTime | slice: 0 : 5  }}
       </li>
     </ul>
 
