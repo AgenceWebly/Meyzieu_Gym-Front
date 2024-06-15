@@ -24,6 +24,7 @@ import { RegistrationComponent } from './pages/registration/registration/registr
 import { AddMedicalSurveyComponent } from './pages/registration/add-medical-survey/add-medical-survey.component';
 import { AddPaymentComponent } from './pages/registration/add-payment/add-payment.component';
 import { ConfirmationComponent } from './pages/registration/confirmation/confirmation.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
   {
@@ -129,7 +130,7 @@ export const routes: Routes = [
   },
   {
     path: 'contact',
-    component: HomeComponent,
+    component: ContactComponent,
   },
   {
     path: 'options',

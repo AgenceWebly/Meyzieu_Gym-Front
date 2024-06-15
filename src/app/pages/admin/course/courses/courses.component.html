@@ -26,7 +26,7 @@
       >
         <td>{{ course.id }}</td>
         <td>{{ course.program.name }}</td>
-        <td>{{ course.season.startDate }} / {{ course.season.endDate }}</td>
+        <td>{{ course.season.startDate | date : "yyyy" }} / {{ course.season.endDate | date : "yyyy" }}</td>
       </tr>
     </tbody>
   </table>
