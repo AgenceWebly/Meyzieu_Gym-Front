@@ -32,7 +32,7 @@ export class MembersComponent {
         this.messageError = err.message;
         this.toastr.error(
           'Une erreur est survenue. Veuillez réessayer ultérieurement',
-          'Error'
+          'Erreur'
         );
       },
     });

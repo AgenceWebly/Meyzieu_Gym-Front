@@ -27,7 +27,7 @@ import { ConfirmationComponent } from './pages/registration/confirmation/confirm
 
 export const routes: Routes = [
   {
-    path: 'accueil',
+    path: '',
     component: HomeComponent,
   },
   {
