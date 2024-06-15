@@ -47,7 +47,7 @@ export class AddMedicalSurveyComponent {
         this.registrationId = parseInt(idParam, 10);
       } else {
         this.toastr.error(
-          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Une erreur est survenue. Veuillez réessayer ultérieurement',
           'Erreur'
         );
       }

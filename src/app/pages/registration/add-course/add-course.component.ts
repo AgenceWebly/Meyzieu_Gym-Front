@@ -49,14 +49,14 @@ export class AddCourseComponent {
           },
           error: (err) => {
             this.toastr.error(
-              'Une erreur est survenue, veuillez réessayer ultérieurement',
+              'Une erreur est survenue. Veuillez réessayer ultérieurement',
               'Erreur'
             );
           },
         });
       } else {
         this.toastr.error(
-          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Une erreur est survenue. Veuillez réessayer ultérieurement',
           'Erreur'
         );
       }

@@ -31,7 +31,7 @@ export class MembersComponent {
       error: (err: any) => {
         this.messageError = err.message;
         this.toastr.error(
-          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Une erreur est survenue. Veuillez réessayer ultérieurement',
           'Error'
         );
       },
