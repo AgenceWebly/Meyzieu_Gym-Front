@@ -27,14 +27,12 @@ export class RegistrationComponent {
     this.apiService.getMembersByUserId(currentUserId, true).subscribe({
       next: (data: any) => {
         this.members = data;
-        console.log(data);
       },
       error: (err: any) => {
-        this.messageError = err.message;
-        // this.toastr.error(
-        //   'Une erreur est survenue. Veuillez réessayer ultérieurement.',
-        //   'Error'
-        // );
+        this.toastr.error(
+          'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+          'Error'
+        );
       },
     });
   }

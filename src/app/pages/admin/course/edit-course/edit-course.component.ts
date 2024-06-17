@@ -50,9 +50,7 @@ export class EditCourseComponent {
                 includingCompetition: course.includingCompetition,
               });
             },
-            error: (err) => {
-              console.log(err);
-              
+            error: (err) => {              
               this.toastr.error('Une erreur est survenue :' + err.error, 'Erreur');
             },
           });

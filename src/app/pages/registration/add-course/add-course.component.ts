@@ -110,7 +110,6 @@ export class AddCourseComponent {
         ]);
       },
       error: (err) => {
-        console.log(err);
         this.toastr.error(
           'Une erreur est survenue : ' + err.error.message,
           'Erreur'

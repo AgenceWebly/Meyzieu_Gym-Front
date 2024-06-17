@@ -30,7 +30,6 @@ export class CoursesComponent {
       next: (data) => {
         this.courses = data;
         this.filteredCourses = data;
-        console.log(data);
       },
       error: (err) => {
         this.toastr.error('Une erreur est survenue', 'Erreur');

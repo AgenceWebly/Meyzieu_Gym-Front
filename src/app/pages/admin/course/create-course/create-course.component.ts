@@ -93,7 +93,6 @@ export class CreateCourseComponent {
 
   submitForm() {
     if (this.courseForm.valid) {
-      console.log(this.courseForm.value);
       this.apiService.createCourse(this.courseForm.value).subscribe({
         next: () => {
           this.toastr.success('Cours créé avec succès', 'Succès');
