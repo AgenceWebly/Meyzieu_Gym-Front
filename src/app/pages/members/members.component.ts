@@ -22,7 +22,7 @@ export class MembersComponent {
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
-    this.apiService.getMembers(currentUserId).subscribe({
+    this.apiService.getMembersByUserId(currentUserId, false).subscribe({
       next: (data: any) => {
         this.members = data;
       },

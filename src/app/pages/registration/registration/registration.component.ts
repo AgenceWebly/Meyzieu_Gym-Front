@@ -22,9 +22,10 @@ export class RegistrationComponent {
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
-    this.apiService.getMembers(currentUserId).subscribe({
+    this.apiService.getMembersByUserId(currentUserId, true).subscribe({
       next: (data: any) => {
         this.members = data;
+        console.log(data);
       },
       error: (err: any) => {
         this.messageError = err.message;
