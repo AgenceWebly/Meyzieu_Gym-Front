@@ -3,13 +3,14 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ApiService } from '../../../shared/services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss'
+  styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent {
   currentUser: any;
@@ -19,6 +20,7 @@ export class RegistrationComponent {
   router = inject(Router);
   storageService = inject(StorageService);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
@@ -29,7 +31,10 @@ export class RegistrationComponent {
       },
       error: (err: any) => {
         this.messageError = err.message;
-        console.log(err.message);
+        // this.toastr.error(
+        //   'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+        //   'Error'
+        // );
       },
     });
   }

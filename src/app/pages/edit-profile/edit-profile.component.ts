@@ -7,6 +7,7 @@ import { AddressFeature } from '../../models/addressFeature.model';
 import { Router } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-profile',
@@ -24,6 +25,7 @@ export class EditProfileComponent implements OnInit {
   router = inject(Router);
   storageService = inject(StorageService);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   editProfileForm = this.fb.group({
     lastname: [
@@ -88,7 +90,10 @@ export class EditProfileComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.log(err.message);
+        this.toastr.error(
+          'Une erreur est survenue. Veuillez réessayer ultérieurement',
+          'Erreur'
+        );
       },
     });
   }
@@ -103,15 +108,21 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService
-      .updateUser(this.editProfileForm.value, this.currentUserId)
-      .subscribe({
-        next: (data) => {
-          this.router.navigate(['/profil']);
-        },
-        error: (err) => {
-          console.log(err.message);
-        },
-      });
+    if (this.editProfileForm.valid) {
+      this.apiService
+        .updateUser(this.editProfileForm.value, this.currentUserId)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Profil mis à jour avec succès', 'Succès');
+            this.router.navigate(['/profil']);
+          },
+          error: (err) => {
+            this.toastr.error(
+              'Une erreur est survenue. Veuillez réessayer ultérieurement',
+              'Erreur'
+            );
+          },
+        });
+    }
   }
 }

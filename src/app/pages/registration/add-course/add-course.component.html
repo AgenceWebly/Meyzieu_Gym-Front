@@ -5,6 +5,15 @@
     <h2>
       {{ course.program.name | titlecase }}
     </h2>
+    @if (course.minAge === course.maxAge) {
+    <p class="age">
+      Enfants nés en {{ 2024 - course.maxAge }}
+    </p>
+    } @else {
+      <p class="age">Enfants nés entre {{ 2024 - course.maxAge }} et {{ 2024 - course.minAge }} </p>
+    }
+
+    <p>{{ course.program.description }}</p>
     @if (course.trainingSlots.length > 1) {
     <h3><i class="fa-light fa-calendar-days"></i> Entrainements</h3>
     } @else if (course.trainingSlots.length === 1) {
@@ -12,12 +21,17 @@
     }
     <ul>
       <li *ngFor="let trainingSlot of course.trainingSlots">
-        {{ trainingSlot.day | titlecase }} de {{ trainingSlot.startTime }} à
-        {{ trainingSlot.endTime }}
+        {{ trainingSlot.day | titlecase }} de
+        {{ trainingSlot.startTime | slice : 0 : 5 }} à
+        {{ trainingSlot.endTime | slice : 0 : 5 }}
       </li>
     </ul>
-    <h3><i class="fa-solid fa-circle-info fa-2xs"></i> X places disponibles sur {{ course.maxMembers }}</h3>
-    <p>{{ course.program.description }}</p>
+
+    <h3>Places disponibles</h3>
+    <p>
+      <i class="fa-solid fa-circle-info fa-2xs"></i>
+      {{ course.remainingSlots }} places disponibles sur {{ course.maxMembers }}
+    </p>
 
     @if (discount > 0) {
     <h3>
@@ -32,7 +46,9 @@
     } @else {
     <h3>{{ course.price }} €</h3>
     }
-    <button (click)="registerCourse(course.id, course.price)">Choisir ce cours</button>
+    <button (click)="registerCourse(course.id, course.price)">
+      Choisir ce cours
+    </button>
   </div>
   } @else {
   <div class="course-container">Aucun cours n'est disponible à ce jour</div>

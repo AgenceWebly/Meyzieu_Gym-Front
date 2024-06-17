@@ -60,7 +60,7 @@
         [formGroupName]="i"
         class="trainingSlot-container"
       >
-        <div class="fieldset-container">
+        <div class="fieldset-container training-slots-container">
           <div class="form-group">
             <label for="day-{{ i }}">Jour</label>
             <select id="day-{{ i }}" formControlName="day">
@@ -271,10 +271,17 @@
           courseForm.get('maxAge')?.touched
         "
       >
+        @if (minYear === maxYear) {
+        <small class="info"
+          ><i class="fa-solid fa-circle-info"></i> L'inscrit doit être né en
+          {{ maxYear }}</small
+        >
+        } @else {
         <small class="info"
           ><i class="fa-solid fa-circle-info"></i> L'inscrit doit être né entre
           {{ maxYear }} et {{ minYear }}</small
         >
+        }
       </div>
     </div>
 

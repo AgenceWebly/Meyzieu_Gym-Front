@@ -3,6 +3,7 @@ import { User } from '../../../../../models/user.model';
 import { ApiService } from '../../../../../shared/services/api.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,7 @@ export class UserComponent {
 
   apiService = inject(ApiService);
   route = inject(ActivatedRoute);
+  toastr = inject(ToastrService);
 
   constructor(private router: Router) {}
 
@@ -28,15 +30,19 @@ export class UserComponent {
         this.userId = parseInt(idParam, 10);
 
         if (!isNaN(this.userId)) {
-          this.apiService.getUserById(this.userId).subscribe((user) => {
-            this.user = user;
-            console.log(this.user);
+          this.apiService.getUserById(this.userId).subscribe({
+            next: (user) => {
+              this.user = user;
+            },
+            error: (err) => {
+              this.toastr.error('Erreur : ' + err.error, 'Erreur');
+            },
           });
         } else {
-          console.error("ID de l'utilisateur invalide");
+          this.toastr.error("ID de l'utilisateur invalide", 'Erreur');
         }
       } else {
-        console.error("ID de l'utilisateur non trouvé");
+        this.toastr.error("ID de l'utilisateur non trouvé", 'Erreur');
       }
     });
   }

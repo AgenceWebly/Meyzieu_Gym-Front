@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
 import { UploadFileService } from '../../shared/services/upload-file.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profil',
@@ -14,15 +15,14 @@ import { UploadFileService } from '../../shared/services/upload-file.service';
   styleUrl: './profil.component.scss',
 })
 export class ProfilComponent {
-
   currentUser: any;
   loading: boolean = false;
-  messageError = '';
 
   router = inject(Router);
   storageService = inject(StorageService);
   apiService = inject(ApiService);
   uploadFileService = inject(UploadFileService);
+  toastr = inject(ToastrService);
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
@@ -31,8 +31,10 @@ export class ProfilComponent {
         this.currentUser = data;
       },
       error: (err) => {
-        this.messageError = err;
-        console.log(err.message);
+        this.toastr.error(
+          'Une erreur est survenue. Veuillez réessayer ultérieurement',
+          'Error'
+        );
       },
     });
   }
@@ -48,7 +50,7 @@ export class ProfilComponent {
       this.uploadFileService.uploadFile(file).subscribe({
         next: (response: any) => {
           this.currentUser = { ...this.currentUser, rib: response.secure_url };
-          
+
           // this.apiService.updateUser(this.currentUser, this.currentUser.id).subscribe({
           //   next: () => {
           //     this.loading = false;
@@ -63,7 +65,7 @@ export class ProfilComponent {
         error: (err) => {
           console.error('Upload failed', err);
           this.loading = false;
-        }
+        },
       });
     }
   }

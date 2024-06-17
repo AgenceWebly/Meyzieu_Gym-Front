@@ -22,6 +22,11 @@ main {
     margin-bottom: $default-margin;
     border-radius: 10px;
 
+    .age {
+      margin-bottom: $default-margin;
+      font-style: italic;
+    }
+
     .price {
       font-weight: 700;
     }

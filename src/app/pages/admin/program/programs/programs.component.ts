@@ -4,6 +4,7 @@ import { ApiService } from '../../../../shared/services/api.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-programs',
@@ -19,13 +20,19 @@ export class ProgramsComponent {
   searchTerm: string = '';
 
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.apiService.getPrograms().subscribe((data) => {
-      this.programs = data;
-      this.filteredPrograms = data;
+    this.apiService.getPrograms().subscribe({
+      next: (data) => {
+        this.programs = data;
+        this.filteredPrograms = data;
+      },
+      error: (err) => {
+        this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
+      },
     });
   }
 
@@ -39,9 +46,8 @@ export class ProgramsComponent {
 
   filterPrograms() {
     if (this.searchTerm) {
-      this.filteredPrograms = this.programs.filter(
-        (program) =>
-          program.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      this.filteredPrograms = this.programs.filter((program) =>
+        program.name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredPrograms = [...this.programs];

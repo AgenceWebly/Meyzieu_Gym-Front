@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-season',
@@ -17,6 +18,7 @@ export class EditSeasonComponent {
   route = inject(ActivatedRoute);
   router = inject(Router);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   seasonForm = this.fb.group({
     startDate: ['', Validators.required],
@@ -33,19 +35,26 @@ export class EditSeasonComponent {
         this.seasonId = parseInt(idParam, 10);
 
         if (!isNaN(this.seasonId)) {
-          this.apiService.getSeasonById(this.seasonId).subscribe((season) => {
-            this.seasonForm.patchValue({
-              startDate: new Date(season.startDate)
-                .toISOString()
-                .substring(0, 10),
-              endDate: new Date(season.endDate).toISOString().substring(0, 10),
-            });
+          this.apiService.getSeasonById(this.seasonId).subscribe({
+            next: (season) => {
+              this.seasonForm.patchValue({
+                startDate: new Date(season.startDate)
+                  .toISOString()
+                  .substring(0, 10),
+                endDate: new Date(season.endDate)
+                  .toISOString()
+                  .substring(0, 10),
+              });
+            },
+            error: (err) => {
+              this.toastr.error('Erreur : ' + err, 'Erreur');
+            },
           });
         } else {
-          console.error('ID de la saison invalide');
+          this.toastr.error('ID de la saison invalide', 'Erreur');
         }
       } else {
-        console.error('ID de la saison non trouvé');
+        this.toastr.error('ID de la saison non trouvé', 'Erreur');
       }
     });
   }
@@ -54,8 +63,17 @@ export class EditSeasonComponent {
     if (this.seasonForm.valid) {
       this.apiService
         .updateSeason(this.seasonForm.value, this.seasonId)
-        .subscribe(() => {
-          this.router.navigate(['/admin/saisons']);
+        .subscribe({
+          next: () => {
+            this.toastr.success(
+              'La saison a été mise à jour avec succès',
+              'Succès'
+            );
+            this.router.navigate(['/admin/saisons']);
+          },
+          error: (err) => {
+            this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
+          },
         });
     }
   }

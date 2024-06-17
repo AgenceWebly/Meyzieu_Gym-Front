@@ -4,6 +4,7 @@ import { ApiService } from '../../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-courses',
@@ -20,13 +21,20 @@ export class CoursesComponent {
 
   apiService = inject(ApiService);
   router = inject(Router);
+  toastr = inject(ToastrService);
 
   constructor() {}
 
   ngOnInit() {
-    this.apiService.getCourses().subscribe((data) => {
-      this.courses = data;
-      this.filteredCourses = data;
+    this.apiService.getCourses().subscribe({
+      next: (data) => {
+        this.courses = data;
+        this.filteredCourses = data;
+        console.log(data);
+      },
+      error: (err) => {
+        this.toastr.error('Une erreur est survenue', 'Erreur');
+      },
     });
   }
 

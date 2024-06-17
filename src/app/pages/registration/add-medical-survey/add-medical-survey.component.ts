@@ -4,6 +4,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-medical-survey',
@@ -16,11 +18,14 @@ export class AddMedicalSurveyComponent {
   registrationId!: number;
   showHealthCertificateMessage: boolean = false;
 
+  private destroy$ = new Subject<void>();
+
   fb = inject(FormBuilder);
   http = inject(HttpClient);
   router = inject(Router);
   route = inject(ActivatedRoute);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   medicalForm = this.fb.group({
     q1: [null, Validators.required],
@@ -35,19 +40,27 @@ export class AddMedicalSurveyComponent {
   });
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
+    this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params: ParamMap) => {
       const idParam = params.get('id');
 
       if (idParam !== null) {
         this.registrationId = parseInt(idParam, 10);
       } else {
-        console.error("ID de l'inscription non trouvé");
+        this.toastr.error(
+          'Une erreur est survenue. Veuillez réessayer ultérieurement',
+          'Erreur'
+        );
       }
     });
 
-    this.medicalForm.valueChanges.subscribe((values) => {
+    this.medicalForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((values) => {
       this.checkHealthCertificateRequirement(values);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   checkHealthCertificateRequirement(questions: any) {
@@ -63,20 +76,31 @@ export class AddMedicalSurveyComponent {
         id: this.registrationId,
         isHealthCertificateRequired: isHealthCertificateRequired,
         healthCertificateFileUrl: null,
+        registrationStatus: 'medical validated',
       };
-
-      this.router.navigate([
-        '/inscription/' + this.registrationId + '/paiement',
-      ]);
 
       this.apiService
         .updateRegistration(healthCertificateData, this.registrationId)
-        .subscribe((response: number) => {
-          console.log(response);
-          this.router.navigate([
-            '/inscription/' + this.registrationId + '/paiement',
-          ]);
+        .subscribe({
+          next: (response) => {
+            this.toastr.success('Informations prises en compte', 'Succès');
+            this.router.navigate([
+              '/inscription/' + this.registrationId + '/paiement',
+            ]);
+          },
+          error: (err) => {
+            console.error(err);
+            this.toastr.error(
+              'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+              'Erreur'
+            );
+          },
         });
+    } else {
+      this.toastr.error(
+        "Veuillez répondre à l'ensemble du questionnaire",
+        'Erreur'
+      );
     }
   }
 }

@@ -1,6 +1,6 @@
-import { Program } from "./program.model";
-import { Season } from "./season.model";
-import { TrainingSlot } from "./trainingSlot";
+import { Program } from './program.model';
+import { Season } from './season.model';
+import { TrainingSlot } from './trainingSlot';
 
 export interface Course {
   id: number;
@@ -13,4 +13,5 @@ export interface Course {
   maxMembers: number;
   minAge: number;
   maxAge: number;
+  remainingSlots: number;
 }
