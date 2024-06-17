@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { StorageService } from '../../shared/services/storage.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-logout',
@@ -14,6 +15,7 @@ export class LogoutComponent {
   authService = inject(AuthService);
   storageService = inject(StorageService);
   router = inject(Router);
+  toastr = inject(ToastrService);
 
   ngOnInit() {
     this.logout();
@@ -26,7 +28,7 @@ export class LogoutComponent {
         window.location.reload();
       },
       error: (err) => {
-        console.log(err);
+        this.toastr.error('Une erreur est survenue', 'Erreur');
       },
     });
   }

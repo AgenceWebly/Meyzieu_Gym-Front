@@ -14,6 +14,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { ApiService } from '../../../shared/services/api.service';
 import { schools } from '../../../data/schools.data';
 import { relationShips } from '../../../data/relationShips.data';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-member',
@@ -38,6 +39,7 @@ export class AddMemberComponent {
   fileUploadService = inject(UploadFileService);
   storageService = inject(StorageService);
   apiService = inject(ApiService);
+  toastr = inject(ToastrService);
 
   addMemberForm = this.fb.group({
     profilePictureUrl: [null, Validators.required],
@@ -111,13 +113,23 @@ export class AddMemberComponent {
     const file = event.target.files[0];
     if (file) {
       this.loading = true;
-      this.fileUploadService.uploadFile(file).subscribe((response: any) => {
-        this.imageUrl = response.secure_url;
-        this.addMemberForm
-          .get('profilePictureUrl')
-          ?.setValue(response.secure_url);
-        this.loading = false;
-        this.photoError = '';
+      this.fileUploadService.uploadFile(file).subscribe({
+        next: (response: any) => {
+          this.imageUrl = response.secure_url;
+          this.addMemberForm
+            .get('profilePictureUrl')
+            ?.setValue(response.secure_url);
+          this.loading = false;
+          this.photoError = '';
+        },
+        error: (err) => {
+          this.loading = false;
+          this.toastr.error(
+            'Erreur lors du téléchargement de la photo',
+            'Erreur'
+          );
+          console.error('Error uploading file:', err);
+        },
       });
     }
   }
@@ -137,10 +149,20 @@ export class AddMemberComponent {
 
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
+          let messageSuccess =
+            this.addMemberForm.value.gender === 'female'
+              ? this.addMemberForm.value.firstname +
+                ' a bien été ajoutée en tant que nouvel adhérent'
+              : this.addMemberForm.value.firstname +
+                ' a bien été ajouté en tant que nouvel adhérent';
+          this.toastr.success(messageSuccess, 'Succès');
           this.router.navigate(['inscription/adherent/' + response + '/cours']);
         },
         error: (err) => {
-          console.error('Error adding member:', err);
+          this.toastr.error(
+            'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+            'Erreur'
+          );
         },
       });
     }

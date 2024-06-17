@@ -8,6 +8,8 @@ import { AddressFeature } from '../../models/addressFeature.model';
 import { passwordStrengthValidator } from '../../shared/validators/password-strength.validator';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +19,6 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  
   addressSuggestions: any[] = [];
 
   passwordStrengthClass = 'weak';
@@ -26,43 +27,62 @@ export class SignUpComponent {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
+  private destroy$ = new Subject<void>();
+
   fb = inject(FormBuilder);
   addressService = inject(AddressService);
   authService = inject(AuthService);
   router = inject(Router);
+  toastr = inject(ToastrService);
 
   signUpForm = this.fb.group({
-    lastname: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
-    firstname: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/^[a-zA-Z\s]*$/)]],
+    lastname: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern(/^[a-zA-Z\s]*$/),
+      ],
+    ],
+    firstname: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.pattern(/^[a-zA-Z\s]*$/),
+      ],
+    ],
     address: ['', [Validators.required, Validators.minLength(5)]],
     phoneNumber: [null, [Validators.required, phoneFormatValidator()]],
     occupation: ['', [Validators.required, Validators.minLength(2)]],
     emails: this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
-        confirmEmail: ['', Validators.required]
+        confirmEmail: ['', Validators.required],
       },
       {
-        validator: checkEqualityValidator('email', 'confirmEmail')
+        validator: checkEqualityValidator('email', 'confirmEmail'),
       }
     ),
     passwords: this.fb.group(
       {
         password: ['', [Validators.required, passwordStrengthValidator()]],
-        confirmPassword: ['', Validators.required]
+        confirmPassword: ['', Validators.required],
       },
       {
-        validator: checkEqualityValidator('password', 'confirmPassword')
+        validator: checkEqualityValidator('password', 'confirmPassword'),
       }
-    )
+    ),
   });
 
   ngOnInit(): void {
     this.signUpForm.get('address')?.valueChanges.subscribe((value) => {
       if (value && value.length >= 4) {
         this.addressService.searchAddress(value).subscribe((response) => {
-          const res = response.features.some((item: AddressFeature) => item.properties.label === value)
-          if(!res) {
+          const res = response.features.some(
+            (item: AddressFeature) => item.properties.label === value
+          );
+          if (!res) {
             this.addressSuggestions = response.features;
           }
         });
@@ -71,9 +91,14 @@ export class SignUpComponent {
       }
     });
 
-    this.signUpForm.get('passwords.password')?.valueChanges.subscribe(() => {
+    this.signUpForm.get('passwords.password')?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.checkPasswordStrength();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   checkPasswordStrength(): void {
@@ -86,7 +111,13 @@ export class SignUpComponent {
       const hasSpecial = /[\W_]+/.test(value);
       const isLengthValid = value.length >= 8;
 
-      const strength = [hasUpperCase, hasLowerCase, hasNumeric, hasSpecial, isLengthValid].filter(Boolean).length;
+      const strength = [
+        hasUpperCase,
+        hasLowerCase,
+        hasNumeric,
+        hasSpecial,
+        isLengthValid,
+      ].filter(Boolean).length;
 
       if (strength < 3) {
         this.passwordStrengthClass = 'weak';
@@ -118,18 +149,34 @@ export class SignUpComponent {
   }
 
   signup() {
-    const signupForm = {
-      firstname: this.signUpForm.value.firstname,
-      lastname: this.signUpForm.value.lastname,
-      email: this.signUpForm.value.emails.email,
-      password: this.signUpForm.value.passwords.password,
-      phoneNumber: this.signUpForm.value.phoneNumber,
-      address: this.signUpForm.value.address,
-      occupation: this.signUpForm.value.occupation
-    }
+    if (this.signUpForm.valid) {
+      const signupForm = {
+        firstname: this.signUpForm.value.firstname,
+        lastname: this.signUpForm.value.lastname,
+        email: this.signUpForm.value.emails.email,
+        password: this.signUpForm.value.passwords.password,
+        phoneNumber: this.signUpForm.value.phoneNumber,
+        address: this.signUpForm.value.address,
+        occupation: this.signUpForm.value.occupation,
+      };
 
-    this.authService.signup(signupForm).subscribe(() => {
-      this.router.navigate(['/connexion']);
-    });
+      this.authService.signup(signupForm).subscribe({
+        next: () => {
+          this.toastr.success('Inscription réussie', 'Succès');
+          this.router.navigate(['/connexion']);
+        },
+        error: (err) => {
+          this.toastr.error(
+            "Une erreur est survenue lors de l'inscription. Veuillez réessayer.",
+            'Erreur'
+          );
+        },
+      });
+    } else {
+      this.toastr.error(
+        'Veuillez remplir tous les champ du formulaire',
+        'Erreur'
+      );
+    }
   }
 }

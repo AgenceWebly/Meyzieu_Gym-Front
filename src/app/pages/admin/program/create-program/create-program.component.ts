@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-program',
@@ -13,10 +14,12 @@ import { InputSwitchModule } from 'primeng/inputswitch';
   styleUrl: './create-program.component.scss',
 })
 export class CreateProgramComponent {
+  charCount: number = 255;
+
   fb = inject(FormBuilder);
   router = inject(Router);
   apiService = inject(ApiService);
-  charCount: number = 255;
+  toastr = inject(ToastrService);
 
   programForm = this.fb.group({
     name: [
@@ -34,9 +37,14 @@ export class CreateProgramComponent {
 
   submitForm() {
     if (this.programForm.valid) {
-      this.apiService.createProgram(this.programForm.value).subscribe(() => {
-        console.log(this.programForm.value);
-        this.router.navigate(['/admin/programmes']);
+      this.apiService.createProgram(this.programForm.value).subscribe({
+        next: () => {
+          this.toastr.success('Programme créé avec succès', 'Succès');
+          this.router.navigate(['/admin/programmes']);
+        },
+        error: (err) => {
+          this.toastr.error('Une erreur est survenue', 'Erreur');
+        }
       });
     }
   }

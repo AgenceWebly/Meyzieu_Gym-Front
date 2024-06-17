@@ -19,7 +19,7 @@ export class ConfirmationComponent {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      this.paymentMethod = params['paymentMethod'] || null;
+      this.paymentMethod = params['method'] || null;
     });
   }
 
