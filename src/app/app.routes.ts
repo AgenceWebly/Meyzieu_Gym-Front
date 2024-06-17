@@ -25,6 +25,7 @@ import { AddMedicalSurveyComponent } from './pages/registration/add-medical-surv
 import { AddPaymentComponent } from './pages/registration/add-payment/add-payment.component';
 import { ConfirmationComponent } from './pages/registration/confirmation/confirmation.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { EditCourseComponent } from './pages/admin/course/edit-course/edit-course.component';
 
 export const routes: Routes = [
   {
@@ -222,7 +223,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/cours/:id',
-    component: EditProgramComponent,
+    component: EditCourseComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

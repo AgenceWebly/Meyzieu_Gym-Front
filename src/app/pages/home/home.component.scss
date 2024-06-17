@@ -4,7 +4,7 @@
 main {
   @include border-shadow-radius;
   min-height: 95vh;
-  padding: $default-padding;
+  padding: calc($default-padding * 3);
   margin: $default-margin;
   background-color: $color-white-background;
 

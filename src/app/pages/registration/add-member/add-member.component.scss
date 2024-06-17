@@ -214,6 +214,10 @@ main {
     color: black;
   }
 
+  label a {
+    @include link();
+  }
+
   .info {
     padding: 0 12px;
     color: $color-hover-background;

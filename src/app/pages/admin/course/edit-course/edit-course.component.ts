@@ -1,27 +1,26 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { ApiService } from '../../../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-edit-program',
+  selector: 'app-edit-course',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputSwitchModule],
-  templateUrl: './edit-program.component.html',
-  styleUrl: './edit-program.component.scss',
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './edit-course.component.html',
+  styleUrl: './edit-course.component.scss'
 })
-export class EditProgramComponent {
-  programId!: number;
+export class EditCourseComponent {
+  courseId!: number;
   fb = inject(FormBuilder);
   route = inject(ActivatedRoute);
   router = inject(Router);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
 
-  programForm = this.fb.group({
+  courseForm = this.fb.group({
     name: [
       '',
       [Validators.required, Validators.minLength(2), Validators.maxLength(100)],
@@ -40,36 +39,38 @@ export class EditProgramComponent {
       const idParam = params.get('id');
 
       if (idParam !== null) {
-        this.programId = parseInt(idParam, 10);
+        this.courseId = parseInt(idParam, 10);
 
-        if (!isNaN(this.programId)) {
-          this.apiService.getProgramById(this.programId).subscribe({
-            next: (program) => {
-              this.programForm.patchValue({
-                name: program.name,
-                description: program.description,
-                includingCompetition: program.includingCompetition,
+        if (!isNaN(this.courseId)) {
+          this.apiService.getCourseById(this.courseId).subscribe({
+            next: (course) => {
+              this.courseForm.patchValue({
+                name: course.name,
+                description: course.description,
+                includingCompetition: course.includingCompetition,
               });
             },
             error: (err) => {
-              this.toastr.error('Une erreur est survenue :' + err, 'Erreur');
+              console.log(err);
+              
+              this.toastr.error('Une erreur est survenue :' + err.error, 'Erreur');
             },
           });
         } else {
-          this.toastr.error('ID du programme invalide', 'Erreur');
+          this.toastr.error('ID du cours invalide', 'Erreur');
         }
       } else {
-        this.toastr.error('ID du programme non trouvé', 'Erreur');
+        this.toastr.error('ID du cours non trouvé', 'Erreur');
       }
     });
   }
 
   submitForm(): void {
-    if (this.programForm.valid) {
-      this.apiService.updateProgram(this.programForm.value, this.programId).subscribe({
+    if (this.courseForm.valid) {
+      this.apiService.updateProgram(this.courseForm.value, this.courseId).subscribe({
         next: () => {
-          this.toastr.success('Programme mis à jour avec succès', 'Succès');
-          this.router.navigate(['/admin/programmes']);
+          this.toastr.success('Cours mis à jour avec succès', 'Succès');
+          this.router.navigate(['/admin/cours']);
         },
         error: (err) => {
           this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
@@ -79,6 +80,6 @@ export class EditProgramComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/admin/programmes']);
+    this.router.navigate(['/admin/cours']);
   }
 }

@@ -35,7 +35,7 @@ export class UserComponent {
               this.user = user;
             },
             error: (err) => {
-              this.toastr.error('Erreur : ' + err, 'Erreur');
+              this.toastr.error('Erreur : ' + err.error, 'Erreur');
             },
           });
         } else {

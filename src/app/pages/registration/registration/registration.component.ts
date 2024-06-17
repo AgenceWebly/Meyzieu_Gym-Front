@@ -30,10 +30,10 @@ export class RegistrationComponent {
       },
       error: (err: any) => {
         this.messageError = err.message;
-        this.toastr.error(
-          'Une erreur est survenue. Veuillez réessayer ultérieurement.',
-          'Error'
-        );
+        // this.toastr.error(
+        //   'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+        //   'Error'
+        // );
       },
     });
   }

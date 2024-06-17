@@ -35,7 +35,7 @@ export class UsersComponent {
         this.filteredUsers = [...this.users];
       },
       error: (err) => {
-        this.toastr.error('Erreur : ' + err, 'Erreur');
+        this.toastr.error('Erreur : ' + err.error, 'Erreur');
       },
     });
   }
