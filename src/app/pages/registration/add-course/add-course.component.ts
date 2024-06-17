@@ -21,6 +21,7 @@ export class AddCourseComponent {
   currentUserId!: number;
   discount: number = 0;
   membersRegisteredThisSeason: number = 1;
+  currentYear!: number;
 
   courses!: Course[];
 
@@ -35,6 +36,8 @@ export class AddCourseComponent {
   toastr = inject(ToastrService);
 
   ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
+
     this.route.paramMap.subscribe((params: ParamMap) => {
       const idParam = params.get('id');
 

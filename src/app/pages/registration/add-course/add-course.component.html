@@ -7,10 +7,10 @@
     </h2>
     @if (course.minAge === course.maxAge) {
     <p class="age">
-      Enfants nés en {{ 2024 - course.maxAge }}
+      Enfants nés en {{ currentYear - course.maxAge }}
     </p>
     } @else {
-      <p class="age">Enfants nés entre {{ 2024 - course.maxAge }} et {{ 2024 - course.minAge }} </p>
+      <p class="age">Enfants nés entre {{ currentYear - course.maxAge }} et {{ currentYear - course.minAge }} </p>
     }
 
     <p>{{ course.program.description }}</p>
