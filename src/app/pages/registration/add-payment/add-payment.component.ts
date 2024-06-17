@@ -56,7 +56,10 @@ export class AddPaymentComponent {
         .updateRegistration(registrationData, this.registrationId)
         .subscribe({
           next: () => {
-            this.toastr.success('Mode de règlement pris en compte', 'Succès');
+            this.toastr.success(
+              "Merci de procéder au règlement de l'inscription",
+              'Mode de paiement pris en compte'
+            );
             if (selectedPaymentMethod.includes('cb')) {
               this.router.navigate(
                 ['inscription/' + this.registrationId + '/confirmation'],

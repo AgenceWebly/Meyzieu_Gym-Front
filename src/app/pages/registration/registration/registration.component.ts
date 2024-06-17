@@ -42,4 +42,8 @@ export class RegistrationComponent {
   addNewMember(): void {
     this.router.navigate(['inscription/nouvel-adherent']);
   }
+
+  goToCoursesPage(memberId: number) {
+    this.router.navigate(['inscription/adherent/' + memberId + '/cours'])
+  }
 }

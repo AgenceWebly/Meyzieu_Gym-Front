@@ -94,7 +94,7 @@ export class AddCourseComponent {
       registrationFee: coursePrice - this.discount,
       paymentMethod: 'aucun',
       paymentStatus: 'non payé',
-      registrationStatus: 'course validated',
+      registrationStatus: 'cours choisi',
       healthCertificateFileUrl: null,
       isHealthCertificateRequired: null,
     };

@@ -14,9 +14,6 @@
         />
         <label for="photo">
           <span>Charger une photo de l'adhérent</span>
-          <div *ngIf="photoError" class="error-message" class="info">
-            {{ photoError }}
-          </div>
           <input type="file" id="photo" (change)="handleFileUpload($event)" />
         </label>
       </fieldset>
