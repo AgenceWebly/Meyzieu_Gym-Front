@@ -31,10 +31,12 @@ export class ProfilComponent {
         this.currentUser = data;
       },
       error: (err) => {
-        this.toastr.error(
-          'Une erreur est survenue. Veuillez réessayer ultérieurement',
-          'Error'
-        );
+        if (err.status !== 401) {
+          this.toastr.error(
+            'Une erreur est survenue. Veuillez réessayer ultérieurement',
+            'Erreur'
+          );
+        }
       },
     });
   }

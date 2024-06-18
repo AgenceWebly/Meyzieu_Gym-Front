@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { StorageService } from '../../shared/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,8 @@ export class LoginComponent {
   authService = inject(AuthService);
   storageService = inject(StorageService);
   router = inject(Router);
+  route = inject(ActivatedRoute);
+  toastr = inject(ToastrService);
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -31,6 +34,14 @@ export class LoginComponent {
   });
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['loggedOut']) {
+        this.toastr.success(
+          'Pour continuer, veuillez vous reconnecter.',
+          'Vous avez été déconnecté.'
+        );
+      }
+    });
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
@@ -47,7 +58,6 @@ export class LoginComponent {
     if (loginForm.email && loginForm.password) {
       this.authService.login(loginForm.email, loginForm.password).subscribe({
         next: (data) => {
-
           this.storageService.saveUser(data);
 
           this.isLoginFailed = false;
