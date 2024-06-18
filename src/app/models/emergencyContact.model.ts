@@ -1,6 +1,6 @@
 export interface EmergencyContact {
   firstname: string;
   lastname: string;
-  relationToMember: 'parent|grand-parent|relative|other';
+  relationToMember: 'father|mother|relative';
   phoneNumber: string;
 }

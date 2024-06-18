@@ -8,7 +8,8 @@ main {
   margin: $default-margin;
   background-color: $color-white-background;
 
-  h1, h2 {
+  h1,
+  h2 {
     margin-bottom: $default-margin;
   }
 
@@ -28,7 +29,7 @@ main {
   .form-container {
     margin: 0 auto;
     max-width: 700px;
-    
+
     @media (min-width: 769px) {
       padding: $default-padding * 2;
     }
@@ -81,6 +82,11 @@ main {
         display: block;
         margin-top: calc($default-padding / 4);
         margin-bottom: calc($default-padding / 4);
+      }
+
+      .info-password {
+        font-size: 0.8em;
+        color: #676464;
       }
 
       .password-strength-bar {

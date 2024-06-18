@@ -72,7 +72,7 @@ export class EditProgramComponent {
           this.router.navigate(['/admin/programmes']);
         },
         error: (err) => {
-          this.toastr.error('Une erreur est survenue : ' + err, 'Erreur');
+          this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
         },
       });
     }

@@ -24,10 +24,12 @@ import { RegistrationComponent } from './pages/registration/registration/registr
 import { AddMedicalSurveyComponent } from './pages/registration/add-medical-survey/add-medical-survey.component';
 import { AddPaymentComponent } from './pages/registration/add-payment/add-payment.component';
 import { ConfirmationComponent } from './pages/registration/confirmation/confirmation.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { EditCourseComponent } from './pages/admin/course/edit-course/edit-course.component';
 
 export const routes: Routes = [
   {
-    path: 'accueil',
+    path: '',
     component: HomeComponent,
   },
   {
@@ -129,7 +131,7 @@ export const routes: Routes = [
   },
   {
     path: 'contact',
-    component: HomeComponent,
+    component: ContactComponent,
   },
   {
     path: 'options',
@@ -221,7 +223,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/cours/:id',
-    component: EditProgramComponent,
+    component: EditCourseComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

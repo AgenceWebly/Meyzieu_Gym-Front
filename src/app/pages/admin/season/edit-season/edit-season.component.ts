@@ -72,7 +72,7 @@ export class EditSeasonComponent {
             this.router.navigate(['/admin/saisons']);
           },
           error: (err) => {
-            this.toastr.error('Une erreur est survenue : ' + err, 'Erreur');
+            this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
           },
         });
     }

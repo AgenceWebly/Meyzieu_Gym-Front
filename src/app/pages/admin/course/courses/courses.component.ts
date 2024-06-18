@@ -33,7 +33,7 @@ export class CoursesComponent {
       },
       error: (err) => {
         this.toastr.error('Une erreur est survenue', 'Erreur');
-      }
+      },
     });
   }
 

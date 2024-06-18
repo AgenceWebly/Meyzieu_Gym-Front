@@ -1,10 +1,21 @@
 <main class="members-container">
   <h1>Je souhaite inscrire</h1>
   <div class="members-list">
-    <div *ngFor="let member of members" class="member-card">
-      <img [src]="member.profilePictureUrl" alt="{{ member.firstname | titlecase }} {{ member.lastname | uppercase }}">
+    <div
+      *ngFor="let member of members"
+      class="member-card"
+      (click)="goToCoursesPage(member.id)"
+    >
+      <img
+        [src]="member.profilePictureUrl"
+        alt="{{ member.firstname | titlecase }} {{
+          member.lastname | uppercase
+        }}"
+      />
       <div class="member-info">
-        <h2>{{ member.firstname | titlecase }} {{ member.lastname | uppercase }}</h2>
+        <h2>
+          {{ member.firstname | titlecase }} {{ member.lastname | uppercase }}
+        </h2>
         <p>Groupe {{ member.group }}</p>
         <p>Saison {{ member.season }}</p>
       </div>

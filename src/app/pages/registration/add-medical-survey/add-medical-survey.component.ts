@@ -40,22 +40,26 @@ export class AddMedicalSurveyComponent {
   });
 
   ngOnInit() {
-    this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params: ParamMap) => {
-      const idParam = params.get('id');
+    this.route.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: ParamMap) => {
+        const idParam = params.get('id');
 
-      if (idParam !== null) {
-        this.registrationId = parseInt(idParam, 10);
-      } else {
-        this.toastr.error(
-          'Une erreur est survenue. Veuillez réessayer ultérieurement',
-          'Erreur'
-        );
-      }
-    });
+        if (idParam !== null) {
+          this.registrationId = parseInt(idParam, 10);
+        } else {
+          this.toastr.error(
+            'Une erreur est survenue. Veuillez réessayer ultérieurement',
+            'Erreur'
+          );
+        }
+      });
 
-    this.medicalForm.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((values) => {
-      this.checkHealthCertificateRequirement(values);
-    });
+    this.medicalForm.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((values) => {
+        this.checkHealthCertificateRequirement(values);
+      });
   }
 
   ngOnDestroy(): void {
@@ -76,14 +80,17 @@ export class AddMedicalSurveyComponent {
         id: this.registrationId,
         isHealthCertificateRequired: isHealthCertificateRequired,
         healthCertificateFileUrl: null,
-        registrationStatus: 'medical validated',
+        registrationStatus: 'questionnaire médical complété',
       };
 
       this.apiService
         .updateRegistration(healthCertificateData, this.registrationId)
         .subscribe({
           next: (response) => {
-            this.toastr.success('Informations prises en compte', 'Succès');
+            this.toastr.success(
+              'Merci de choisir votre mode de paiement',
+              'Questionnaire médical pris en compte'
+            );
             this.router.navigate([
               '/inscription/' + this.registrationId + '/paiement',
             ]);

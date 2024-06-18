@@ -1,0 +1,42 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: calc($default-padding * 3);
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  h1 {
+    margin-bottom: $default-margin;
+  }
+
+  h2 {
+    margin-bottom: $default-margin;
+  }
+
+  .article-container {
+    background-color: $color-hover-background;
+    padding: $default-padding;
+    margin-bottom: $default-margin;
+    border-radius: 10px;
+
+    p {
+      margin-top: $default-margin;
+    }
+
+    .img-container {
+      max-width: 100%;
+      max-height: 100%;
+      overflow: hidden;
+      margin-top: $default-margin;
+    }
+
+    .img-container img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+}

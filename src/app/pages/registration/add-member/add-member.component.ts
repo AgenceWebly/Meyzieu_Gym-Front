@@ -26,7 +26,6 @@ import { Toast, ToastrService } from 'ngx-toastr';
 export class AddMemberComponent {
   imageUrl: string = 'assets/icons/no-image.webp';
   loading: boolean = false;
-  photoError: string = "La photo de l'adhérent est requise";
   currentUserId!: number;
 
   relatedOptions = relationShips;
@@ -42,7 +41,7 @@ export class AddMemberComponent {
   toastr = inject(ToastrService);
 
   addMemberForm = this.fb.group({
-    profilePictureUrl: [null, Validators.required],
+    profilePictureUrl: ['https://res.cloudinary.com/dz632zpoz/image/upload/v1718619998/tpuu6cyldfwho6bqovim.webp', Validators.required],
     gender: ['', Validators.required],
     lastname: [
       '',
@@ -120,7 +119,6 @@ export class AddMemberComponent {
             .get('profilePictureUrl')
             ?.setValue(response.secure_url);
           this.loading = false;
-          this.photoError = '';
         },
         error: (err) => {
           this.loading = false;

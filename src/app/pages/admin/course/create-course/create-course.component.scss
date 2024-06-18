@@ -100,6 +100,18 @@ main {
     }
   }
 
+  .training-slots-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    fieldset,
+    .form-group {
+      width: 70%;
+    }
+  }
+
   h2 {
     font-size: 1em;
     margin: $default-margin 0;

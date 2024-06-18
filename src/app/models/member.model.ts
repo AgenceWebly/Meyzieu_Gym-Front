@@ -13,7 +13,7 @@ export interface Member {
   isFirstAidApproved: boolean;
   isAllowedToLeave: boolean;
   profilePictureUrl: string;
-  relationToMember: 'parent|grand-parent|relative|other';
+  relationToMember: 'father|mother|relative';
   emergencyContacts: EmergencyContact[];
   registrations: Registration[];
 }

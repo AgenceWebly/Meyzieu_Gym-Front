@@ -1,18 +1,18 @@
 <main>
-  <div
-    class="confirmation-container"
-  >
-    <h1>Confirmation d'inscription</h1>
+  <div class="confirmation-container">
+    <h1>Règlement</h1>
     @if (isCardPayment()) {
     <p>
       Pour confirmer cette inscription, veuillez procéder au paiement en ligne
       de l’adhésion via ce lien
       <a href="{{ paymentLink }}" target="_blank">Hello Asso</a>.
     </p>
+    @if (paymentMethod === 'cb3x') {
     <p>
-      Attention : Pour les paiements en 3 fois, votre carte de paiement doit être
-      valide jusqu’en novembre 2024 inclus.
+      Attention : Pour les paiements en 3 fois, votre carte de paiement doit
+      être valide jusqu’en novembre 2024 inclus.
     </p>
+    }
     <p>
       Un mail de confirmation vous sera envoyé à l’adresse {{ userEmail }} sous
       peu.
@@ -31,10 +31,6 @@
       <li>le 5 juillet de 17h à 20h</li>
       <li>le 7 juillet de 15h à 19h</li>
     </ul>
-    <p>
-      Merci d’avoir choisi notre club, toute l’équipe de Meyzieu Gym vous
-      souhaite une belle année / sportive !
-    </p>
     }
 
     <p>

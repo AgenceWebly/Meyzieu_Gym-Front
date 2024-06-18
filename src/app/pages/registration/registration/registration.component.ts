@@ -24,12 +24,11 @@ export class RegistrationComponent {
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
-    this.apiService.getMembers(currentUserId).subscribe({
+    this.apiService.getMembersByUserId(currentUserId, true).subscribe({
       next: (data: any) => {
         this.members = data;
       },
       error: (err: any) => {
-        this.messageError = err.message;
         this.toastr.error(
           'Une erreur est survenue. Veuillez réessayer ultérieurement.',
           'Error'
@@ -40,5 +39,9 @@ export class RegistrationComponent {
 
   addNewMember(): void {
     this.router.navigate(['inscription/nouvel-adherent']);
+  }
+
+  goToCoursesPage(memberId: number) {
+    this.router.navigate(['inscription/adherent/' + memberId + '/cours'])
   }
 }

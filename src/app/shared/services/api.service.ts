@@ -11,8 +11,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   // M E M B E R S
-  getMembers(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${AUTH_API}/users/${userId}/members`);
+  getMembersByUserId(userId: number, forRegistration: boolean): Observable<any[]> {
+    return this.http.get<any[]>(`${AUTH_API}/users/${userId}/members?forRegistration=${forRegistration}`);
   }
 
   createMember(userId: number, newMember: any) {

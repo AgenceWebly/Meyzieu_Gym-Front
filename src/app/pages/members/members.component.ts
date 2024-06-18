@@ -24,7 +24,7 @@ export class MembersComponent {
 
   ngOnInit(): void {
     const currentUserId = this.storageService.getUser().id;
-    this.apiService.getMembers(currentUserId).subscribe({
+    this.apiService.getMembersByUserId(currentUserId, false).subscribe({
       next: (data: any) => {
         this.members = data;
       },
@@ -32,7 +32,7 @@ export class MembersComponent {
         this.messageError = err.message;
         this.toastr.error(
           'Une erreur est survenue. Veuillez réessayer ultérieurement',
-          'Error'
+          'Erreur'
         );
       },
     });

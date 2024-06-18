@@ -73,11 +73,6 @@ main {
       }
     }
 
-    small {
-      color: $error-color;
-      font-size: 0.875em;
-    }
-
     img {
       display: block;
       max-width: 150px;
@@ -214,6 +209,10 @@ main {
     color: black;
   }
 
+  label a {
+    @include link();
+  }
+
   .info {
     padding: 0 12px;
     color: $color-hover-background;
@@ -272,5 +271,10 @@ main {
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  small {
+    color: $error-color;
+    font-size: 0.875em;
   }
 }

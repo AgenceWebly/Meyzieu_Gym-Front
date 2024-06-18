@@ -49,14 +49,17 @@ export class AddPaymentComponent {
         paymentStatus: selectedPaymentMethod.includes('cb')
           ? 'en attente'
           : 'non payé',
-        registrationStatus: 'registration validated',
+        registrationStatus: 'mode de paiement choisi',
       };
 
       this.apiService
         .updateRegistration(registrationData, this.registrationId)
         .subscribe({
           next: () => {
-            this.toastr.success('Mode de règlement pris en compte', 'Succès');
+            this.toastr.success(
+              "Merci de procéder au règlement de l'inscription",
+              'Mode de paiement pris en compte'
+            );
             if (selectedPaymentMethod.includes('cb')) {
               this.router.navigate(
                 ['inscription/' + this.registrationId + '/confirmation'],
