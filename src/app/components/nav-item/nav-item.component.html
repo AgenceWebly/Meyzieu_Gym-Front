@@ -1,5 +1,5 @@
 @if (hasRole(navItem.userType)) {
-  <li [routerLink]="navItem.path" routerLinkActive="active-link">
+  <li [routerLink]="navItem.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
     <a (click)="closeMenu()">
       <div class="icon-container">
         <i [class]="navItem.icon"></i>
