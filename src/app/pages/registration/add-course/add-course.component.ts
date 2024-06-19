@@ -7,6 +7,7 @@ import { ApiService } from '../../../shared/services/api.service';
 import { Course } from '../../../models/course.model';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { TrainingSlot } from '../../../models/trainingSlot';
 
 @Component({
   selector: 'app-add-course',
@@ -45,7 +46,6 @@ export class AddCourseComponent {
         this.apiService.getAvailableCourses(this.memberId).subscribe({
           next: (response) => {
             this.courses = response;
-            console.log(response);
             this.membersRegisteredThisSeason =
               response[0].userRegistrationsCount;
             switch (response[0].userRegistrationsCount) {
@@ -73,6 +73,37 @@ export class AddCourseComponent {
         );
       }
     });
+  }
+
+  calculateWeeklyDuration(trainingSlots: TrainingSlot[]): string {
+    let totalMinutes = 0;
+
+    trainingSlots.forEach(slot => {
+      const start = new Date(`1970-01-01T${slot.startTime}Z`);
+      const end = new Date(`1970-01-01T${slot.endTime}Z`);
+      totalMinutes += (end.getTime() - start.getTime()) / (1000 * 60);
+    });
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    let hoursText = '';
+    if (hours > 0) {
+      hoursText = `${hours} heure`;
+      if (hours > 1) {
+        hoursText += 's';
+      }
+    }
+
+    let minutesText = '';
+    if (minutes > 0) {
+      minutesText = `${minutes} minutes`;
+      if (hours > 0) {
+        minutesText = ` et ${minutesText}`;
+      }
+    }
+
+    return hoursText + minutesText;
   }
 
   openConfirmationDialog(course: Course) {
