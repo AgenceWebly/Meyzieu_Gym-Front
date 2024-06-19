@@ -2,7 +2,7 @@ import { NavItem } from "../models/navItem.model";
 
 export const navItems: NavItem[] = [
   {
-    path: '/accueil',
+    path: '/',
     icon: 'fa-light fa-house',
     text: 'Accueil',
     category: 1,
