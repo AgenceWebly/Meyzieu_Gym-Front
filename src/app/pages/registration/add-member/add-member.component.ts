@@ -41,7 +41,10 @@ export class AddMemberComponent {
   toastr = inject(ToastrService);
 
   addMemberForm = this.fb.group({
-    profilePictureUrl: ['https://res.cloudinary.com/dz632zpoz/image/upload/v1718619998/tpuu6cyldfwho6bqovim.webp', Validators.required],
+    profilePictureUrl: [
+      'https://res.cloudinary.com/dz632zpoz/image/upload/v1718619998/tpuu6cyldfwho6bqovim.webp',
+      Validators.required,
+    ],
     gender: ['', Validators.required],
     lastname: [
       '',
@@ -147,13 +150,10 @@ export class AddMemberComponent {
 
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
-          let messageSuccess =
-            this.addMemberForm.value.gender === 'female'
-              ? this.addMemberForm.value.firstname +
-                ' a bien été ajoutée en tant que nouvel adhérent'
-              : this.addMemberForm.value.firstname +
-                ' a bien été ajouté en tant que nouvel adhérent';
-          this.toastr.success(messageSuccess, 'Succès');
+          this.toastr.success(
+            'Merci de choisir le cours souhaité pour ' + this.addMemberForm.value.firstname,
+            'Choix du groupe'
+          );
           this.router.navigate(['inscription/adherent/' + response + '/cours']);
         },
         error: (err) => {
