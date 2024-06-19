@@ -59,15 +59,15 @@
       {{ course.price - discount }} €
     </h3>
     <div>
-      Une réduction a été automatiquement appliquée pour cette
-      {{ membersRegisteredThisSeason }}ème adhésion cette saison dans la cadre
-      d'une fratrie.
+      Une réduction de {{ discount }} euros a été automatiquement appliquée pour
+      cette {{ membersRegisteredThisSeason }}ème adhésion cette saison dans la
+      cadre d'une fratrie.
     </div>
     } @else {
     <h3>{{ course.price }} €</h3>
     }
     <button
-      (click)="registerCourse(course.id, course.price)"
+      (click)="openConfirmationDialog(course)"
       [disabled]="course.remainingSlots === 0"
     >
       Choisir ce cours
@@ -76,4 +76,49 @@
   } @else {
   <div class="course-container">Aucun cours n'est disponible à ce jour</div>
   }
+  <div *ngIf="isModalOpen">
+    <div class="modal-backdrop" (click)="onClose()"></div>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Attention</h2>
+        <button class="close-button" (click)="onClose()">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Vous êtes sur le point de choisir le cours :</p>
+        <div class="margin">
+          <p class="bold">{{ selectedCourse.program.name }}</p>
+          <ul>
+            <li
+              *ngFor="let trainingSlot of selectedCourse.trainingSlots"
+              class="bold"
+            >
+              {{ trainingSlot.day | titlecase }} de
+              {{ trainingSlot.startTime | slice : 0 : 5 }} à
+              {{ trainingSlot.endTime | slice : 0 : 5 }}
+            </li>
+          </ul>
+          <p class="bold">
+            au prix de {{ selectedCourse.price - discount }} euros
+          </p>
+        </div>
+
+        <p>Voulez-vous vraiment choisir ce cours ?</p>
+        <p class="warning bold">
+          Aucun changement ne pourra être effectué sans l'intervention de
+          l'administrateur
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-button cancel-button" (click)="onClose()">
+          Annuler
+        </button>
+        <button
+          class="modal-button"
+          (click)="onConfirm(selectedCourse.id, selectedCourse.price)"
+        >
+          Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
 </main>

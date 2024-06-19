@@ -6,7 +6,6 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { Course } from '../../../models/course.model';
 import { StorageService } from '../../../shared/services/storage.service';
-import { User } from '../../../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -19,9 +18,11 @@ import { ToastrService } from 'ngx-toastr';
 export class AddCourseComponent {
   memberId!: number;
   currentUserId!: number;
-  discount: number = 0;
-  membersRegisteredThisSeason: number = 1;
+  discount!: number;
+  membersRegisteredThisSeason!: number;
   currentYear!: number;
+  isModalOpen = false;
+  selectedCourse!: Course;
 
   courses!: Course[];
 
@@ -44,6 +45,19 @@ export class AddCourseComponent {
         this.apiService.getAvailableCourses(this.memberId).subscribe({
           next: (response) => {
             this.courses = response;
+            console.log(response);
+            this.membersRegisteredThisSeason =
+              response[0].userRegistrationsCount;
+            switch (response[0].userRegistrationsCount) {
+              case 0:
+                this.discount = 0;
+                break;
+              case 1:
+                this.discount = 10;
+                break;
+              default:
+                this.discount = 30;
+            }
           },
           error: (err) => {
             this.toastr.error(
@@ -59,31 +73,20 @@ export class AddCourseComponent {
         );
       }
     });
-
-    // this.currentUserId = this.storageService.getUser().id;
-    // this.apiService.getUserById(this.currentUserId).subscribe((user) => {
-    //   this.calculateDiscount(user);
-    // });
   }
 
+  openConfirmationDialog(course: Course) {
+    this.selectedCourse = course;
+    this.isModalOpen = true;
+  }
 
-  calculateDiscount(user: User) {
-    for (const member of user.members) {
-      for (const registration of member.registrations) {
-        if (
-          registration.course.season.startDate ===
-          this.courses[0].season.startDate
-        ) {
-          this.membersRegisteredThisSeason++;
-          break;
-        }
-      }
-    }
-    if (this.membersRegisteredThisSeason === 1) {
-      this.discount = 10;
-    } else if (this.membersRegisteredThisSeason <= 2) {
-      this.discount = 30;
-    }
+  onConfirm(courseId: number, coursePrice: number) {
+    this.registerCourse(courseId, coursePrice);
+    this.isModalOpen = false;
+  }
+
+  onClose() {
+    this.isModalOpen = false;
   }
 
   registerCourse(courseId: number, coursePrice: number) {
