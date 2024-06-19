@@ -12,29 +12,57 @@ main {
     max-width: 800px;
     margin: 0 auto;
 
-    p {
-      margin: calc($default-margin * 2) 0;
+    .main-container {
+      background-color: $color-hover-background;
+      margin: $default-margin;
+      padding: calc($default-padding * 2);
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      border-radius: 10px;
 
-      a {
-        @include link;
+      p {
+        margin: calc($default-margin * 2) 0;
+
+        a {
+          @include link;
+        }
+      }
+
+      .link-container {
+        text-align: center;
+        font-size: 1.5em;
+      }
+
+      ul {
+        li {
+          margin: $default-margin calc($default-margin * 2);
+          text-align: center;
+        }
       }
     }
 
-    ul {
-      li {
-        list-style-type: initial;
-        margin: $default-margin calc($default-margin * 2);
-      }
+    h1 {
+      font-family: $font-title;
+      margin-bottom: $default-margin;
     }
   }
+}
 
-  h1 {
-    font-family: $font-title;
-    margin-bottom: $default-margin;
-  }
+a {
+  @include link;
+}
 
-  h2 {
-    font-size: 1em;
-    margin: $default-margin 0;
-  }
+.fa-message-exclamation {
+  text-align: center;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.italic {
+  font-style: italic;
+  font-size: 1.2em;
 }
