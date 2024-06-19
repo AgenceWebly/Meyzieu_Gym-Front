@@ -25,8 +25,6 @@ export class AddCourseComponent {
 
   courses!: Course[];
 
-  coursesFilteredByAge: Course[] = this.courses;
-
   fb = inject(FormBuilder);
   http = inject(HttpClient);
   router = inject(Router);
@@ -43,11 +41,9 @@ export class AddCourseComponent {
 
       if (idParam !== null) {
         this.memberId = parseInt(idParam, 10);
-        // Récupérer les info du member et filtrer courses en fonction de l'âge
-        this.apiService.getCourses().subscribe({
+        this.apiService.getAvailableCourses(this.memberId).subscribe({
           next: (response) => {
             this.courses = response;
-            this.coursesFilteredByAge = response;
           },
           error: (err) => {
             this.toastr.error(

@@ -64,6 +64,10 @@ export class ApiService {
     return this.http.get<any[]>(`${AUTH_API}/courses`);
   }
 
+  getAvailableCourses(memberId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${AUTH_API}/members/${memberId}/available-courses`);
+  }
+
   getCourseById(courseId: number): Observable<any> {
     return this.http.get<any>(`${AUTH_API}/courses/${courseId}`);
   }

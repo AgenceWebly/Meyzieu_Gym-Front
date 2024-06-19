@@ -1,16 +1,17 @@
 <main>
   <h1>Groupes</h1>
-  @if (coursesFilteredByAge.length > 0) {
-  <div class="course-container" *ngFor="let course of coursesFilteredByAge">
+  @if (courses.length > 0) {
+  <div class="course-container" *ngFor="let course of courses">
     <h2>
       {{ course.program.name | titlecase }}
     </h2>
     @if (course.minAge === course.maxAge) {
-    <p class="age">
-      Enfants nés en {{ currentYear - course.maxAge }}
-    </p>
+    <p class="age">Enfants nés en {{ currentYear - course.maxAge }}</p>
     } @else {
-      <p class="age">Enfants nés entre {{ currentYear - course.maxAge }} et {{ currentYear - course.minAge }} </p>
+    <p class="age">
+      Enfants nés entre {{ currentYear - course.maxAge }} et
+      {{ currentYear - course.minAge }}
+    </p>
     }
 
     <p>{{ course.program.description }}</p>
@@ -28,12 +29,25 @@
     </ul>
 
     <h3>Places disponibles</h3>
+
+    @if (course.remainingSlots === 1) {
     <p>
-      <i class="fa-solid fa-circle-info fa-2xs"></i>
+      <i class="fa-solid fa-hexagon-exclamation" style="color: red"></i> Il ne
+      reste plus que {{ course.remainingSlots }} place disponible sur
+      {{ course.maxMembers }}
+    </p>
+    } @else if (course.remainingSlots <= 3) {
+    <p>
+      <i class="fa-solid fa-circle-info" style="color: orange"></i>
+      Il ne reste plus que {{ course.remainingSlots }} places disponibles sur
+      {{ course.maxMembers }}
+    </p>
+    } @else {
+    <p>
+      <i class="fa-solid fa-circle-info" style="color: green"></i>
       {{ course.remainingSlots }} places disponibles sur {{ course.maxMembers }}
     </p>
-
-    @if (discount > 0) {
+    } @if (discount > 0) {
     <h3>
       <span class="old-price">{{ course.price }} €</span>
       {{ course.price - discount }} €
