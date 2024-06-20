@@ -47,7 +47,10 @@ export class EditSeasonComponent {
               });
             },
             error: (err) => {
-              this.toastr.error('Erreur : ' + err, 'Erreur');
+              this.toastr.error(
+                'Une erreur est survenue, veuillez réessayer ultérieurement',
+                'Erreur'
+              );
             },
           });
         } else {
@@ -72,7 +75,10 @@ export class EditSeasonComponent {
             this.router.navigate(['/admin/saisons']);
           },
           error: (err) => {
-            this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
+            this.toastr.error(
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
+              'Erreur'
+            );
           },
         });
     }

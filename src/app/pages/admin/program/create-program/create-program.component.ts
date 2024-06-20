@@ -43,8 +43,11 @@ export class CreateProgramComponent {
           this.router.navigate(['/admin/programmes']);
         },
         error: (err) => {
-          this.toastr.error('Une erreur est survenue', 'Erreur');
-        }
+          this.toastr.error(
+            'Une erreur est survenue, veuillez réessayer ultérieurement',
+            'Erreur'
+          );
+        },
       });
     }
   }

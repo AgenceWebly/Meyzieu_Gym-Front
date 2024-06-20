@@ -33,7 +33,10 @@ export class CoursesComponent {
         this.filteredCourses = data;
       },
       error: (err) => {
-        this.toastr.error('Une erreur est survenue', 'Erreur');
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Erreur'
+        );
       },
     });
   }

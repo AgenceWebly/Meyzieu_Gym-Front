@@ -37,11 +37,17 @@ export class AddPaymentComponent {
 
       if (idParam !== null) {
         this.registrationId = parseInt(idParam, 10);
-        this.apiService
-          .getRegistrationById(this.registrationId)
-          .subscribe((registration: any) => {
+        this.apiService.getRegistrationById(this.registrationId).subscribe({
+          next: (registration: any) => {
             this.registration = registration;
-          });
+          },
+          error: (err) => {
+            this.toastr.error(
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
+              'Erreur'
+            );
+          },
+        });
       } else {
         this.toastr.error("ID de l'inscription non trouvé", 'Erreur');
       }
@@ -92,7 +98,7 @@ export class AddPaymentComponent {
           error: (err) => {
             console.error('Error updating registration:', err);
             this.toastr.error(
-              'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
               'Erreur'
             );
           },

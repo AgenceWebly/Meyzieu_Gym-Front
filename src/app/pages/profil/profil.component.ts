@@ -36,7 +36,7 @@ export class ProfilComponent {
       error: (err) => {
         if (err.status !== 401) {
           this.toastr.error(
-            'Une erreur est survenue. Veuillez réessayer ultérieurement',
+            'Une erreur est survenue, veuillez réessayer ultérieurement',
             'Erreur'
           );
         }
@@ -52,29 +52,30 @@ export class ProfilComponent {
     const file = event.target.files[0];
     if (file) {
       this.isUploading = true;
-      console.log('Starting upload');  // Log
+      console.log('Starting upload'); // Log
       this.uploadFileService.uploadFile(file).subscribe({
         next: (response: any) => {
-          console.log('Upload complete: ', response);  // Log
           this.currentUser = {
             ...this.currentUser,
             ribUrl: response.secure_url,
           };
-          this.apiService.updateUser(this.currentUser, this.currentUser.id).subscribe({
-            next: () => {
-              this.isUploading = false;
-              this.toastr.success('RIB téléchargé avec succès', 'Succès');
-            },
-            error: (err) => {
-              console.error('Error updating user:', err);
-              this.isUploading = false;
-              this.toastr.error('Erreur lors de la mise à jour du RIB');
-            },
-          });
+          this.apiService
+            .updateUser(this.currentUser, this.currentUser.id)
+            .subscribe({
+              next: () => {
+                this.isUploading = false;
+                this.toastr.success('RIB téléchargé avec succès', 'Succès');
+              },
+              error: (err) => {
+                console.error('Error updating user:', err);
+                this.isUploading = false;
+                this.toastr.error('Erreur lors de la mise à jour du RIB');
+              },
+            });
         },
         error: (err) => {
           console.error('Upload failed', err);
-          this.isUploading = false;  // Corrected here
+          this.isUploading = false; // Corrected here
           this.toastr.error('Échec du téléchargement du fichier', 'Erreur');
         },
       });

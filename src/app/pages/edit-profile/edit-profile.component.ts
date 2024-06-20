@@ -91,7 +91,7 @@ export class EditProfileComponent implements OnInit {
       },
       error: (err) => {
         this.toastr.error(
-          'Une erreur est survenue. Veuillez réessayer ultérieurement',
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
           'Erreur'
         );
       },
@@ -118,7 +118,7 @@ export class EditProfileComponent implements OnInit {
           },
           error: (err) => {
             this.toastr.error(
-              'Une erreur est survenue. Veuillez réessayer ultérieurement',
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
               'Erreur'
             );
           },

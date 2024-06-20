@@ -151,14 +151,15 @@ export class AddMemberComponent {
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
           this.toastr.success(
-            'Merci de choisir le cours souhaité pour ' + this.addMemberForm.value.firstname,
+            'Merci de choisir le cours souhaité pour ' +
+              this.addMemberForm.value.firstname,
             'Choix du groupe'
           );
           this.router.navigate(['inscription/adherent/' + response + '/cours']);
         },
         error: (err) => {
           this.toastr.error(
-            'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+            'Une erreur est survenue, veuillez réessayer ultérieurement',
             'Erreur'
           );
         },

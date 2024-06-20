@@ -15,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
 export class MembersComponent {
   currentUser: any;
   members: any[] = [];
-  messageError = '';
 
   router = inject(Router);
   storageService = inject(StorageService);
@@ -29,9 +28,8 @@ export class MembersComponent {
         this.members = data;
       },
       error: (err: any) => {
-        this.messageError = err.message;
         this.toastr.error(
-          'Une erreur est survenue. Veuillez réessayer ultérieurement',
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
           'Erreur'
         );
       },
