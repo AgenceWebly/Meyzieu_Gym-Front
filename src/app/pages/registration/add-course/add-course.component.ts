@@ -78,7 +78,7 @@ export class AddCourseComponent {
   calculateWeeklyDuration(trainingSlots: TrainingSlot[]): string {
     let totalMinutes = 0;
 
-    trainingSlots.forEach(slot => {
+    trainingSlots.forEach((slot) => {
       const start = new Date(`1970-01-01T${slot.startTime}Z`);
       const end = new Date(`1970-01-01T${slot.endTime}Z`);
       totalMinutes += (end.getTime() - start.getTime()) / (1000 * 60);
