@@ -45,16 +45,23 @@ export class RegistrationComponent {
 
   goToRightPage(member: Member) {
     let path = '';
+    let toastrMessage = '';
+    let toastTitle = `Reprenez l'inscription de ${member.firstname}`;
     switch (member.registrationStatus) {
       case 'cours choisi':
         path = `inscription/${member.registrationId}/questionnaire-medical`;
+        toastrMessage = 'Merci de compléter le questionnaire médical';
         break;
       case 'questionnaire médical complété':
         path = `inscription/${member.registrationId}/paiement`;
+        toastrMessage = 'Merci de choisir votre mode de paiement';
         break;
       default:
         path = `inscription/adherent/${member.id}/cours`;
+        toastrMessage = `Merci de choisir le cours souhaité pour ${member.firstname}`;
+        toastTitle = 'Inscription';
     }
+    this.toastr.success(toastrMessage, toastTitle);
     this.router.navigate([path]);
   }
 }
