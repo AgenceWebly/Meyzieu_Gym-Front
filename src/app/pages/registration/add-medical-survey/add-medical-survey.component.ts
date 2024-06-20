@@ -96,9 +96,8 @@ export class AddMedicalSurveyComponent {
             ]);
           },
           error: (err) => {
-            console.error(err);
             this.toastr.error(
-              'Une erreur est survenue. Veuillez réessayer ultérieurement.',
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
               'Erreur'
             );
           },

@@ -31,7 +31,7 @@ export class SeasonsComponent {
         this.filteredSeasons = data;
       },
       error: (err) => {
-        this.toastr.error('Erreur : ' + err.error, 'Erreur');
+        this.toastr.error('Une erreur est survenue, veuillez réessayer ultérieurement', 'Erreur');
       },
     });
   }

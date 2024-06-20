@@ -31,7 +31,7 @@ export class ProgramsComponent {
         this.filteredPrograms = data;
       },
       error: (err) => {
-        this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
+        this.toastr.error('Une erreur est survenue, veuillez réessayer ultérieurement', 'Erreur');
       },
     });
   }

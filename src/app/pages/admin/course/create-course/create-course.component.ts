@@ -32,11 +32,13 @@ export class CreateCourseComponent {
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
 
-
   courseForm = this.fb.group({
     programId: ['', Validators.required],
     seasonId: ['', Validators.required],
-    courseName: ['', [Validators.minLength(2), Validators.maxLength(20), Validators.required]],
+    courseName: [
+      '',
+      [Validators.minLength(2), Validators.maxLength(20), Validators.required],
+    ],
     registrationStartDate: ['', Validators.required],
     registrationEndDate: ['', Validators.required],
     price: [0, [Validators.required, Validators.min(0)]],
@@ -54,19 +56,25 @@ export class CreateCourseComponent {
         this.programs = response;
       },
       error: (err) => {
-        this.toastr.error('Une erreur est survenue', 'Erreur');
-      }
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Erreur'
+        );
+      },
     });
-    
+
     this.apiService.getSeasons().subscribe({
       next: (response) => {
         this.seasons = response;
       },
       error: (err) => {
-        this.toastr.error('Une erreur est survenue', 'Erreur');
-      }
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Erreur'
+        );
+      },
     });
-    
+
     this.courseForm.get('minAge')?.valueChanges.subscribe(() => {
       this.calculateYears();
     });
@@ -100,9 +108,11 @@ export class CreateCourseComponent {
           this.router.navigate(['/admin/cours']);
         },
         error: (err) => {
-          console.error('Erreur lors de la création du cours :', err);
-          this.toastr.error('Une erreur est survenue', 'Erreur');
-        }
+          this.toastr.error(
+            'Une erreur est survenue, veuillez réessayer ultérieurement',
+            'Erreur'
+          );
+        },
       });
     }
   }
