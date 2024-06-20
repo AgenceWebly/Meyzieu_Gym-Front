@@ -91,9 +91,12 @@ export class SignUpComponent {
       }
     });
 
-    this.signUpForm.get('passwords.password')?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.checkPasswordStrength();
-    });
+    this.signUpForm
+      .get('passwords.password')
+      ?.valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.checkPasswordStrength();
+      });
   }
 
   ngOnDestroy(): void {
@@ -167,7 +170,7 @@ export class SignUpComponent {
         },
         error: (err) => {
           this.toastr.error(
-            "Une erreur est survenue lors de l'inscription. Veuillez réessayer.",
+            'Une erreur est survenue, veuillez réessayer ultérieurement',
             'Erreur'
           );
         },

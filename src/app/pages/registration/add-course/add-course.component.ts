@@ -63,7 +63,7 @@ export class AddCourseComponent {
           },
           error: (err) => {
             this.toastr.error(
-              'Une erreur est survenue. Veuillez réessayer ultérieurement',
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
               'Erreur'
             );
           },
@@ -119,7 +119,7 @@ export class AddCourseComponent {
       },
       error: (err) => {
         this.toastr.error(
-          'Une erreur est survenue : ' + err.error.message,
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
           'Erreur'
         );
       },

@@ -25,10 +25,13 @@ export class LogoutComponent {
     this.authService.logout().subscribe({
       next: (res) => {
         this.storageService.clean();
-        window.location.href = '/connexion?loggedOut=true'
+        window.location.href = '/connexion?loggedOut=true';
       },
       error: (err) => {
-        this.toastr.error('Une erreur est survenue', 'Erreur');
+        this.toastr.error(
+          'Une erreur est survenue, veuillez réessayer ultérieurement',
+          'Erreur'
+        );
       },
     });
   }

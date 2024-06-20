@@ -52,7 +52,10 @@ export class EditProgramComponent {
               });
             },
             error: (err) => {
-              this.toastr.error('Une erreur est survenue :' + err, 'Erreur');
+              this.toastr.error(
+                'Une erreur est survenue, veuillez réessayer ultérieurement',
+                'Erreur'
+              );
             },
           });
         } else {
@@ -66,15 +69,20 @@ export class EditProgramComponent {
 
   submitForm(): void {
     if (this.programForm.valid) {
-      this.apiService.updateProgram(this.programForm.value, this.programId).subscribe({
-        next: () => {
-          this.toastr.success('Programme mis à jour avec succès', 'Succès');
-          this.router.navigate(['/admin/programmes']);
-        },
-        error: (err) => {
-          this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
-        },
-      });
+      this.apiService
+        .updateProgram(this.programForm.value, this.programId)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Programme mis à jour avec succès', 'Succès');
+            this.router.navigate(['/admin/programmes']);
+          },
+          error: (err) => {
+            this.toastr.error(
+              'Une erreur est survenue, veuillez réessayer ultérieurement',
+              'Erreur'
+            );
+          },
+        });
     }
   }
 

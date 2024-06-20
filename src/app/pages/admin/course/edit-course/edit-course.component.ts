@@ -51,7 +51,7 @@ export class EditCourseComponent {
               });
             },
             error: (err) => {              
-              this.toastr.error('Une erreur est survenue :' + err.error, 'Erreur');
+              this.toastr.error('Une erreur est survenue, veuillez réessayer ultérieurement', 'Erreur');
             },
           });
         } else {
@@ -71,7 +71,7 @@ export class EditCourseComponent {
           this.router.navigate(['/admin/cours']);
         },
         error: (err) => {
-          this.toastr.error('Une erreur est survenue : ' + err.error, 'Erreur');
+          this.toastr.error('Une erreur est survenue, veuillez réessayer ultérieurement', 'Erreur');
         },
       });
     }
