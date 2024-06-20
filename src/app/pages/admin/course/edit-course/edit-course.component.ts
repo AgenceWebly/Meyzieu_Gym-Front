@@ -152,7 +152,7 @@ export class EditCourseComponent {
   submitForm(): void {
     if (this.courseForm.valid) {
       this.apiService
-        .updateProgram(this.courseForm.value, this.courseId)
+        .updateCourse(this.courseForm.value, this.courseId)
         .subscribe({
           next: () => {
             this.toastr.success('Cours mis à jour avec succès', 'Succès');
