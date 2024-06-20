@@ -16,9 +16,8 @@
         <h2>
           {{ member.firstname | titlecase }} {{ member.lastname | uppercase }}
         </h2>
-        <p>Groupe {{ member.group }}</p>
-        <p>Saison {{ member.season }}</p>
       </div>
+      <div class="infos"><i class="fa-sharp fa-light fa-triangle-exclamation" style="color:#fff"></i> Inscription non finalisée</div>
     </div>
   </div>
   <button class="add-member-button" (click)="addNewMember()">

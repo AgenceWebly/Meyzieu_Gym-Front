@@ -32,6 +32,17 @@ main.members-container {
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      position: relative;
+
+      .infos {
+        position: absolute;
+        top: 0;
+        background-color: rgb(76, 76, 76);
+        color: #fff;
+        width: 100%;
+        padding: calc($default-padding/2) 0;
+        font-size: 0.8em;
+      }
 
       img {
         width: 100px;
@@ -60,7 +71,7 @@ main.members-container {
   }
 
   .add-member-button {
-    margin: calc($default-margin*2) 0;
+    margin: calc($default-margin * 2) 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,7 +86,7 @@ main.members-container {
     transition: background-color 0.3s ease;
 
     @media (min-width: 769px) {
-      margin: calc($default-margin*2) 0;
+      margin: calc($default-margin * 2) 0;
     }
 
     &:hover {
