@@ -16,7 +16,7 @@ main.members-container {
   .members-list {
     display: flex;
     flex-wrap: wrap;
-    gap: $default-margin;
+    gap: calc($default-margin*2);
     justify-content: space-around;
 
     .member-card {
