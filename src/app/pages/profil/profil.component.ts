@@ -51,18 +51,18 @@ export class ProfilComponent {
       this.loading = true;
       this.uploadFileService.uploadFile(file).subscribe({
         next: (response: any) => {
-          this.currentUser = { ...this.currentUser, rib: response.secure_url };
+          this.currentUser = { ...this.currentUser, ribUrl: response.secure_url };
 
-          // this.apiService.updateUser(this.currentUser, this.currentUser.id).subscribe({
-          //   next: () => {
-          //     this.loading = false;
-          //     //this.router.navigate(['/profile']);
-          //   },
-          //   error: (err) => {
-          //     console.error('Error updating user:', err);
-          //     this.loading = false;
-          //   }
-          // });
+          this.apiService.updateUser(this.currentUser, this.currentUser.id).subscribe({
+            next: () => {
+              this.loading = false;
+              //this.router.navigate(['/profile']);
+            },
+            error: (err) => {
+              console.error('Error updating user:', err);
+              this.loading = false;
+            }
+          });
         },
         error: (err) => {
           console.error('Upload failed', err);
