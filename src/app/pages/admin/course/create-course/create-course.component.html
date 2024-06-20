@@ -47,6 +47,33 @@
           >
         </div>
       </fieldset>
+      <fieldset>
+        <label for="courseName">Nom du cours</label>
+        <input
+          type="text"
+          name="courseName"
+          id="courseName"
+          formControlName="courseName"
+          minlength="2"
+          maxlength="20"
+        />
+        <div
+          *ngIf="
+            courseForm.get('courseName')?.invalid &&
+            courseForm.get('courseName')?.touched
+          "
+        >
+          <small *ngIf="courseForm.get('courseName')?.errors?.['required']"
+            >Le nom du cours est requis.</small
+          >
+          <small *ngIf="courseForm.get('courseName')?.errors?.['minlength']"
+            >Le nom du cours doit contenir 2 caractères minimum.</small
+          >
+          <small *ngIf="courseForm.get('courseName')?.errors?.['maxlength']"
+            >Le nom du cours doit contenir 20 caractères maximum.</small
+          >
+        </div>
+      </fieldset>
     </div>
 
     <h2>

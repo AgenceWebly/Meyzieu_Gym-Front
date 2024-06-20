@@ -32,9 +32,9 @@
     <div class="documents-section">
       <h2>Documents rattachés</h2>
 
-      @if (currentUser.rib) {
+      @if (currentUser.ribUrl) {
       <div class="document-card">
-        <a [href]="currentUser.rib" target="_blank" class="document-link">
+        <a [href]="currentUser.ribUrl" target="_blank" class="document-link">
           <button class="document-button">
             <i class="fa fa-file-pdf document-icon"></i> Relevé d'Identité
             Bancaire

@@ -36,6 +36,7 @@ export class CreateCourseComponent {
   courseForm = this.fb.group({
     programId: ['', Validators.required],
     seasonId: ['', Validators.required],
+    courseName: ['', [Validators.minLength(2), Validators.maxLength(20), Validators.required]],
     registrationStartDate: ['', Validators.required],
     registrationEndDate: ['', Validators.required],
     price: [0, [Validators.required, Validators.min(0)]],

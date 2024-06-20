@@ -4,6 +4,7 @@ import { TrainingSlot } from './trainingSlot';
 
 export interface Course {
   id: number;
+  courseName: string;
   program: Program;
   season: Season;
   trainingSlots: TrainingSlot[];

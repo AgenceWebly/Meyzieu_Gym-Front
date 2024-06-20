@@ -4,7 +4,7 @@
   <div class="course-container" *ngFor="let course of courses">
     <div class="course-status" *ngIf="course.remainingSlots === 0">COMPLET</div>
     <h2>
-      {{ course.program.name | titlecase }}
+      {{ course.courseName ? course.courseName : course.program.name | titlecase }}
     </h2>
     @if (course.minAge === course.maxAge) {
     <p class="age">Enfants nés en {{ currentYear - course.maxAge }}</p>
@@ -96,7 +96,7 @@
       <div class="modal-body">
         <p>Vous êtes sur le point de choisir le cours :</p>
         <div class="margin">
-          <p class="bold">{{ selectedCourse.program.name }}</p>
+          <p class="bold">{{ selectedCourse.courseName ? selectedCourse.courseName : selectedCourse.program.name | titlecase }}</p>
           <ul>
             <li
               *ngFor="let trainingSlot of selectedCourse.trainingSlots"

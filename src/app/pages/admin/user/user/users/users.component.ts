@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { User } from '../../../../models/user.model';
-import { ApiService } from '../../../../shared/services/api.service';
+import { User } from '../../../../../models/user.model';
+import { ApiService } from '../../../../../shared/services/api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
