@@ -25,7 +25,9 @@
         (click)="editCourse(course.id)"
         class="course-row"
       >
-        <td>{{ course.program.name }}</td>
+        <td>
+          {{ course.courseName ? course.courseName : "pas de nom de cours" }}
+        </td>
 
         <td>
           <ul>

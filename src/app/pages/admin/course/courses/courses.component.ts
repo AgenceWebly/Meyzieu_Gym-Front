@@ -29,6 +29,7 @@ export class CoursesComponent {
     this.apiService.getCourses().subscribe({
       next: (data) => {
         this.courses = data;
+
         this.filteredCourses = data;
       },
       error: (err) => {
@@ -48,9 +49,7 @@ export class CoursesComponent {
   filterCourses() {
     if (this.searchTerm) {
       this.filteredCourses = this.courses.filter((course) =>
-        course.program.name
-          .toLowerCase()
-          .includes(this.searchTerm.toLowerCase())
+        course.courseName.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredCourses = [...this.courses];

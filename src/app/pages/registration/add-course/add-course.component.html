@@ -96,7 +96,7 @@
       <div class="modal-body">
         <p>Vous êtes sur le point de choisir le cours :</p>
         <div class="margin">
-          <p class="bold">{{ selectedCourse.courseName ? selectedCourse.courseName : selectedCourse.program.name }}</p>
+          <p class="bold">{{ selectedCourse.courseName ? selectedCourse.courseName : selectedCourse.program.name | titlecase }}</p>
           <ul>
             <li
               *ngFor="let trainingSlot of selectedCourse.trainingSlots"
