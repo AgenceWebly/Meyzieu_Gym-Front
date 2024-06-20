@@ -77,8 +77,6 @@ export class EditProgramComponent {
             this.router.navigate(['/admin/programmes']);
           },
           error: (err) => {
-            console.log(err);
-
             this.toastr.error(
               'Une erreur est survenue, veuillez réessayer ultérieurement',
               'Erreur'
