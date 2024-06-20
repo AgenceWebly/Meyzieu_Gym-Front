@@ -1,23 +1,61 @@
 <main>
   <div class="form-container">
+    <h1>Récapitulatif</h1>
     <div class="summary-container">
-      <h1>Récapitulatif</h1>
       <p>
-        Veuillez vérifier les informations renseignées avant de finaliser
-        l'inscription en ligne :
+        <span
+          >Veuillez vérifier les informations renseignées avant de finaliser
+          l'inscription en ligne :</span
+        >
       </p>
-      <p>Adhérent : <span>Hania CHAKIR</span></p>
-      <p>Date de naissance : <span>05/12/2015</span></p>
-      <p>Groupe : <span>Loisirs</span></p>
-      <p>Entrainement : <span>lundi de 17:15 à 18h30</span></p>
-      <p>Prix : <span>200 Euros</span></p>
+      <p>
+        Adhérent :
+        <span
+          >{{ registration.memberFirstname | titlecase }}
+          {{ registration.memberLastname | uppercase }}</span
+        >
+      </p>
+      <p>
+        Date de naissance :
+        <span>{{ registration.memberBirthdate | date : "dd/MM/yyyy" }}</span>
+      </p>
+      <p>
+        Cours choisi : <span>{{ registration.courseName | titlecase }}</span>
+      </p>
+      @if (registration.trainingSlots.length > 1) {
+      <p>
+        <i class="fa-light fa-calendar-days"></i> Entrainements
+        <span class="small"
+          >({{ calculateWeeklyDuration(registration.trainingSlots) }})</span
+        >
+        :
+      </p>
+      } @else if (registration.trainingSlots.length === 1) {
+      <p>
+        Entrainement
+        <span class="small"
+          >({{ calculateWeeklyDuration(registration.trainingSlots) }})</span
+        >
+        :
+      </p>
+      }
+      <ul>
+        <li *ngFor="let trainingSlot of registration.trainingSlots">
+          {{ trainingSlot.day | titlecase }} de
+          {{ trainingSlot.startTime | slice : 0 : 5 }} à
+          {{ trainingSlot.endTime | slice : 0 : 5 }}
+        </li>
+      </ul>
+      <p>
+        Prix : <span>{{ registration.registrationFee }} euros</span>
+      </p>
     </div>
 
     <div class="payment-methods-container">
       <h2>Modes de règlement</h2>
       <p>
-        Pour confirmer l'inscription de Hania, veuillez choisir le mode de
-        règlement souhaité :
+        Pour confirmer l'inscription de {{ registration.memberFirstname }},
+        veuillez choisir le mode de règlement souhaité :
       </p>
       <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
         <div class="payment-method">

@@ -105,6 +105,11 @@ export class ApiService {
   }
 
   // R E G I S T R A T I O N
+
+  getRegistrationById(registrationId: number): Observable<any> {
+    return this.http.get<any>(`${AUTH_API}/registrations/${registrationId}`);
+  }
+
   createRegistration(newRegistration: any): Observable<any> {
     return this.http.post<any>(`${AUTH_API}/registrations`, newRegistration);
   }
