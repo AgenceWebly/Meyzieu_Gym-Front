@@ -15,7 +15,7 @@ import { EditSeasonComponent } from './pages/admin/season/edit-season/edit-seaso
 import { ProgramsComponent } from './pages/admin/program/programs/programs.component';
 import { CreateProgramComponent } from './pages/admin/program/create-program/create-program.component';
 import { EditProgramComponent } from './pages/admin/program/edit-program/edit-program.component';
-import { UsersComponent } from './pages/admin/user/user/users/users.component';
+import { UsersComponent } from './pages/admin/user/users/users.component';
 import { UserComponent } from './pages/admin/user/user/user/user.component';
 import { AddCourseComponent } from './pages/registration/add-course/add-course.component';
 import { CoursesComponent } from './pages/admin/course/courses/courses.component';

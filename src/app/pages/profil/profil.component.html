@@ -1,7 +1,7 @@
 @if (currentUser) {
 <main>
+  <h1>Mon Profil</h1>
   <div class="profile-container">
-    <h1>Mon Profil</h1>
     <div class="profile-info">
       <div class="profile-item">
         <label>Nom</label>
@@ -40,21 +40,31 @@
             Bancaire
           </button>
         </a>
+        <div *ngIf="isUploading" class="loader-container">
+          <div class="loader"></div>
+        </div>
+        <label *ngIf="!isUploading" for="upload">
+          <i class="fa-light fa-pen"></i>
+          <input type="file" id="upload" (change)="handleRibUpload($event)" />
+        </label>
       </div>
       } @else {
       <p>Vous n'avez aucun document rattaché à votre compte.</p>
-      <label for="upload">
+      <div *ngIf="isUploading" class="loader-container">
+        <div class="loader"></div>
+      </div>
+      <label *ngIf="!isUploading" for="upload">
         <span><i class="fa-light fa-upload"></i>Ajouter mon RIB</span>
         <input type="file" id="upload" (change)="handleRibUpload($event)" />
       </label>
       }
     </div>
+  </div>
 
-    <div class="button-container">
-      <button (click)="editProfile()">
-        <i class="fa fa-edit"></i> Modifier mon profil
-      </button>
-    </div>
+  <div class="button-container">
+    <button (click)="editProfile()">
+      <i class="fa fa-edit"></i> Modifier mon profil
+    </button>
   </div>
 </main>
 
