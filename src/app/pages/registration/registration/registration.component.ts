@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { StorageService } from '../../../shared/services/storage.service';
 import { ApiService } from '../../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { Member } from '../../../models/member.model';
 
 @Component({
   selector: 'app-registration',
@@ -41,7 +42,25 @@ export class RegistrationComponent {
     this.router.navigate(['inscription/nouvel-adherent']);
   }
 
-  goToCoursesPage(memberId: number) {
-    this.router.navigate(['inscription/adherent/' + memberId + '/cours'])
+  goToRightPage(member: Member) {
+    let path = '';
+    let toastrMessage = '';
+    let toastTitle = `Reprenez l'inscription de ${member.firstname}`;
+    switch (member.registrationStatus) {
+      case 'cours choisi':
+        path = `inscription/${member.registrationId}/questionnaire-medical`;
+        toastrMessage = 'Merci de compléter le questionnaire médical';
+        break;
+      case 'questionnaire médical complété':
+        path = `inscription/${member.registrationId}/paiement`;
+        toastrMessage = 'Merci de choisir votre mode de paiement';
+        break;
+      default:
+        path = `inscription/adherent/${member.id}/cours`;
+        toastrMessage = `Merci de choisir le cours souhaité pour ${member.firstname}`;
+        toastTitle = 'Inscription';
+    }
+    this.toastr.success(toastrMessage, toastTitle);
+    this.router.navigate([path]);
   }
 }

@@ -1,5 +1,5 @@
-import { EmergencyContact } from "./emergencyContact.model";
-import { Registration } from "./registration.model";
+import { EmergencyContact } from './emergencyContact.model';
+import { Registration } from './registration.model';
 
 export interface Member {
   id: number;
@@ -16,4 +16,6 @@ export interface Member {
   relationToMember: 'father|mother|relative';
   emergencyContacts: EmergencyContact[];
   registrations: Registration[];
+  registrationStatus: string;
+  registrationId: number;
 }

@@ -5,6 +5,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { CalculateDurationService } from '../../../shared/services/calculate-duration.service';
+import { TrainingSlot } from '../../../models/trainingSlot';
 
 @Component({
   selector: 'app-add-payment',
@@ -15,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddPaymentComponent {
   registrationId!: number;
+  registration!: any;
 
   fb = inject(FormBuilder);
   http = inject(HttpClient);
@@ -22,6 +25,7 @@ export class AddPaymentComponent {
   route = inject(ActivatedRoute);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  calculateDuration = inject(CalculateDurationService);
 
   paymentForm = this.fb.group({
     paymentMethod: ['', Validators.required],
@@ -33,10 +37,19 @@ export class AddPaymentComponent {
 
       if (idParam !== null) {
         this.registrationId = parseInt(idParam, 10);
+        this.apiService
+          .getRegistrationById(this.registrationId)
+          .subscribe((registration: any) => {
+            this.registration = registration;
+          });
       } else {
         this.toastr.error("ID de l'inscription non trouvé", 'Erreur');
       }
     });
+  }
+
+  calculateWeeklyDuration(trainingSlots: TrainingSlot[]) {
+    return this.calculateDuration.calculateWeeklyDuration(trainingSlots);
   }
 
   submitForm() {

@@ -58,3 +58,14 @@ main {
     }
   }
 }
+
+li {
+  list-style-type: disc;
+  margin-left: calc($default-margin * 2);
+}
+
+.summary-container {
+  background-color: $color-hover-background;
+  padding: $default-padding;
+  border-radius: 10px;
+}

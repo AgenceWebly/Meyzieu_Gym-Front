@@ -8,7 +8,7 @@ export interface User {
   phoneNumber: string | null;
   email: string;
   occupation: string | null;
-  ribUrl: string | null;
   roles: string[];
   members: Member[];
+  ribUrl: string | null;
 }
