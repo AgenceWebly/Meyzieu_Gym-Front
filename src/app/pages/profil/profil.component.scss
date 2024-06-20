@@ -11,18 +11,19 @@ main {
   h1 {
     margin-bottom: $default-margin;
     font-size: 1.4em;
+    margin-top: $default-margin;
   }
 
   .profile-container {
+    background-color: $color-hover-background;
+    border-radius: 10px;
     margin: 0 auto;
     max-width: 700px;
     display: flex;
-    min-height: 70vh;
+    min-height: 60vh;
     flex-direction: column;
     justify-content: space-around;
-    @media (min-width: 769px) {
-      padding: $default-padding;
-    }
+    padding: calc($default-padding * 2);
   }
 
   .profile-info {
@@ -92,6 +93,7 @@ main {
     }
 
     button {
+      margin-top: $default-margin;
       padding: $default-padding;
       font-size: 1em;
       color: #fff;
@@ -116,7 +118,7 @@ main {
   }
 
   /* On cache l'input 😢 */
-  input[type=file] {
+  input[type="file"] {
     display: none;
   }
 
@@ -135,8 +137,36 @@ main {
     background: $color-primary-hover;
   }
 
-  i {
+  .fa-pen {
+    margin-left: 0.5em;
+    cursor: pointer;
+  }
+  
+
+ .fa-edit, .fa-upload {
     margin-right: 0.5em;
     color: #fff;
+  }
+}
+
+.loader-container {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+
+  .loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: $color-primary;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

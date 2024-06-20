@@ -6,6 +6,7 @@ import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
 import { UploadFileService } from '../../shared/services/upload-file.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-profil',
@@ -17,6 +18,8 @@ import { ToastrService } from 'ngx-toastr';
 export class ProfilComponent {
   currentUser: any;
   loading: boolean = false;
+  isUploading: boolean = false;
+  uploadProgress: number = 0;
 
   router = inject(Router);
   storageService = inject(StorageService);
@@ -48,30 +51,31 @@ export class ProfilComponent {
   handleRibUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.loading = true;
+      this.isUploading = true;
       this.uploadFileService.uploadFile(file).subscribe({
         next: (response: any) => {
           this.currentUser = {
             ...this.currentUser,
             ribUrl: response.secure_url,
           };
-
           this.apiService
             .updateUser(this.currentUser, this.currentUser.id)
             .subscribe({
               next: () => {
-                this.loading = false;
-                //this.router.navigate(['/profile']);
+                this.isUploading = false;
+                this.toastr.success('RIB téléchargé avec succès', 'Succès');
               },
               error: (err) => {
                 console.error('Error updating user:', err);
-                this.loading = false;
+                this.isUploading = false;
+                this.toastr.error('Erreur lors de la mise à jour du RIB');
               },
             });
         },
         error: (err) => {
           console.error('Upload failed', err);
-          this.loading = false;
+          this.isUploading = false; // Corrected here
+          this.toastr.error('Échec du téléchargement du fichier', 'Erreur');
         },
       });
     }
