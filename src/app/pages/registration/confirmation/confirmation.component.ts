@@ -27,7 +27,6 @@ export class ConfirmationComponent {
     });
 
     this.currentUser = this.storageService.getUser();
-    console.log(this.currentUser);
   }
 
   isCardPayment(): boolean {

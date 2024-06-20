@@ -28,7 +28,6 @@ export class RegistrationComponent {
     this.apiService.getMembersByUserId(currentUserId, true).subscribe({
       next: (data: any) => {
         this.members = data;
-        console.log(data);
       },
       error: (err: any) => {
         this.toastr.error(

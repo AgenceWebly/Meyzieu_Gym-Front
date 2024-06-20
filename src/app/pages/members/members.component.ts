@@ -27,7 +27,6 @@ export class MembersComponent {
     this.apiService.getMembersByUserId(currentUserId, false).subscribe({
       next: (data: any) => {
         this.members = data;
-        console.log(data);
       },
       error: (err: any) => {
         this.messageError = err.message;
