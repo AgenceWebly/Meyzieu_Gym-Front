@@ -52,7 +52,6 @@ export class ProfilComponent {
     const file = event.target.files[0];
     if (file) {
       this.isUploading = true;
-      console.log('Starting upload'); // Log
       this.uploadFileService.uploadFile(file).subscribe({
         next: (response: any) => {
           this.currentUser = {
