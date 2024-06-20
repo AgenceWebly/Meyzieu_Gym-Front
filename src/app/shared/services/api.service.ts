@@ -60,6 +60,7 @@ export class ApiService {
   }
 
   // C O U R S E S
+  //ADMIN
   getCourses(): Observable<any[]> {
     return this.http.get<any[]>(`${AUTH_API}/admin/courses`);
   }
@@ -68,8 +69,9 @@ export class ApiService {
     return this.http.get<any[]>(`${AUTH_API}/members/${memberId}/available-courses`);
   }
 
+  //ADMIN
   getCourseById(courseId: number): Observable<any> {
-    return this.http.get<any>(`${AUTH_API}/courses/${courseId}`);
+    return this.http.get<any>(`${AUTH_API}/admin/courses/${courseId}`);
   }
 
   //ADMIN
