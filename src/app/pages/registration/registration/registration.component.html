@@ -4,7 +4,7 @@
     <div
       *ngFor="let member of members"
       class="member-card"
-      (click)="goToCoursesPage(member.id)"
+      (click)="goToRightPage(member)"
     >
       <img
         [src]="member.profilePictureUrl"
