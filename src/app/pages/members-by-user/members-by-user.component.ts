@@ -2,17 +2,17 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
-import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-members',
+  selector: 'app-members-by-user',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './members.component.html',
-  styleUrl: './members.component.scss',
+  templateUrl: './members-by-user.component.html',
+  styleUrl: './members-by-user.component.scss'
 })
-export class MembersComponent {
+export class MembersByUserComponent {
   currentUser: any;
   members: any[] = [];
 
