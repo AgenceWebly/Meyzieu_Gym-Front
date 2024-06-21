@@ -8,6 +8,7 @@
     </h1>
   </div>
   <div class="course-container">
+    <h2>Détails du cours</h2>
     <p>
       Programme : <span>{{ course.program.name | titlecase }}</span>
     </p>
@@ -58,9 +59,7 @@
 
     <p>
       Âge maximum :
-      <span
-        >{{ course.maxAge }} {{ course.maxAge === 1 ? "an" : "ans" }}</span
-      >
+      <span>{{ course.maxAge }} {{ course.maxAge === 1 ? "an" : "ans" }}</span>
     </p>
     <div>
       <small class="info">
@@ -77,6 +76,28 @@
       <button (click)="editCourse()">
         <i class="fa fa-edit"></i> Modifier le cours
       </button>
+    </div>
+  </div>
+  <div class="members-container">
+    <h2>Liste des inscrits</h2>
+    <div class="members-list">
+      @if (course.members.length > 0) {
+      <div *ngFor="let member of course.members" class="member-card">
+        <img
+          [src]="member.profilePictureUrl"
+          alt="{{ member.firstname | titlecase }} {{
+            member.lastname | uppercase
+          }}"
+        />
+        <div class="member-info">
+          <h2>
+            {{ member.firstname | titlecase }} {{ member.lastname | uppercase }}
+          </h2>
+        </div>
+      </div>
+      } @else {
+      <div>Il n'y a aucun inscrit à ce cours</div>
+      }
     </div>
   </div>
 </main>

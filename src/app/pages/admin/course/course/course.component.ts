@@ -35,6 +35,7 @@ export class CourseComponent {
             next: (course) => {
               this.course = course;
               this.calculateYears();
+              console.log(course);
             },
             error: (err) => {
               this.toastr.error(
