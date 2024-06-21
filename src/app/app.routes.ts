@@ -28,6 +28,7 @@ import { EditCourseComponent } from './pages/admin/course/edit-course/edit-cours
 import { CourseComponent } from './pages/admin/course/course/course.component';
 import { MembersByUserComponent } from './pages/members-by-user/members-by-user.component';
 import { MembersComponent } from './pages/admin/member/members/members.component';
+import { MemberComponent } from './pages/admin/member/member/member.component';
 
 export const routes: Routes = [
   {
@@ -265,7 +266,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/adherents/:id',
-    component: MembersComponent,
+    component: MemberComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

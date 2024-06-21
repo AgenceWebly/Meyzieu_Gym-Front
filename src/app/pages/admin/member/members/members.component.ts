@@ -31,7 +31,6 @@ export class MembersComponent {
           return 0;
         });
         this.filteredMembers = [...this.members];
-        console.log(this.members);
       },
       error: (err) => {
         this.toastr.error(
@@ -53,6 +52,6 @@ export class MembersComponent {
   }
 
   navigateToMemberPage(memberId: number) {
-    this.router.navigate(['/admin/utilisateurs', memberId]);
+    this.router.navigate(['/admin/adherents', memberId]);
   }
 }
