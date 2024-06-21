@@ -124,11 +124,7 @@ export class EditCourseComponent {
     });
     this.courseForm.get('maxAge')?.valueChanges.subscribe(() => {
       this.calculateYears();
-      console.log(this.minYear);
     });
-    console.log(this.minYear);
-
-
   }
 
   get trainingSlots() {
@@ -173,8 +169,6 @@ export class EditCourseComponent {
       this.minYear = minAge !== null ? currentYear - minAge : null;
       this.maxYear = maxAge !== null ? currentYear - maxAge : null;
     }
-
-
   }
 
   submitForm(): void {
@@ -184,7 +178,7 @@ export class EditCourseComponent {
         .subscribe({
           next: () => {
             this.toastr.success('Cours mis à jour avec succès', 'Succès');
-            this.router.navigate(['/admin/cours']);
+            this.router.navigate(['/admin/cours', this.courseId]);
           },
           error: (err) => {
             this.toastr.error(

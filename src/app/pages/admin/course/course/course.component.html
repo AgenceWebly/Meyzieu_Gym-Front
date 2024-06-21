@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="course">
   <div class="header">
     <div class="back-arrow" (click)="goBack()">
       <i class="fa fa-arrow-left"></i>
@@ -93,6 +93,12 @@
           <h2>
             {{ member.firstname | titlecase }} {{ member.lastname | uppercase }}
           </h2>
+          <div class="autorizations">
+            <i class="fa-solid fa-car" [ngClass]="{'green-icon': member.transportApproved, 'red-icon': !member.transportApproved}"></i>
+            <i class="fa-solid fa-camera" [ngClass]="{'green-icon': member.photoApproved, 'red-icon': !member.photoApproved}"></i
+            ><i class="fa-solid fa-kit-medical" [ngClass]="{'green-icon': member.firstAidApproved, 'red-icon': !member.firstAidApproved}"></i>
+            <i class="fa-solid fa-person-from-portal" [ngClass]="{'green-icon': member.allowedToLeave, 'red-icon': !member.allowedToLeave}"></i>
+          </div>
         </div>
       </div>
       } @else {
