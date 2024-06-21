@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { Season } from '../../../../models/season.model';
 import { Program } from '../../../../models/program.model';
+import { Course } from '../../../../models/course.model';
 
 @Component({
   selector: 'app-edit-course',
@@ -27,6 +28,7 @@ export class EditCourseComponent {
   maxYear: number | null = null;
   daysOfWeek = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
   charCount: number = 255;
+  course!: Course;
 
   fb = inject(FormBuilder);
   route = inject(ActivatedRoute);
@@ -62,7 +64,7 @@ export class EditCourseComponent {
         if (!isNaN(this.courseId)) {
           this.apiService.getCourseById(this.courseId).subscribe({
             next: (course) => {
-              console.log(course);
+              this.course = course;
 
               this.courseForm.patchValue({
                 programId: course.program.id,
@@ -75,8 +77,8 @@ export class EditCourseComponent {
                 maxAge: course.maxAge,
                 price: course.price,
               });
+
               this.initializeTrainingSlots(course.trainingSlots);
-              console.log(this.courseForm.value);
             },
             error: (err) => {
               this.toastr.error(
@@ -116,13 +118,26 @@ export class EditCourseComponent {
         );
       },
     });
+
+    this.courseForm.get('minAge')?.valueChanges.subscribe(() => {
+      this.calculateYears();
+    });
+    this.courseForm.get('maxAge')?.valueChanges.subscribe(() => {
+      this.calculateYears();
+      console.log(this.minYear);
+    });
+    console.log(this.minYear);
+
+
   }
 
   get trainingSlots() {
     return this.courseForm.get('createTrainingSlotDtos') as FormArray;
   }
 
-  createTrainingSlotGroup(trainingSlot: any = { day: '', startTime: '', endTime: '' }) {
+  createTrainingSlotGroup(
+    trainingSlot: any = { day: '', startTime: '', endTime: '' }
+  ) {
     return this.fb.group({
       day: [trainingSlot.day, Validators.required],
       startTime: [trainingSlot.startTime, Validators.required],
@@ -131,7 +146,7 @@ export class EditCourseComponent {
   }
 
   initializeTrainingSlots(trainingSlots: any[]) {
-    trainingSlots.forEach(slot => {
+    trainingSlots.forEach((slot) => {
       this.trainingSlots.push(this.createTrainingSlotGroup(slot));
     });
   }
@@ -147,6 +162,19 @@ export class EditCourseComponent {
 
   removeTrainingSlot(index: number) {
     this.trainingSlots.removeAt(index);
+  }
+
+  calculateYears() {
+    const currentYear = new Date().getFullYear();
+    const minAge = this.courseForm.get('minAge')?.value;
+    const maxAge = this.courseForm.get('maxAge')?.value;
+
+    if (minAge && maxAge) {
+      this.minYear = minAge !== null ? currentYear - minAge : null;
+      this.maxYear = maxAge !== null ? currentYear - maxAge : null;
+    }
+
+
   }
 
   submitForm(): void {
@@ -169,6 +197,6 @@ export class EditCourseComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/admin/cours']);
+    this.router.navigate(['/admin/cours/', this.courseId]);
   }
 }

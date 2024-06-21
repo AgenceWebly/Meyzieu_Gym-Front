@@ -1,0 +1,82 @@
+<main>
+  <div class="header">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+    </div>
+    <h1>
+      Cours {{ course.courseName ? course.courseName : course.program.name }}
+    </h1>
+  </div>
+  <div class="course-container">
+    <p>
+      Programme : <span>{{ course.program.name | titlecase }}</span>
+    </p>
+    <p>
+      Saison :
+      <span
+        >{{ course.season.startDate | date : "yyyy" }} /
+        {{ course.season.endDate | date : "yyyy" }}</span
+      >
+    </p>
+
+    <p>
+      {{
+        course.trainingSlots.length === 1
+          ? "Entrainement hebdomadaire :"
+          : "Entrainements hebdomadaires :"
+      }}
+    </p>
+    <ul>
+      <li *ngFor="let trainingSlot of course.trainingSlots">
+        {{ trainingSlot.day | titlecase }} de
+        {{ trainingSlot.startTime | slice : 0 : 5 }} à
+        {{ trainingSlot.endTime | slice : 0 : 5 }}
+      </li>
+    </ul>
+
+    <p>
+      Date de début des inscriptions :
+      <span>{{ course.registrationStartDate | date : "dd/MM/yyyy" }}</span>
+    </p>
+    <p>
+      Date de fin des inscriptions :
+      <span>{{ course.registrationEndDate | date : "dd/MM/yyyy" }}</span>
+    </p>
+
+    <p>
+      Prix : <span>{{ course.price }} €</span>
+    </p>
+
+    <p>
+      Nombre maximum d'inscrits : <span>{{ course.maxMembers }}</span>
+    </p>
+
+    <p>
+      Âge minimum :
+      <span>{{ course.minAge }} {{ course.minAge === 1 ? "an" : "ans" }}</span>
+    </p>
+
+    <p>
+      Âge maximum :
+      <span
+        >{{ course.maxAge }} {{ course.maxAge === 1 ? "an" : "ans" }}</span
+      >
+    </p>
+    <div>
+      <small class="info">
+        <i class="fa-solid fa-circle-info"></i>
+        {{
+          minYear === maxYear
+            ? "L'inscrit doit être né en " + maxYear
+            : "L'inscrit doit être né entre " + maxYear + " et " + minYear
+        }}
+      </small>
+    </div>
+
+    <div class="button-container">
+      <button (click)="editCourse()">
+        <i class="fa fa-edit"></i> Modifier le cours
+      </button>
+    </div>
+  </div>
+</main>

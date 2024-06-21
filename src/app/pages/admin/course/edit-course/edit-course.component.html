@@ -1,9 +1,9 @@
-<main>
+<main *ngIf="course">
   <div class="header">
     <div class="back-arrow" (click)="goBack()">
       <i class="fa fa-arrow-left"></i>
     </div>
-    <h1>Modifier le cours</h1>
+    <h1>Modifier le cours {{ course.courseName }}</h1>
   </div>
   <form [formGroup]="courseForm" (ngSubmit)="submitForm()">
     <div class="fieldset-container">
@@ -290,14 +290,7 @@
           >
         </div>
       </fieldset>
-      <div
-        *ngIf="
-          courseForm.get('minAge')?.valid &&
-          courseForm.get('minAge')?.touched &&
-          courseForm.get('maxAge')?.valid &&
-          courseForm.get('maxAge')?.touched
-        "
-      >
+      <div>
         @if (minYear === maxYear) {
         <small class="info"
           ><i class="fa-solid fa-circle-info"></i> L'inscrit doit être né en
