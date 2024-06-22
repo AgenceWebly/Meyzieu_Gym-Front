@@ -1,3 +1,4 @@
+import { Member } from './member.model';
 import { Program } from './program.model';
 import { Season } from './season.model';
 import { TrainingSlot } from './trainingSlot';
@@ -15,4 +16,5 @@ export interface Course {
   minAge: number;
   maxAge: number;
   remainingSlots: number;
+  members: Member[];
 }

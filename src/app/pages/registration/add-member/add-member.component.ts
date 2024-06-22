@@ -14,7 +14,8 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { ApiService } from '../../../shared/services/api.service';
 import { schools } from '../../../data/schools.data';
 import { relationShips } from '../../../data/relationShips.data';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { relatives } from '../../../data/relatives.data';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-member',
@@ -29,6 +30,7 @@ export class AddMemberComponent {
   currentUserId!: number;
 
   relatedOptions = relationShips;
+  emergencyRelations = relatives;
 
   schools = schools;
 

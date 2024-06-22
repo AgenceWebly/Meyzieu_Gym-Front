@@ -26,6 +26,7 @@ import { AddPaymentComponent } from './pages/registration/add-payment/add-paymen
 import { ConfirmationComponent } from './pages/registration/confirmation/confirmation.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { EditCourseComponent } from './pages/admin/course/edit-course/edit-course.component';
+import { CourseComponent } from './pages/admin/course/course/course.component';
 
 export const routes: Routes = [
   {
@@ -222,8 +223,16 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'admin/cours/:id',
+    path: 'admin/cours/:id/edition',
     component: EditCourseComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/cours/:id',
+    component: CourseComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

@@ -8,10 +8,10 @@ export interface Member {
   birthdate: Date;
   gender: 'male' | 'female';
   school: string;
-  isPhotoApproved: boolean;
-  isTransportApproved: boolean;
-  isFirstAidApproved: boolean;
-  isAllowedToLeave: boolean;
+  photoApproved: boolean;
+  transportApproved: boolean;
+  firstAidApproved: boolean;
+  allowedToLeave: boolean;
   profilePictureUrl: string;
   relationToMember: 'father|mother|relative';
   emergencyContacts: EmergencyContact[];

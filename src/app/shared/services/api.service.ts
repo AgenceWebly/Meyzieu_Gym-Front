@@ -80,9 +80,9 @@ export class ApiService {
   }
 
   //ADMIN
-  updateCourse(updatedCourse: any, programId: number): Observable<any> {
+  updateCourse(updatedCourse: any, courseId: number): Observable<any> {
     return this.http.put<any>(
-      `${AUTH_API}/admin/courses/${programId}`,
+      `${AUTH_API}/admin/courses/${courseId}`,
       updatedCourse
     );
   }
