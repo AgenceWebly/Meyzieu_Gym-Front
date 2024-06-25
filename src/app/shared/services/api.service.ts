@@ -22,6 +22,15 @@ export class ApiService {
     );
   }
 
+  // ADMIN
+  getMembers(): Observable<any[]> {
+    return this.http.get<any[]>(`${AUTH_API}/admin/members`);
+  }
+
+  getMemberById(memberId: number): Observable<any> {
+    return this.http.get<any[]>(`${AUTH_API}/admin/members/${memberId}`);
+  }
+
   // S E A S O N S
   getSeasons(): Observable<any[]> {
     return this.http.get<any[]>(`${AUTH_API}/seasons`);

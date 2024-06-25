@@ -1,0 +1,61 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    input {
+      padding: 5px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  }
+
+  .members-table {
+
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-top: 1px solid #ddd;
+    }
+
+    .img-container {
+      display: flex;
+      justify-content: center;
+
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin: auto;
+        object-fit: cover;
+      }
+    }
+
+    
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    .member-row {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $color-hover-background;
+      }
+    }
+  }
+}

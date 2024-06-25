@@ -6,7 +6,6 @@ import { ProfilComponent } from './pages/profil/profil.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { authGuard } from './shared/guards/auth.guard';
-import { MembersComponent } from './pages/members/members.component';
 import { AddMemberComponent } from './pages/registration/add-member/add-member.component';
 import { SeasonsComponent } from './pages/admin/season/seasons/seasons.component';
 import { AdminHomeComponent } from './pages/admin/admin-home/admin-home.component';
@@ -27,6 +26,9 @@ import { ConfirmationComponent } from './pages/registration/confirmation/confirm
 import { ContactComponent } from './pages/contact/contact.component';
 import { EditCourseComponent } from './pages/admin/course/edit-course/edit-course.component';
 import { CourseComponent } from './pages/admin/course/course/course.component';
+import { MembersByUserComponent } from './pages/members-by-user/members-by-user.component';
+import { MembersComponent } from './pages/admin/member/members/members.component';
+import { MemberComponent } from './pages/admin/member/member/member.component';
 
 export const routes: Routes = [
   {
@@ -52,7 +54,7 @@ export const routes: Routes = [
 
   {
     path: 'adherents',
-    component: MembersComponent,
+    component: MembersByUserComponent,
     canActivate: [authGuard],
     data: {
       userType: 'guardian',
@@ -257,6 +259,22 @@ export const routes: Routes = [
   {
     path: 'admin/utilisateurs',
     component: UsersComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/adherents/:id',
+    component: MemberComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'admin',
+    },
+  },
+  {
+    path: 'admin/adherents',
+    component: MembersComponent,
     canActivate: [authGuard],
     data: {
       userType: 'admin',

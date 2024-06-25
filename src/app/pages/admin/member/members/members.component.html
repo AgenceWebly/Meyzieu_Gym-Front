@@ -1,0 +1,33 @@
+<main>
+  <h1>Liste des adhérents</h1>
+  <div class="toolbar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterMembers()"
+      placeholder="Rechercher par nom"
+    />
+  </div>
+
+  <table class="members-table">
+    <thead>
+      <tr>
+        <th>Portrait</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let member of filteredMembers"
+        (click)="navigateToMemberPage(member.id)"
+        class="member-row"
+      >
+        <td class="img-container"><img [src]="member.profilePictureUrl" [alt]="member.profilePictureUrl"></td>
+        <td>{{ member.lastname | uppercase }}</td>
+        <td>{{ member.firstname | titlecase }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
