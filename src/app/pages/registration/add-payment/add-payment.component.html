@@ -1,0 +1,126 @@
+<main>
+  <div class="form-container">
+    <h1>Récapitulatif</h1>
+    <div class="summary-container">
+      <p>
+        <span
+          >Veuillez vérifier les informations renseignées avant de finaliser
+          l'inscription en ligne :</span
+        >
+      </p>
+      <p>
+        Adhérent :
+        <span
+          >{{ registration.memberFirstname | titlecase }}
+          {{ registration.memberLastname | uppercase }}</span
+        >
+      </p>
+      <p>
+        Date de naissance :
+        <span>{{ registration.memberBirthdate | date : "dd/MM/yyyy" }}</span>
+      </p>
+      <p>
+        Cours choisi : <span>{{ registration.courseName | titlecase }}</span>
+      </p>
+      @if (registration.trainingSlots.length > 1) {
+      <p>
+        <i class="fa-light fa-calendar-days"></i> Entrainements
+        <span class="small"
+          >({{ calculateWeeklyDuration(registration.trainingSlots) }})</span
+        >
+        :
+      </p>
+      } @else if (registration.trainingSlots.length === 1) {
+      <p>
+        Entrainement
+        <span class="small"
+          >({{ calculateWeeklyDuration(registration.trainingSlots) }})</span
+        >
+        :
+      </p>
+      }
+      <ul>
+        <li *ngFor="let trainingSlot of registration.trainingSlots">
+          {{ trainingSlot.day | titlecase }} de
+          {{ trainingSlot.startTime | slice : 0 : 5 }} à
+          {{ trainingSlot.endTime | slice : 0 : 5 }}
+        </li>
+      </ul>
+      <p>
+        Prix : <span>{{ registration.registrationFee }} euros</span>
+      </p>
+    </div>
+
+    <div class="payment-methods-container">
+      <h2>Modes de règlement</h2>
+      <p>
+        Pour confirmer l'inscription de {{ registration.memberFirstname }},
+        veuillez choisir le mode de règlement souhaité :
+      </p>
+      <form [formGroup]="paymentForm" (ngSubmit)="submitForm()">
+        <div class="payment-method">
+          <input
+            type="radio"
+            id="payment1"
+            name="paymentMethod"
+            value="cb"
+            formControlName="paymentMethod"
+          />
+          <label for="payment1"
+            >Paiement sécurisé par carte bancaire via la site HelloAsso</label
+          >
+        </div>
+        <div class="payment-method">
+          <input
+            type="radio"
+            id="payment2"
+            name="paymentMethod"
+            value="cb3x"
+            formControlName="paymentMethod"
+          />
+          <label for="payment2"
+            >Paiement sécurisé en 3 fois par carte bancaire via la site
+            HelloAsso</label
+          >
+        </div>
+        <div class="payment-method">
+          <input
+            type="radio"
+            id="payment3"
+            name="paymentMethod"
+            value="cheque"
+            formControlName="paymentMethod"
+          />
+          <label for="payment3">Règlement par chèque</label>
+        </div>
+        <div class="payment-method">
+          <input
+            type="radio"
+            id="payment4"
+            name="paymentMethod"
+            value="cheque_vacances"
+            formControlName="paymentMethod"
+          />
+          <label for="payment4"
+            >Règlement par chèques vacances (+2,5% de frais à ajouter à la
+            cotisation totale)</label
+          >
+        </div>
+        <div class="payment-method">
+          <input
+            type="radio"
+            id="payment5"
+            name="paymentMethod"
+            value="especes"
+            formControlName="paymentMethod"
+          />
+          <label for="payment5">Règlement en espèces</label>
+        </div>
+
+        <button type="submit" [disabled]="paymentForm.invalid">
+          Finaliser l'inscription
+        </button>
+      </form>
+    </div>
+  </div>
+</main>

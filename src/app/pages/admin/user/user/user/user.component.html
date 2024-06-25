@@ -1,0 +1,74 @@
+@if (user) {
+<main>
+  <div class="header">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+    </div>
+    <h1>Profil de {{ user.lastname | uppercase }}&nbsp;{{ user.firstname | titlecase }}</h1>
+    <ul class="flex">
+      <li *ngFor="let role of user.roles" [title]="role">
+        <span [ngSwitch]="role">
+          <span *ngSwitchCase="'ROLE_ADMIN'"
+            ><i class="fa-regular fa-lock"></i
+          ></span>
+          <span *ngSwitchCase="'ROLE_USER'"
+            ><i class="fa-light fa-user"></i
+          ></span>
+          <span *ngSwitchCase="'ROLE_TRAINER'"
+            ><i class="fa-light fa-dumbbell"></i
+          ></span>
+          <span *ngSwitchCase="'ROLE_GUARDIAN'"
+            ><i class="fa-light fa-person-breastfeeding"></i
+          ></span>
+          <span *ngSwitchDefault>Default</span>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="profile-container">
+    <div class="profile-info">
+      <div class="profile-item">
+        <label>Nom</label>
+        <span>{{ user.lastname | uppercase }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Prénom</label>
+        <span>{{ user.firstname | titlecase }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Profession</label>
+        <span>{{ user.occupation | titlecase }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Téléphone</label>
+        <span><a [href]="'tel:' + user.phoneNumber">{{ user.phoneNumber }}</a></span>
+      </div>
+      <div class="profile-item">
+        <label>Adresse</label>
+        <span>{{ user.address }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Email</label>
+        <span><a [href]="'mailto:' + user.email">{{ user.email | lowercase }}</a></span>
+      </div>
+    </div>
+
+    <div class="documents-section">
+      <h2>Documents rattachés</h2>
+
+      @if (user.ribUrl) {
+      <div class="document-card">
+        <a [href]="user.ribUrl" target="_blank" class="document-link">
+          <button class="document-button">
+            <i class="fa fa-file-pdf document-icon"></i> Relevé d'Identité
+            Bancaire
+          </button>
+        </a>
+      </div>
+      } @else {
+      <p>Il n'y a aucun document rattaché à ce compte.</p>
+      }
+    </div>
+  </div>
+</main>
+}

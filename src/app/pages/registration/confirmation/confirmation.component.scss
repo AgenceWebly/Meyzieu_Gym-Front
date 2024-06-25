@@ -1,0 +1,68 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .confirmation-container {
+    max-width: 800px;
+    margin: 0 auto;
+
+    .main-container {
+      background-color: $color-hover-background;
+      margin: $default-margin;
+      padding: calc($default-padding * 2);
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      border-radius: 10px;
+
+      p {
+        margin: calc($default-margin * 2) 0;
+
+        a {
+          @include link;
+        }
+      }
+
+      .link-container {
+        text-align: center;
+        font-size: 1.5em;
+      }
+
+      ul {
+        li {
+          margin: $default-margin calc($default-margin * 2);
+          text-align: center;
+        }
+      }
+    }
+
+    h1 {
+      font-family: $font-title;
+      margin-bottom: $default-margin;
+    }
+  }
+}
+
+a {
+  @include link;
+}
+
+.fa-message-exclamation {
+  text-align: center;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.italic {
+  font-style: italic;
+  font-size: 1.2em;
+}

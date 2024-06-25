@@ -1,0 +1,28 @@
+<main>
+  <div class="header">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+    </div>
+    <h1>Modifier la saison</h1>
+  </div>
+  <form [formGroup]="seasonForm" (ngSubmit)="submitForm()">
+    <fieldset>
+      <label for="startDate">Date de début</label>
+      <input type="date" id="startDate" formControlName="startDate" />
+      <div *ngIf="seasonForm.get('startDate')?.invalid && seasonForm.get('startDate')?.touched">
+        <small *ngIf="seasonForm.get('startDate')?.errors?.['required']">La date de début est requise.</small>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="endDate">Date de fin</label>
+      <input type="date" id="endDate" formControlName="endDate" />
+      <div *ngIf="seasonForm.get('endDate')?.invalid && seasonForm.get('endDate')?.touched">
+        <small *ngIf="seasonForm.get('endDate')?.errors?.['required']">La date de fin est requise.</small>
+      </div>
+    </fieldset>
+
+    <button type="submit" [disabled]="seasonForm.invalid">Mettre à jour la saison</button>
+  </form>
+</main>
+

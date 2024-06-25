@@ -1,0 +1,40 @@
+@import "variables";
+
+@mixin box-shadow($color: $shadow-color) {
+  box-shadow: 0 2px 4px $color;
+}
+
+@mixin border-shadow-radius(
+  $border-color: $border-color,
+  $shadow-color: $shadow-color,
+  $border-radius: $border-radius
+) {
+  box-shadow: 0 2px 4px $shadow-color;
+  border-radius: $border-radius;
+}
+
+@mixin button-submit-form() {
+  width: 100%;
+  padding: $default-padding;
+  font-size: 1em;
+  color: #fff;
+  background-color: $color-primary;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:disabled {
+    background-color: lighten($color-primary, 30%);
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $color-primary-hover;
+  }
+}
+
+@mixin link() {
+  color: $color-primary;
+  font-weight: 700;
+}

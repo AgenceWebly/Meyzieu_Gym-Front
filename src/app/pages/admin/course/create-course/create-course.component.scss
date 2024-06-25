@@ -1,0 +1,166 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .back-arrow {
+      cursor: pointer;
+      margin-right: 20px;
+      font-size: 1.5em;
+      color: black;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $color-primary-hover;
+      }
+    }
+  }
+
+  form {
+    max-width: 800px;
+
+    fieldset {
+      border: none;
+      padding: 0;
+
+      @media (min-width: 769px) {
+      }
+
+      label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        min-height: 48px;
+        display: flex;
+        align-items: flex-end;
+      }
+
+      input,
+      textarea,
+      select,
+      input[type="datetime-local"],
+      input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          border-color: $color-primary;
+          outline: none;
+        }
+      }
+
+      textarea {
+        min-height: 80px;
+      }
+
+      .char-counter {
+        font-size: 0.875em;
+        color: #ccc;
+      }
+
+      small {
+        color: red;
+        font-size: 0.875em;
+      }
+
+      .info {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .fieldset-container {
+    display: flex;
+    flex-direction: column;
+    gap: $default-margin;
+    margin: calc($default-margin * 2);
+    flex-wrap: wrap;
+
+    @media (min-width: 769px) {
+      flex-direction: row;
+      justify-content: center;
+
+      fieldset,
+      .form-group {
+        width: 45%;
+      }
+    }
+  }
+
+  .training-slots-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    fieldset,
+    .form-group {
+      width: 70%;
+    }
+  }
+
+  h2 {
+    font-size: 1em;
+    margin: $default-margin 0;
+
+    span {
+      font-size: 14px;
+      font-weight: 200;
+    }
+  }
+  button:not(.add-training-session-button):not(
+      .remove-training-session-button
+    ) {
+    width: 100%;
+    padding: $default-padding;
+    font-size: 1em;
+    color: #fff;
+    background-color: $color-primary;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:disabled {
+      background-color: lighten($color-primary, 30%);
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-hover;
+    }
+  }
+
+  .remove-training-session-button,
+  .add-training-session-button {
+    border: none;
+    background-color: transparent;
+    color: $color-text;
+    width: fit-content;
+    padding-top: 0;
+    cursor: pointer;
+  }
+
+  .add-training-session-button {
+    color: $color-primary;
+    i {
+      color: $color-primary;
+    }
+  }
+
+  i {
+    margin-right: calc($default-margin/2);
+  }
+}

@@ -1,0 +1,137 @@
+<main>
+  <div class="form-container">
+    <h1>Questionnaire médical</h1>
+    <form [formGroup]="medicalForm" (ngSubmit)="submitForm()">
+      <section>
+        <h2>Au cours des 12 derniers mois :</h2>
+        <fieldset>
+          <label
+            >Un membre de votre famille est-il décédé subitement d’une cause
+            cardiaque ou inexpliquée ?</label
+          >
+          <div>
+            <input type="radio" id="q1_no" formControlName="q1" value="non" />
+            <label for="q1_no">Non</label>
+            <input type="radio" id="q1_yes" formControlName="q1" value="oui" />
+            <label for="q1_yes">Oui</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label
+            >Avez-vous ressenti une douleur dans la poitrine, des palpitations,
+            un essoufflement inhabituel ou un malaise ?</label
+          >
+          <div>
+            <input type="radio" id="q2_no" formControlName="q2" value="non" />
+            <label for="q2_no">Non</label>
+            <input type="radio" id="q2_yes" formControlName="q2" value="oui" />
+            <label for="q2_yes">Oui</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label
+            >Avez-vous eu un épisode de respiration sifflante (asthme) ?</label
+          >
+          <div>
+            <input type="radio" id="q3_no" formControlName="q3" value="non" />
+            <label for="q3_no">Non</label>
+            <input type="radio" id="q3_yes" formControlName="q3" value="oui" />
+            <label for="q3_yes">Oui</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label>Avez-vous eu une perte de connaissance ?</label>
+          <div>
+            <input type="radio" id="q4_no" formControlName="q4" value="non" />
+            <label for="q4_no">Non</label>
+            <input type="radio" id="q4_yes" formControlName="q4" value="oui" />
+            <label for="q4_yes">Oui</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label
+            >Si vous avez arrêté le sport pendant 30 jours ou plus pour des
+            raisons de santé, avez-vous repris sans l’accord d’un médecin
+            ?</label
+          >
+          <div>
+            <input type="radio" id="q5_no" formControlName="q5" value="non" />
+            <label for="q5_no">Non</label>
+            <input type="radio" id="q5_yes" formControlName="q5" value="oui" />
+            <label for="q5_yes">Oui</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label
+            >Avez-vous débuté un traitement médical de longue durée (hors
+            contraception et désensibilisation aux allergies) ?</label
+          >
+          <div>
+            <input type="radio" id="q6_no" formControlName="q6" value="non" />
+            <label for="q6_no">Non</label>
+            <input type="radio" id="q6_yes" formControlName="q6" value="oui" />
+            <label for="q6_yes">Oui</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <section>
+        <h2>A ce jour :</h2>
+        <fieldset>
+          <label
+            >Ressentez-vous une douleur, un manque de force ou une raideur suite
+            à un problème osseux, articulaire ou musculaire (fracture, entorse,
+            luxation, déchirure, tendinite, etc...) survenu durant les 12
+            derniers mois ?</label
+          >
+          <div>
+            <input type="radio" id="q7_no" formControlName="q7" value="non" />
+            <label for="q7_no">Non</label>
+            <input type="radio" id="q7_yes" formControlName="q7" value="oui" />
+            <label for="q7_yes">Oui</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label
+            >Votre pratique sportive est-elle interrompue pour des raisons de
+            santé ?</label
+          >
+          <div>
+            <input type="radio" id="q8_no" formControlName="q8" value="non" />
+            <label for="q8_no">Non</label>
+            <input type="radio" id="q8_yes" formControlName="q8" value="oui" />
+            <label for="q8_yes">Oui</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label
+            >Pensez-vous avoir besoin d’un avis médical pour poursuivre votre
+            pratique sportive ?</label
+          >
+          <div>
+            <input type="radio" id="q9_no" formControlName="q9" value="non" />
+            <label for="q9_no">Non</label>
+            <input type="radio" id="q9_yes" formControlName="q9" value="oui" />
+            <label for="q9_yes">Oui</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <div *ngIf="showHealthCertificateMessage" class="info">
+        Pensez à fournir un certificat médical autorisant la pratique d’une
+        activité sportive après votre inscription en ligne.
+      </div>
+
+      <button type="submit" [disabled]="medicalForm.invalid">
+        Poursuivre l'inscription
+      </button>
+    </form>
+  </div>
+</main>

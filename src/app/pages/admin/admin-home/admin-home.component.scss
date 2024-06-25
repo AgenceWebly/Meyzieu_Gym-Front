@@ -1,0 +1,74 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .back-arrow {
+      cursor: pointer;
+      margin-right: 20px;
+      font-size: 1.5em;
+      color: black;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $color-primary-hover;
+      }
+    }
+  }
+
+  .cards-container {
+    ul {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+
+      @media (min-width: 769px) {
+        flex-direction: row;
+      }
+
+      .card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease,
+          font-weight 0.3s ease;
+
+        &:hover {
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          background-color: $color-hover-background;
+          font-weight: 600;
+        }
+
+        a {
+          display: block;
+          color: inherit;
+          padding: 20px;
+
+          h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+          }
+
+          p {
+            font-size: 0.9em;
+            color: #666;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+export const schools = [
+  { value: 'Ecole du Grand Large', label: 'Ecole du Grand Large' },
+  { value: 'École le Carreau', label: 'École le Carreau' },
+  { value: 'Ecole Les Calabres', label: 'Ecole Les Calabres ' },
+  { value: 'Ecole Condorcet', label: 'Ecole Condorcet' },
+  { value: 'Ecole Jacques Prévert', label: 'Ecole Jacques Prévert' },
+  { value: "Ecole Jeanne d'Arc", label: "Ecole Jeanne d'Arc" },
+  { value: 'Ecole Marcel Pagnol', label: 'Ecole Marcel Pagnol' },
+  { value: 'Ecole Marie Curie', label: 'Ecole Marie Curie' },
+  { value: 'Ecole Jules Ferry', label: 'Ecole Jules Ferry' },
+  { value: 'Ecole René Cassin', label: 'Ecole René Cassin' },
+  { value: 'Ecole du Sacré Coeur', label: 'Ecole du Sacré Coeur' },
+  { value: 'Collège Olivier de Serres', label: 'Collège Olivier de Serres' },
+  { value: 'Lycée Charlie Chaplin', label: 'Lycée Charlie Chaplin' },
+  { value: 'GS Privé Al Kindi', label: 'GS Privé Al Kindi' },
+  { value: 'Autre', label: 'Autre' },
+];

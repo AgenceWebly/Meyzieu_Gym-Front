@@ -1,0 +1,345 @@
+<main>
+  <div class="form-container">
+    <h1>Nouvel adhérent</h1>
+    <form [formGroup]="addMemberForm" (ngSubmit)="addMember()">
+      <fieldset class="image-input">
+        <div class="loader-container" *ngIf="loading">
+          <div class="loader"></div>
+        </div>
+        <img
+          *ngIf="!loading"
+          class="poster"
+          [src]="imageUrl"
+          alt="Photo de l'adhérent"
+        />
+        <label for="photo">
+          <span>Charger une photo de l'adhérent</span>
+          <input type="file" id="photo" (change)="handleFileUpload($event)" />
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <label for="gender" class="hidden-label">Genre</label>
+        <div class="gender-choice-container">
+          <div class="gender-container">
+            <input type="radio" formControlName="gender" value="male" />
+            <label> Masculin </label>
+          </div>
+
+          <div class="gender-container">
+            <input type="radio" formControlName="gender" value="female" />
+            <label> Féminin </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="flex-container">
+        <fieldset>
+          <label for="lastname">Nom</label>
+          <input
+            type="text"
+            id="lastname"
+            formControlName="lastname"
+            placeholder="Nom"
+          />
+          <div
+            *ngIf="
+              addMemberForm.get('lastname')?.invalid &&
+              addMemberForm.get('lastname')?.touched
+            "
+          >
+            <small *ngIf="addMemberForm.get('lastname')?.errors?.['required']"
+              >Le nom est requis.</small
+            >
+            <small *ngIf="addMemberForm.get('lastname')?.errors?.['minlength']"
+              >Le nom doit contenir au moins 2 caractères.</small
+            >
+            <small *ngIf="addMemberForm.get('lastname')?.errors?.['pattern']"
+              >Le nom ne peut contenir que des lettres, des tirets et des
+              espaces.</small
+            >
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label for="firstname">Prénom</label>
+          <input
+            type="text"
+            id="firstname"
+            formControlName="firstname"
+            placeholder="Prénom"
+          />
+          <div
+            *ngIf="
+              addMemberForm.get('firstname')?.invalid &&
+              addMemberForm.get('firstname')?.touched
+            "
+          >
+            <small *ngIf="addMemberForm.get('firstname')?.errors?.['required']"
+              >Le prénom est requis.</small
+            >
+            <small *ngIf="addMemberForm.get('firstname')?.errors?.['minlength']"
+              >Le prénom doit contenir au moins 2 caractères.</small
+            >
+            <small *ngIf="addMemberForm.get('firstname')?.errors?.['pattern']"
+              >Le prénom ne peut contenir que des lettres, des tirets et des
+              espaces.</small
+            >
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="flex-container">
+        <fieldset>
+          <label for="birthdate">Date de naissance</label>
+          <input type="date" id="birthdate" formControlName="birthdate" />
+          <div
+            *ngIf="
+              addMemberForm.get('birthdate')?.invalid &&
+              addMemberForm.get('birthdate')?.touched
+            "
+          >
+            <small *ngIf="addMemberForm.get('birthdate')?.errors?.['required']"
+              >La date de naissance est requise.</small
+            >
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <label for="school">Établissement scolaire</label>
+          <select id="school" formControlName="school">
+            <option value="" disabled selected>Choisir</option>
+            <option *ngFor="let option of schools" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              addMemberForm.get('school')?.invalid &&
+              addMemberForm.get('school')?.touched
+            "
+          >
+            <small *ngIf="addMemberForm.get('school')?.errors?.['required']"
+              >L'établissement scolaire est requis.</small
+            >
+          </div>
+        </fieldset>
+      </div>
+      <fieldset>
+        <label for="relationToMember"
+          >Lien de parenté</label
+        >
+        <select
+          id="relationToMember"
+          formControlName="relationToMember"
+        >
+          <option value="" disabled selected>Choisir un lien de parenté</option>
+          <option *ngFor="let option of relatedOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            addMemberForm.get('relationToMember')?.invalid &&
+            addMemberForm.get('relationToMember')?.touched
+          "
+        >
+          <small *ngIf="addMemberForm.get('relationToMember')?.errors?.['required']"
+            >Le lien de parenté est requis.</small
+          >
+        </div>
+      </fieldset>
+
+      <fieldset formArrayName="emergencyContacts">
+        <h2>
+          Personnes à contacter en cas d'urgence
+          <span>(1 contact minimum)</span>
+        </h2>
+        <div
+          *ngFor="let contact of contacts.controls; let i = index"
+          [formGroupName]="i"
+          class="contact-container"
+        >
+          <div class="flex-container">
+            <div class="form-group">
+              <label for="emergencyContactname-{{ i }}">Nom</label>
+              <input
+                id="emergencyContactname-{{ i }}"
+                type="text"
+                formControlName="lastname"
+              />
+              <div
+                *ngIf="
+                  contact.get('name')?.invalid && contact.get('name')?.touched
+                "
+              >
+                <small *ngIf="contact.get('name')?.errors?.['required']"
+                  >Le nom est requis.</small
+                >
+                <small *ngIf="contact.get('name')?.errors?.['minlength']"
+                  >Le nom doit contenir au moins 2 caractères.</small
+                >
+                <small *ngIf="contact.get('name')?.errors?.['pattern']"
+                  >Le nom ne peut contenir que des lettres, des tirets et des
+                  espaces.</small
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="emergencyContactFirstname-{{ i }}">Prénom</label>
+              <input
+                id="emergencyContactFirstname-{{ i }}"
+                type="text"
+                formControlName="firstname"
+              />
+              <div
+                *ngIf="
+                  contact.get('firstname')?.invalid &&
+                  contact.get('firstname')?.touched
+                "
+              >
+                <small *ngIf="contact.get('firstname')?.errors?.['required']"
+                  >Le prénom est requis.</small
+                >
+                <small *ngIf="contact.get('firstname')?.errors?.['minlength']"
+                  >Le prénom doit contenir au moins 2 caractères.</small
+                >
+                <small *ngIf="contact.get('firstname')?.errors?.['pattern']"
+                  >Le prénom ne peut contenir que des lettres et des
+                  espaces.</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="form-group">
+              <label for="emergencyContactRelationship-{{ i }}"
+                >Lien de parenté</label
+              >
+              <select
+                id="emergencyContactRelationship-{{ i }}"
+                formControlName="relationToMember"
+              >
+                <option value="" disabled selected>
+                  Choisir un lien de parenté
+                </option>
+                <option
+                  *ngFor="let option of emergencyRelations"
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  contact.get('relationToMember')?.invalid &&
+                  contact.get('relationToMember')?.touched
+                "
+              >
+                <small *ngIf="contact.get('relationToMember')?.errors?.['required']"
+                  >Le lien de parenté est requis.</small
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="emergencyContactPhone-{{ i }}">Téléphone</label>
+              <input
+                id="emergencyContactPhone-{{ i }}"
+                type="text"
+                formControlName="phoneNumber"
+              />
+              <div
+                *ngIf="
+                  contact.get('phoneNumber')?.invalid &&
+                  contact.get('phoneNumber')?.touched
+                "
+              >
+                <small *ngIf="contact.get('phoneNumber')?.errors?.['required']"
+                  >Le téléphone est requis.</small
+                >
+                <small
+                  *ngIf="contact.get('phoneNumber')?.errors?.['phoneFormat']"
+                  >Numéro de téléphone invalide.</small
+                >
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            (click)="removeEmergencyContact(i)"
+            class="remove-contact-button"
+          >
+            <i class="fa-light fa-circle-minus" style="color: #333333"></i>
+            Supprimer ce contact
+          </button>
+        </div>
+        <button
+          type="button"
+          (click)="addEmergencyContact()"
+          class="add-contact-button"
+        >
+          <i class="fa-light fa-circle-plus"></i> Ajouter un contact
+        </button>
+      </fieldset>
+
+      <fieldset>
+        <h2>Autorisations</h2>
+        <div formGroupName="authorizations" class="authorizations">
+          <div class="input-label-container">
+            <input type="checkbox" formControlName="photoApproved" id="photoApproved" />
+            <label for="photoApproved">
+              J'autorise l'association à utiliser l'image de l'adhérent à
+              travers sa communication
+            </label>
+          </div>
+          <div class="input-label-container">
+            <input
+              type="checkbox"
+              formControlName="firstAidApproved"
+              id="firstAidApproved"
+            />
+            <label for="firstAidApproved">
+              J'autorise l'association à faire pratiquer tout acte médical au
+              cas où l'état de l'adhérent le nécessiterait
+            </label>
+          </div>
+          <div class="input-label-container">
+            <input
+              type="checkbox"
+              formControlName="allowedToLeave"
+              id="allowedToLeave"
+            />
+            <label for="allowedToLeave">
+              J'autorise l'adhérent à sortir seul du gymnase
+            </label>
+          </div>
+          <div class="input-label-container">
+            <input type="checkbox" formControlName="transportApproved" id="transportApproved" />
+            <label for="transportApproved">
+              J'autorise l'association à transporter l'adhérent pour se rendre
+              sur les lieux de compétitions, manifestations et sorties
+              organisées
+            </label>
+          </div>
+          <div class="input-label-container">
+            <input
+              type="checkbox"
+              formControlName="acceptRules"
+              id="acceptRules"
+            />
+            <label>
+              Je m'engage à respecter le
+              <a href="https://res.cloudinary.com/dz632zpoz/image/upload/v1718451244/lrthqixuag1s9zprebqt.pdf" target="_blank">Règlement intérieur du club</a>, les règlements
+              gymnastes et parents dont je reconnais avoir pris connaissance.
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <button type="submit" [disabled]="addMemberForm.invalid">
+        Poursuivre l'inscription
+      </button>
+    </form>
+  </div>
+</main>
