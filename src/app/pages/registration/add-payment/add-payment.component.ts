@@ -42,6 +42,7 @@ export class AddPaymentComponent {
         this.apiService.getRegistrationById(this.registrationId).subscribe({
           next: (registration: any) => {
             this.registration = registration;
+            console.log(this.registration);
           },
           error: (err) => {
             this.toastr.error(
@@ -113,7 +114,9 @@ export class AddPaymentComponent {
             this.apiService
               .sendEmail({
                 to: userEmail,
-                subject: "Ne pas répondre - Confirmation d'inscription " + this.registration.memberFirstname,
+                subject:
+                  "Ne pas répondre - Confirmation d'inscription " +
+                  this.registration.memberFirstname,
                 message: message,
               })
               .subscribe((data) => {
