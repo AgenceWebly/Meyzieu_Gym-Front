@@ -71,6 +71,7 @@ export const competitions = [
   { lastname: 'MORIKAWA LEMOAL', firstname: 'Clélia', courseName: 'Loisirs Perf 1' },
   { lastname: 'BOUANANI', firstname: 'Mehdi', courseName: 'Loisirs Perf 1' },
   { lastname: 'BUISSON', firstname: 'Loélie', courseName: 'Loisirs Perf 1' },
+  { lastname: 'PIGNAL', firstname: 'Maylis', courseName: 'Loisirs Perf 1' },
   { lastname: 'CAULET JOHANNES', firstname: 'Athénaïs', courseName: 'Loisirs Perf 2' },
   { lastname: 'EUHTINE-BENFEDDA', firstname: 'Léna', courseName: 'Loisirs Perf 2' },
   { lastname: 'FREGONARA', firstname: 'Elisa', courseName: 'Loisirs Perf 2' },
