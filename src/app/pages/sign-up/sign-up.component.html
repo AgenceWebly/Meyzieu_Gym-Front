@@ -121,9 +121,9 @@
         <input
           id="address"
           formControlName="address"
-          type="search"
+          type="text"
           placeholder="Adresse"
-          autocomplete="off"
+          autocomplete="street-address"
         />
         <div
           *ngIf="
@@ -138,15 +138,6 @@
             >L'adresse doit contenir au moins 5 caractères.</small
           >
         </div>
-
-        <ul *ngIf="addressSuggestions.length > 0">
-          <li
-            *ngFor="let suggestion of addressSuggestions; let i = index"
-            (click)="selectAddress(suggestion)"
-          >
-            {{ suggestion.properties.label }}
-          </li>
-        </ul>
       </fieldset>
 
       <fieldset formGroupName="emails">

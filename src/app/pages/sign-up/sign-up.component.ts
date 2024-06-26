@@ -19,8 +19,6 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  addressSuggestions: any[] = [];
-
   passwordStrengthClass = 'weak';
   passwordStrengthPercent = 0;
   passwordMessage = '';
@@ -76,21 +74,6 @@ export class SignUpComponent {
   });
 
   ngOnInit(): void {
-    this.signUpForm.get('address')?.valueChanges.subscribe((value) => {
-      if (value && value.length >= 4) {
-        this.addressService.searchAddress(value).subscribe((response) => {
-          const res = response.features.some(
-            (item: AddressFeature) => item.properties.label === value
-          );
-          if (!res) {
-            this.addressSuggestions = response.features;
-          }
-        });
-      } else {
-        this.addressSuggestions = [];
-      }
-    });
-
     this.signUpForm
       .get('passwords.password')
       ?.valueChanges.pipe(takeUntil(this.destroy$))
@@ -138,11 +121,6 @@ export class SignUpComponent {
     }
   }
 
-  selectAddress(address: any): void {
-    this.signUpForm.patchValue({ address: address.properties.label });
-    this.addressSuggestions = [];
-  }
-
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
   }
@@ -169,6 +147,7 @@ export class SignUpComponent {
           this.router.navigate(['/connexion']);
         },
         error: (err) => {
+          console.log(err);
           this.toastr.error(
             'Une erreur est survenue, veuillez réessayer ultérieurement',
             'Erreur'

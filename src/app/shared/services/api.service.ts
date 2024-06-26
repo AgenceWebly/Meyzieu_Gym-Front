@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
-const AUTH_API = 'http://localhost:8080/api';
+const AUTH_API = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,13 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   // M E M B E R S
-  getMembersByUserId(userId: number, forRegistration: boolean): Observable<any[]> {
-    return this.http.get<any[]>(`${AUTH_API}/users/${userId}/members?forRegistration=${forRegistration}`);
+  getMembersByUserId(
+    userId: number,
+    forRegistration: boolean
+  ): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${AUTH_API}/users/${userId}/members?forRegistration=${forRegistration}`
+    );
   }
 
   createMember(userId: number, newMember: any) {
@@ -75,7 +81,9 @@ export class ApiService {
   }
 
   getAvailableCourses(memberId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${AUTH_API}/members/${memberId}/available-courses`);
+    return this.http.get<any[]>(
+      `${AUTH_API}/members/${memberId}/available-courses`
+    );
   }
 
   //ADMIN
