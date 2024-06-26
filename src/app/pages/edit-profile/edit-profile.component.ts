@@ -17,7 +17,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
-  addressSuggestions: any[] = [];
   currentUserId!: number;
 
   fb = inject(FormBuilder);
@@ -55,25 +54,6 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserData();
-
-    this.editProfileForm
-      .get('address')
-      ?.valueChanges.subscribe((value: any) => {
-        if (value && value.length >= 4) {
-          this.addressService
-            .searchAddress(value)
-            .subscribe((response: any) => {
-              const res = response.features.some(
-                (item: AddressFeature) => item.properties.label === value
-              );
-              if (!res) {
-                this.addressSuggestions = response.features;
-              }
-            });
-        } else {
-          this.addressSuggestions = [];
-        }
-      });
   }
 
   loadUserData(): void {
@@ -96,11 +76,6 @@ export class EditProfileComponent implements OnInit {
         );
       },
     });
-  }
-
-  selectAddress(address: any): void {
-    this.editProfileForm.patchValue({ address: address.properties.label });
-    this.addressSuggestions = [];
   }
 
   goBack() {

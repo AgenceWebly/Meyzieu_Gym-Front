@@ -30,7 +30,8 @@
             >Le nom doit contenir au moins 2 caractères.</small
           >
           <small *ngIf="editProfileForm.get('lastname')?.errors?.['pattern']"
-            >Le nom ne peut contenir que des lettres, des tirets et des espaces.</small
+            >Le nom ne peut contenir que des lettres, des tirets et des
+            espaces.</small
           >
         </div>
       </fieldset>
@@ -58,7 +59,8 @@
             >Le prénom doit contenir au moins 2 caractères.</small
           >
           <small *ngIf="editProfileForm.get('firstname')?.errors?.['pattern']"
-            >Le prénom ne peut contenir que des lettres, des tirets et des espaces.</small
+            >Le prénom ne peut contenir que des lettres, des tirets et des
+            espaces.</small
           >
         </div>
       </fieldset>
@@ -100,10 +102,12 @@
             editProfileForm.get('phoneNumber')?.touched
           "
         >
-          <small *ngIf="editProfileForm.get('phoneNumber')?.errors?.['required']"
+          <small
+            *ngIf="editProfileForm.get('phoneNumber')?.errors?.['required']"
             >Le téléphone est requis.</small
           >
-          <small *ngIf="editProfileForm.get('phoneNumber')?.errors?.['phoneFormat']"
+          <small
+            *ngIf="editProfileForm.get('phoneNumber')?.errors?.['phoneFormat']"
             >Numéro de téléphone invalide.</small
           >
         </div>
@@ -113,9 +117,9 @@
         <input
           id="address"
           formControlName="address"
-          type="search"
+          type="text"
           placeholder="Adresse"
-          autocomplete="off"
+          autocomplete="street-address"
         />
         <div
           *ngIf="
@@ -123,22 +127,15 @@
             editProfileForm.get('address')?.touched
           "
         >
-          <small *ngIf="editProfileForm.get('address')?.errors?.['required']"
-            >L'adresse est requise.</small
-          >
-          <small *ngIf="editProfileForm.get('address')?.errors?.['minlength']"
-            >L'adresse doit contenir au moins 5 caractères.</small
-          >
+          <small *ngIf="editProfileForm.get('address')?.errors?.['required']">
+            L'adresse est requise.
+          </small>
+          <small *ngIf="editProfileForm.get('address')?.errors?.['minlength']">
+            L'adresse doit contenir au moins 5 caractères.
+          </small>
         </div>
-        <ul *ngIf="addressSuggestions.length > 0">
-          <li
-            *ngFor="let suggestion of addressSuggestions; let i = index"
-            (click)="selectAddress(suggestion)"
-          >
-            {{ suggestion.properties.label }}
-          </li>
-        </ul>
       </fieldset>
+
       <fieldset>
         <label for="email">Email</label>
         <input
