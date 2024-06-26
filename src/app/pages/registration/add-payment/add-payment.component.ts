@@ -91,7 +91,7 @@ export class AddPaymentComponent {
               this.registration.courseName +
               ' a bien été prise en compte.\n\nPour que cette inscription soit valide, nous vous remercions de procéder au règlement de la somme de ' +
               this.registration.registrationFee +
-              ' selon le mode de règlement choisi :\n';
+              ' euros selon le mode de règlement choisi :\n';
 
             switch (selectedPaymentMethod) {
               case 'cb':
@@ -104,11 +104,11 @@ export class AddPaymentComponent {
                 break;
               default:
                 message +=
-                  'Vous avez opté pour un règlement par chèque, espèces ou chèques vacances :\n des permanences sont organisées au Gymnase du Carreau pour que vous puissiez déposer votre règlement le le jeudi 27 juin 2024 de 18h à 19h et le jeudi 4 juillet 2024 de 18h à 19h';
+                  'Vous avez opté pour un règlement par chèque, espèces ou chèques vacances :\n des permanences sont organisées au Gymnase du Carreau pour que vous puissiez déposer votre règlement le jeudi 27 juin 2024 de 18h à 19h et le jeudi 4 juillet 2024 de 18h à 19h';
             }
 
             message +=
-              "\n\nÀ très bientôt sur notre plateforme!\n\nSportivement,\nL'équipe Meyzieu Gym";
+              "\n\nÀ très bientôt sur notre plateforme !\n\nSportivement,\nL'équipe Meyzieu Gym";
 
             this.apiService
               .sendEmail({

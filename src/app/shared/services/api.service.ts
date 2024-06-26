@@ -148,7 +148,6 @@ export class ApiService {
   // E M A I L S
 
   sendEmail(email: any): Observable<any> {
-    console.log(email);
 
     return this.http.post<any>(`${AUTH_API}/send-email`, email);
   }
