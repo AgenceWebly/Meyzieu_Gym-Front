@@ -50,7 +50,7 @@ export class AddCourseComponent {
         this.memberId = parseInt(idParam, 10);
         this.apiService.getAvailableCourses(this.memberId).subscribe({
           next: (coursesResponse) => {
-            this.apiService.getMemberById(this.memberId).subscribe({
+            this.apiService.getMemberByIdForUser(this.memberId).subscribe({
               next: (memberResponse) => {
                 this.currentMember = memberResponse;
                 if (

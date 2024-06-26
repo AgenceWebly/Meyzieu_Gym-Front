@@ -21,6 +21,10 @@ export class ApiService {
     );
   }
 
+  getMemberByIdForUser(memberId: number): Observable<any> {
+    return this.http.get<any[]>(`${AUTH_API}/users/members/${memberId}`);
+  }
+
   createMember(userId: number, newMember: any) {
     return this.http.post<any>(
       AUTH_API + '/users/' + userId + '/members',
@@ -139,5 +143,13 @@ export class ApiService {
       `${AUTH_API}/registrations/${registrationId}`,
       updatedRegistration
     );
+  }
+
+  // E M A I L S
+
+  sendEmail(email: any): Observable<any> {
+    console.log(email);
+
+    return this.http.post<any>(`${AUTH_API}/send-email`, email);
   }
 }
