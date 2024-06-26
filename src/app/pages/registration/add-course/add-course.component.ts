@@ -9,6 +9,8 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { ToastrService } from 'ngx-toastr';
 import { TrainingSlot } from '../../../models/trainingSlot';
 import { CalculateDurationService } from '../../../shared/services/calculate-duration.service';
+import { Member } from '../../../models/member.model';
+import { competitions } from '../../../data/competition.data';
 
 @Component({
   selector: 'app-add-course',
@@ -19,6 +21,7 @@ import { CalculateDurationService } from '../../../shared/services/calculate-dur
 })
 export class AddCourseComponent {
   memberId!: number;
+  currentMember!: Member;
   currentUserId!: number;
   discount!: number;
   membersRegisteredThisSeason!: number;
@@ -46,20 +49,84 @@ export class AddCourseComponent {
       if (idParam !== null) {
         this.memberId = parseInt(idParam, 10);
         this.apiService.getAvailableCourses(this.memberId).subscribe({
-          next: (response) => {
-            this.courses = response;
-            this.membersRegisteredThisSeason =
-              response[0].userRegistrationsCount;
-            switch (response[0].userRegistrationsCount) {
-              case 0:
-                this.discount = 0;
-                break;
-              case 1:
-                this.discount = 10;
-                break;
-              default:
-                this.discount = 30;
-            }
+          next: (coursesResponse) => {
+            this.apiService.getMemberById(this.memberId).subscribe({
+              next: (memberResponse) => {
+                this.currentMember = memberResponse;
+                if (
+                  competitions.some(
+                    (member) =>
+                      member.lastname.toLowerCase() ===
+                        this.currentMember.lastname.toLowerCase() &&
+                      member.firstname.toLowerCase() ===
+                        this.currentMember.firstname.toLowerCase()
+                  )
+                ) {
+                  const competitionsMemberCourseName = competitions.find(
+                    (member) =>
+                      member.lastname.toLowerCase() ===
+                        this.currentMember.lastname.toLowerCase() &&
+                      member.firstname.toLowerCase() ===
+                        this.currentMember.firstname.toLowerCase()
+                  )?.courseName;
+
+                  this.courses = coursesResponse.filter((course) => {
+                    return (
+                      course.courseName.toLowerCase() ===
+                        competitionsMemberCourseName?.toLowerCase() ||
+                      (!course.courseName
+                        .toLowerCase()
+                        .startsWith('Compétition'.toLowerCase()) &&
+                        !course.courseName
+                          .toLowerCase()
+                          .startsWith('Loisirs Perf'.toLowerCase()) &&
+                        !course.program.name
+                          .toLowerCase()
+                          .startsWith('Compétition'.toLowerCase()) &&
+                        !course.program.name
+                          .toLowerCase()
+                          .startsWith('Loisirs Perf'.toLowerCase()))
+                    );
+                  });
+                } else {
+                  this.courses = coursesResponse.filter((course) => {
+                    return (
+                      !course.courseName
+                        .toLowerCase()
+                        .startsWith('Compétition'.toLowerCase()) &&
+                      !course.courseName
+                        .toLowerCase()
+                        .startsWith('Loisirs Perf'.toLowerCase()) &&
+                      !course.program.name
+                        .toLowerCase()
+                        .startsWith('Compétition'.toLowerCase()) &&
+                      !course.program.name
+                        .toLowerCase()
+                        .startsWith('Loisirs Perf'.toLowerCase())
+                    );
+                  });
+                }
+
+                this.membersRegisteredThisSeason =
+                  coursesResponse[0].userRegistrationsCount;
+                switch (coursesResponse[0].userRegistrationsCount) {
+                  case 0:
+                    this.discount = 0;
+                    break;
+                  case 1:
+                    this.discount = 10;
+                    break;
+                  default:
+                    this.discount = 30;
+                }
+              },
+              error: (err) => {
+                this.toastr.error(
+                  'Une erreur est survenue, veuillez réessayer ultérieurement',
+                  'Erreur'
+                );
+              },
+            });
           },
           error: (err) => {
             this.toastr.error(

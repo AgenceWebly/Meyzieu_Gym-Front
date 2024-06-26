@@ -1,6 +1,6 @@
 <main>
   <h1>Groupes</h1>
-  @if (courses.length > 0) {
+  @if (courses) {
   <div class="course-container" *ngFor="let course of courses">
     <div class="course-status" *ngIf="course.remainingSlots === 0">COMPLET</div>
     <h2>
