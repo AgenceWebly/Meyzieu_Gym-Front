@@ -7,6 +7,7 @@ import { ApiService } from '../../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CalculateDurationService } from '../../../shared/services/calculate-duration.service';
 import { TrainingSlot } from '../../../models/trainingSlot';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Component({
   selector: 'app-add-payment',
@@ -26,6 +27,7 @@ export class AddPaymentComponent {
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
   calculateDuration = inject(CalculateDurationService);
+  storageService = inject(StorageService);
 
   paymentForm = this.fb.group({
     paymentMethod: ['', Validators.required],
@@ -79,6 +81,44 @@ export class AddPaymentComponent {
               "Merci de procéder au règlement de l'inscription",
               'Mode de paiement pris en compte'
             );
+
+            let userEmail = this.storageService.getUser().email;
+
+            let message =
+              "Bonjour,\n\nL'inscription de " +
+              this.registration.memberFirstname +
+              ' au cours ' +
+              this.registration.courseName +
+              ' a bien été prise en compte.\n\nPour que cette inscription soit valide, nous vous remercions de procéder au règlement de la somme de ' +
+              this.registration.registrationFee +
+              ' euros selon le mode de règlement choisi :\n';
+
+            switch (selectedPaymentMethod) {
+              case 'cb':
+                message +=
+                  'Vous avez opté pour un règlement par carte bancaire en une seule fois via le lien HelloAsso : https://www.helloasso.com/associations/meyzieu-gym-artistique/adhesions/inscription-saison-2024-2025';
+                break;
+              case 'cb3x':
+                message +=
+                  'Vous avez opté pour un règlement par carte bancaire en 3 fois via le lien HelloAsso https://www.helloasso.com/associations/meyzieu-gym-artistique/adhesions/inscription-saison-2024-2025';
+                break;
+              default:
+                message +=
+                  'Vous avez opté pour un règlement par chèque, espèces ou chèques vacances :\n des permanences sont organisées au Gymnase du Carreau pour que vous puissiez déposer votre règlement le jeudi 27 juin 2024 de 18h à 19h et le jeudi 4 juillet 2024 de 18h à 19h';
+            }
+
+            message +=
+              "\n\nÀ très bientôt sur notre plateforme !\n\nSportivement,\nL'équipe Meyzieu Gym";
+
+            this.apiService
+              .sendEmail({
+                to: userEmail,
+                subject: "Ne pas répondre - Confirmation d'inscription " + this.registration.memberFirstname,
+                message: message,
+              })
+              .subscribe((data) => {
+                console.log('Email envoyé avec succès:');
+              });
             if (selectedPaymentMethod.includes('cb')) {
               this.router.navigate(
                 ['inscription/' + this.registrationId + '/confirmation'],
