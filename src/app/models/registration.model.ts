@@ -12,4 +12,8 @@ export interface Registration {
   registrationDate: Date;
   healthCertificateFileUrl: string;
   healthCertificateRequired: boolean;
+  courseName: string;
+  seasonStartDate: string;
+  seasonEndDate: string;
+  courseId: number;
 }
