@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CoursesComponent {
   courses: Course[] = [];
+  currentYear!: number;
 
   filteredCourses: Course[] = [];
   searchTerm: string = '';
@@ -26,11 +27,14 @@ export class CoursesComponent {
   constructor() {}
 
   ngOnInit() {
+    this.currentYear = new Date().getFullYear();
     this.apiService.getCourses().subscribe({
       next: (data) => {
         this.courses = data;
-
         this.filteredCourses = data;
+
+        console.log(data);
+        
       },
       error: (err) => {
         this.toastr.error(

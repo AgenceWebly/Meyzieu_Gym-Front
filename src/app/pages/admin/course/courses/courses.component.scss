@@ -43,6 +43,9 @@ main {
   .courses-table {
     width: 100%;
     border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 
     th,
     td {
@@ -55,13 +58,28 @@ main {
       background-color: #f4f4f4;
     }
 
+    .fixed-col {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+    }
+
+    thead th.fixed-col {
+      background-color: #f4f4f4;
+    }
+
+    tbody td.fixed-col {
+      background-color: #fff;
+    }
+
     .course-row {
       cursor: pointer;
       transition: background-color 0.3s ease;
+    }
 
-      &:hover {
-        background-color: $color-hover-background;
-      }
+    .course-row:hover td,
+    .course-row:hover td.fixed-col {
+      background-color: $color-hover-background;
     }
   }
 }
