@@ -43,7 +43,7 @@ export class UsersComponent {
   filterUsers() {
     if (this.searchTerm) {
       this.filteredUsers = this.users.filter((user) =>
-        user.lastname.toLowerCase().includes(this.searchTerm.toLowerCase())
+        user.lastname.toLowerCase().includes(this.searchTerm.toLowerCase()) || user.firstname.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredUsers = [...this.users];
