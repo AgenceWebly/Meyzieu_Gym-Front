@@ -53,7 +53,7 @@ export const competitions = [
   { lastname: 'CHAIA', firstname: 'Jenna', courseName: 'Compétition 7' },
   { lastname: 'MARCELINO', firstname: 'Anaëlle', courseName: 'Compétition 7' },
   { lastname: 'RICHARD', firstname: 'Amélie', courseName: 'Compétition 7' },
-  { lastname: 'GRAS', firstname: 'Sacha', courseName: 'Compétition 7' },
+  { lastname: 'GRAS', firstname: 'Sacha', courseName: 'Compétition 6' },
   { lastname: 'DEMAIMAY', firstname: 'Lorette', courseName: 'Compétition 7' },
   { lastname: 'KHELIFA', firstname: 'Chirine', courseName: 'Compétition 7' },
   { lastname: 'KEDIDA', firstname: 'Selma', courseName: 'Compétition 7' },
