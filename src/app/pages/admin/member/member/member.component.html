@@ -1,1 +1,72 @@
-<p>member works!</p>
+<main *ngIf="member">
+  <div class="header">
+    <div class="back-arrow" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+    </div>
+    <h1>Adhérent</h1>
+  </div>
+  <div class="member-container">
+    <div class="member-card">
+      <img
+        [src]="member.profilePictureUrl"
+        alt="{{ member.firstname | titlecase }} {{
+          member.lastname | uppercase
+        }}"
+      />
+      <div class="member-info">
+        <h2>
+          {{ member.firstname | titlecase }} {{ member.lastname | uppercase }}
+        </h2>
+        <h3>Inscriptions</h3>
+        <ul>
+          <li *ngFor="let registration of member.registrations">
+            <a [routerLink]="['/admin/cours', registration.courseId]">
+            Cours {{ registration.courseName }} - Saison {{ registration.seasonStartDate | date : "yyyy" }} /
+            {{ registration.seasonEndDate | date : "yyyy" }}
+          </a>
+          </li>
+        </ul>
+        <h3>Responsables :</h3>
+        <ul>
+          <li *ngFor="let guardian of member.guardians">
+            <a [routerLink]="['/admin/utilisateurs', guardian.id]">
+            {{ member.guardians[0].lastname }}
+            {{ member.guardians[0].firstname }}
+          </a>
+        </li>
+        </ul>
+        
+        <div class="autorizations">
+          <i
+            class="fa-solid fa-car"
+            [ngClass]="{
+              'green-icon': member.transportApproved,
+              'red-icon': !member.transportApproved
+            }"
+          ></i>
+          <i
+            class="fa-solid fa-camera"
+            [ngClass]="{
+              'green-icon': member.photoApproved,
+              'red-icon': !member.photoApproved
+            }"
+          ></i
+          ><i
+            class="fa-solid fa-kit-medical"
+            [ngClass]="{
+              'green-icon': member.firstAidApproved,
+              'red-icon': !member.firstAidApproved
+            }"
+          ></i>
+          <i
+            class="fa-solid fa-person-from-portal"
+            [ngClass]="{
+              'green-icon': member.allowedToLeave,
+              'red-icon': !member.allowedToLeave
+            }"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

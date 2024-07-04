@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { Member } from '../../../../models/member.model';
 import { ToastrService } from 'ngx-toastr';
@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-member',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './member.component.html',
   styleUrl: './member.component.scss',
 })
@@ -32,6 +32,8 @@ export class MemberComponent {
           this.apiService.getMemberById(this.memberId).subscribe({
             next: (member) => {
               this.member = member;
+              console.log(member);
+              
             },
             error: (err) => {
               this.toastr.error(
@@ -47,5 +49,9 @@ export class MemberComponent {
         this.toastr.error('ID du cours non trouvé', 'Erreur');
       }
     });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/admin/adherents']);
   }
 }
