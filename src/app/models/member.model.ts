@@ -18,4 +18,5 @@ export interface Member {
   registrations: Registration[];
   registrationStatus: string;
   registrationId: number;
+  guardians: any;
 }

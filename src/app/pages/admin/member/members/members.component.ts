@@ -43,8 +43,12 @@ export class MembersComponent {
 
   filterMembers() {
     if (this.searchTerm) {
-      this.filteredMembers = this.members.filter((member) =>
-        member.lastname.toLowerCase().includes(this.searchTerm.toLowerCase())
+      this.filteredMembers = this.members.filter(
+        (member) =>
+          member.lastname
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase()) ||
+          member.firstname.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
       this.filteredMembers = [...this.members];

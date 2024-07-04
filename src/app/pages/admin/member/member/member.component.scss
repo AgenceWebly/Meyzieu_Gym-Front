@@ -1,0 +1,84 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: $default-margin;
+
+    .back-arrow {
+      cursor: pointer;
+      margin-right: $default-margin;
+
+      i {
+        font-size: 1.5em;
+        color: $color-primary;
+      }
+    }
+
+    h1 {
+      font-size: 1.4em;
+      color: $color-text;
+    }
+  }
+
+  .member-card {
+    background-color: $color-hover-background;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px $shadow-color;
+    overflow: hidden;
+    text-align: center;
+
+    padding: $default-padding;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .member-info {
+      margin-top: $default-margin;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h2 {
+        font-size: 1.2em;
+        margin-bottom: 0.5em;
+      }
+
+      p {
+        font-size: 1em;
+        margin: 0.5em 0;
+      }
+
+      .autorizations {
+        display: flex;
+        justify-content: space-around;
+
+        .green-icon {
+          color: green;
+        }
+
+        .red-icon {
+          color: red;
+        }
+      }
+    }
+  }
+}

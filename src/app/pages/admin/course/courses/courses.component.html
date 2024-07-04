@@ -13,9 +13,10 @@
   <table class="courses-table">
     <thead>
       <tr>
-        <th>Nom du cours</th>
-
+        <th class="fixed-col">Nom du cours</th>
+        <th>Année de naissance</th>
         <th>Jours d'entrainement</th>
+        <th>Places restantes</th>
         <th>Saison</th>
       </tr>
     </thead>
@@ -25,9 +26,16 @@
         (click)="editCourse(course.id)"
         class="course-row"
       >
-        <td>
+        <td class="fixed-col">
           {{ course.courseName ? course.courseName : "pas de nom de cours" }}
         </td>
+
+        @if ( course.minAge === course.maxAge ) {
+          <td>{{ currentYear - course.minAge }}</td>
+        } @else {
+          <td>{{ currentYear - course.maxAge }} à {{ currentYear - course.minAge }}</td>
+        }
+
 
         <td>
           <ul>
@@ -37,6 +45,11 @@
             </li>
           </ul>
         </td>
+        @if (course.remainingSlots === 0) {
+        <td>Complet</td>
+        } @else {
+        <td>{{ course.remainingSlots }}</td>
+        }
 
         <td>
           {{ course.season.startDate | date : "yyyy" }} /
