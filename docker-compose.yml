@@ -1,0 +1,12 @@
+services:
+  frontend:
+    container_name: prod-angular
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod  # This targets the 'prod' stage in your Dockerfile
+    networks:
+      - angular-spring-connect
+    ports:
+      - "80:80"  # Nginx will serve on port 80
+    restart: always

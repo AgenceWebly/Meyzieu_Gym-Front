@@ -1,0 +1,21 @@
+services:
+  frontend:
+    container_name: dev-angular
+    build:
+      context: .
+      target: dev
+      args:
+        CONFIGURATION: development
+    depends_on:
+      - mga-dev-spring
+    networks:
+      - angular-spring-connect
+    ports:
+      - "4201:4200"
+    volumes:
+      - type: bind
+        source: .
+        target: /usr/src/app
+    restart: always
+networks:
+  angular-spring-connect:
