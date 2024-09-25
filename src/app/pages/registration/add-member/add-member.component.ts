@@ -141,6 +141,7 @@ export class AddMemberComponent {
 
   addMember() {
     if (this.addMemberForm.valid) {
+
       const trimmedFormData = this.formUtilityService.trimFormValues(this.addMemberForm);
 
       const formData = {
@@ -155,7 +156,7 @@ export class AddMemberComponent {
         next: (response) => {
           this.toastr.success(
             'Merci de choisir le cours souhaité pour ' +
-              this.addMemberForm.value.firstname,
+            trimmedFormData['firstname'],
             'Choix du groupe'
           );
           this.router.navigate(['inscription/adherent/' + response + '/cours']);
