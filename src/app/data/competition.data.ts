@@ -1,4 +1,5 @@
 export const competitions = [
+  { lastname: 'RENAUD', firstname: 'Lexie', courseName: 'Compétition 1' },
   { lastname: 'KHALFAOUI', firstname: 'Aiya', courseName: 'Compétition 1' },
   { lastname: 'BRET', firstname: 'Noélie', courseName: 'Compétition 1' },
   { lastname: 'POINDEXTRE', firstname: 'Eden', courseName: 'Compétition 1' },
