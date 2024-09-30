@@ -40,6 +40,13 @@ export class ApiService {
     );
   }
 
+  updateMember(memberId: number, updatedMember: any) {
+    return this.http.put<any>(
+      AUTH_API + '/users/members/' + memberId,
+      updatedMember
+    );
+  }
+
   // ADMIN
   getMembers(): Observable<any[]> {
     return this.http.get<any[]>(`${AUTH_API}/admin/members`);

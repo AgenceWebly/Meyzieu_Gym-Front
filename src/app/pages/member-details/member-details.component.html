@@ -14,6 +14,10 @@
         <label>Date de naissance</label>
         <span>{{ memberDetails.birthdate | date : "dd/MM/YYYY" }}</span>
       </div>
+      <div class="profile-item">
+        <label>Etablissement scolaire</label>
+        <span>{{ memberDetails.school }}</span>
+      </div>
     </div>
     <div class="autorizations">
       <i
@@ -78,7 +82,8 @@
       <div class="profile-item">
         <div>
           <label
-            >{{ emergencyContact.lastname | uppercase }} {{ emergencyContact.firstname | titlecase }}</label
+            >{{ emergencyContact.lastname | uppercase }}
+            {{ emergencyContact.firstname | titlecase }}</label
           >
           <span>{{ emergencyContact.phoneNumber }}</span>
         </div>

@@ -71,23 +71,23 @@ export class MemberDetailsComponent {
       this.isUploading = true;
       this.uploadFileService.uploadFile(file).subscribe({
         next: (response: any) => {
-          this.currentUser = {
-            ...this.currentUser,
+          this.memberDetails = {
+            ...this.memberDetails,
             sportPassUrl: response.secure_url,
           };
-          // this.apiService
-          //   .updateMember(this.currentMember, this.currentMember.id)
-          //   .subscribe({
-          //     next: () => {
-          //       this.isUploading = false;
-          //       this.toastr.success('Attestation téléchargée avec succès', 'Succès');
-          //     },
-          //     error: (err) => {
-          //       console.error('Error updating user:', err);
-          //       this.isUploading = false;
-          //       this.toastr.error('Erreur lors de la mise à jour de l\'attestation');
-          //     },
-          //   });
+          this.apiService
+            .updateMember(this.memberDetails.id, this.memberDetails)
+            .subscribe({
+              next: () => {
+                this.isUploading = false;
+                this.toastr.success('Attestation téléchargée avec succès', 'Succès');
+              },
+              error: (err) => {
+                console.error('Error updating user:', err);
+                this.isUploading = false;
+                this.toastr.error('Erreur lors de la mise à jour de l\'attestation');
+              },
+            });
         },
         error: (err) => {
           console.error('Upload failed', err);
