@@ -1,0 +1,190 @@
+@import "variables";
+@import "mixins";
+
+main {
+  @include border-shadow-radius;
+  min-height: 95vh;
+  padding: $default-padding;
+  margin: $default-margin;
+  background-color: $color-white-background;
+
+  h1 {
+    margin-bottom: $default-margin;
+    font-size: 1.4em;
+    margin-top: $default-margin;
+  }
+
+  .profile-container {
+    background-color: $color-hover-background;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 700px;
+    display: flex;
+    min-height: 60vh;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: calc($default-padding * 2);
+  }
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: calc($default-padding / 2);
+
+    h2 {
+      font-size: 1em;
+      padding-top: $default-margin;
+    }
+
+    .profile-item {
+      margin-bottom: $default-margin;
+
+      label {
+        display: inline-block;
+        font-size: 1em;
+        font-weight: bold;
+      }
+
+      span {
+        display: block;
+        font-size: 1em;
+        font-weight: bold;
+
+        @media (min-width: 769px) {
+          display: inline;
+          margin-left: $default-margin;
+        }
+      }
+    }
+  }
+
+  .documents-section {
+    h2 {
+      font-size: 1em;
+    }
+    .document-card {
+      display: flex;
+      align-items: center;
+      margin-bottom: $default-margin;
+
+      .document-link {
+        text-decoration: none;
+
+        .document-button {
+          display: flex;
+          align-items: center;
+          font-size: 1em;
+          color: $color-text;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          transition: color 0.3s ease;
+
+          i {
+            margin-right: 0.5em;
+            font-size: 1.5em;
+            color: $color-text;
+            transition: color 0.3s ease;
+          }
+        }
+      }
+    }
+  }
+
+  .button-container {
+    @media (min-width: 769px) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button {
+      margin-top: $default-margin;
+      padding: $default-padding;
+      font-size: 1em;
+      color: #fff;
+      background-color: $color-primary;
+      border: none;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      @media (min-width: 769px) {
+        width: auto;
+      }
+
+      &:hover {
+        background-color: $color-primary-hover;
+      }
+    }
+  }
+
+  /* On cache l'input 😢 */
+  input[type="file"] {
+    display: none;
+  }
+
+  /* On créé un bouton en ciblant un élément dans la balise label */
+  label span {
+    display: inline-block;
+    margin-top: $default-margin;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background: $color-primary;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  label span:hover {
+    background: $color-primary-hover;
+  }
+
+  .fa-pen {
+    margin-left: 0.5em;
+    cursor: pointer;
+  }
+  
+
+ .fa-edit, .fa-upload {
+    margin-right: 0.5em;
+    color: #fff;
+  }
+}
+
+.loader-container {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+
+  .loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: $color-primary;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.autorizations {
+  display: flex;
+  justify-content: space-around;
+
+  .green-icon {
+    color: green;
+  }
+
+  .red-icon {
+    color: red;
+  }
+}

@@ -29,6 +29,7 @@ import { CourseComponent } from './pages/admin/course/course/course.component';
 import { MembersByUserComponent } from './pages/members-by-user/members-by-user.component';
 import { MembersComponent } from './pages/admin/member/members/members.component';
 import { MemberComponent } from './pages/admin/member/member/member.component';
+import { MemberDetailsComponent } from './pages/member-details/member-details.component';
 
 export const routes: Routes = [
   {
@@ -51,7 +52,14 @@ export const routes: Routes = [
       userType: 'user',
     },
   },
-
+  {
+    path: 'adherents/:id',
+    component: MemberDetailsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'guardian',
+    },
+  },
   {
     path: 'adherents',
     component: MembersByUserComponent,

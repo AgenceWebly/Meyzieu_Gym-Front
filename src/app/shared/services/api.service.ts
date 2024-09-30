@@ -25,6 +25,14 @@ export class ApiService {
     return this.http.get<any[]>(`${AUTH_API}/users/members/${memberId}`);
   }
 
+  getMemberDetails(
+    memberId: number
+  ): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${AUTH_API}/users/members/${memberId}/details`
+    );
+  }
+
   createMember(userId: number, newMember: any) {
     return this.http.post<any>(
       AUTH_API + '/users/' + userId + '/members',
