@@ -16,6 +16,7 @@ import { schools } from '../../../data/schools.data';
 import { relationShips } from '../../../data/relationShips.data';
 import { relatives } from '../../../data/relatives.data';
 import { ToastrService } from 'ngx-toastr';
+import { FormUtilityService } from '../../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-add-member',
@@ -41,6 +42,7 @@ export class AddMemberComponent {
   storageService = inject(StorageService);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   addMemberForm = this.fb.group({
     profilePictureUrl: [
@@ -139,22 +141,21 @@ export class AddMemberComponent {
 
   addMember() {
     if (this.addMemberForm.valid) {
+      const trimmedFormData = this.formUtilityService.trimFormValues(this.addMemberForm);
+
       const formData = {
-        ...this.addMemberForm.value,
-        isAllowedToLeave:
-          this.addMemberForm.value.authorizations?.allowedToLeave,
-        firstAidApproved:
-          this.addMemberForm.value.authorizations?.firstAidApproved,
-        transportApproved:
-          this.addMemberForm.value.authorizations?.transportApproved,
-        photoApproved: this.addMemberForm.value.authorizations?.photoApproved,
+        ...trimmedFormData,
+        isAllowedToLeave: trimmedFormData['authorizations']?.allowedToLeave,
+        firstAidApproved: trimmedFormData['authorizations']?.firstAidApproved,
+        transportApproved: trimmedFormData['authorizations']?.transportApproved,
+        photoApproved: trimmedFormData['authorizations']?.photoApproved,
       };
 
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
           this.toastr.success(
             'Merci de choisir le cours souhaité pour ' +
-              this.addMemberForm.value.firstname,
+            trimmedFormData['firstname'],
             'Choix du groupe'
           );
           this.router.navigate(['inscription/adherent/' + response + '/cours']);
