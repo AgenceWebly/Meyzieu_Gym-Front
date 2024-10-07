@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ToastrService } from 'ngx-toastr';
+import { FormUtilityService } from '../../../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-create-program',
@@ -20,6 +21,7 @@ export class CreateProgramComponent {
   router = inject(Router);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   programForm = this.fb.group({
     name: [
@@ -37,7 +39,9 @@ export class CreateProgramComponent {
 
   submitForm() {
     if (this.programForm.valid) {
-      this.apiService.createProgram(this.programForm.value).subscribe({
+      const trimmedFormValues = this.formUtilityService.trimFormValues(this.programForm);
+
+      this.apiService.createProgram(trimmedFormValues).subscribe({
         next: () => {
           this.toastr.success('Programme créé avec succès', 'Succès');
           this.router.navigate(['/admin/programmes']);
