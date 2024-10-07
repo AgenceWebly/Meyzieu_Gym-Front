@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormUtilityService } from '../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -25,6 +26,7 @@ export class EditProfileComponent implements OnInit {
   storageService = inject(StorageService);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   editProfileForm = this.fb.group({
     lastname: [
@@ -84,8 +86,10 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.editProfileForm.valid) {
+      const trimmedFormData = this.formUtilityService.trimFormValues(this.editProfileForm);
+
       this.apiService
-        .updateUser(this.editProfileForm.value, this.currentUserId)
+        .updateUser(trimmedFormData, this.currentUserId)
         .subscribe({
           next: () => {
             this.toastr.success('Profil mis à jour avec succès', 'Succès');
