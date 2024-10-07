@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { Season } from '../../../../models/season.model';
 import { Program } from '../../../../models/program.model';
 import { Course } from '../../../../models/course.model';
+import { FormUtilityService } from '../../../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-edit-course',
@@ -35,6 +36,7 @@ export class EditCourseComponent {
   router = inject(Router);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   courseForm = this.fb.group({
     programId: ['', Validators.required],
@@ -173,8 +175,9 @@ export class EditCourseComponent {
 
   submitForm(): void {
     if (this.courseForm.valid) {
+      const trimmedFormValues = this.formUtilityService.trimFormValues(this.courseForm);
       this.apiService
-        .updateCourse(this.courseForm.value, this.courseId)
+        .updateCourse(trimmedFormValues, this.courseId)
         .subscribe({
           next: () => {
             this.toastr.success('Cours mis à jour avec succès', 'Succès');

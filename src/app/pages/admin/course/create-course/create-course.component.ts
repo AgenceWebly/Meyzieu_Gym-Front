@@ -11,6 +11,7 @@ import { ApiService } from '../../../../shared/services/api.service';
 import { Season } from '../../../../models/season.model';
 import { Program } from '../../../../models/program.model';
 import { ToastrService } from 'ngx-toastr';
+import { FormUtilityService } from '../../../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-create-course',
@@ -31,6 +32,7 @@ export class CreateCourseComponent {
   router = inject(Router);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   courseForm = this.fb.group({
     programId: ['', Validators.required],
@@ -102,7 +104,9 @@ export class CreateCourseComponent {
 
   submitForm() {
     if (this.courseForm.valid) {
-      this.apiService.createCourse(this.courseForm.value).subscribe({
+      const trimmedFormValues = this.formUtilityService.trimFormValues(this.courseForm);
+
+      this.apiService.createCourse(trimmedFormValues).subscribe({
         next: () => {
           this.toastr.success('Cours créé avec succès', 'Succès');
           this.router.navigate(['/admin/cours']);
