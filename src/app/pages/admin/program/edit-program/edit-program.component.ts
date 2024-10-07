@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ApiService } from '../../../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormUtilityService } from '../../../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-edit-program',
@@ -20,7 +21,8 @@ export class EditProgramComponent {
   router = inject(Router);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
-
+  formUtilityService = inject(FormUtilityService);
+  
   programForm = this.fb.group({
     name: [
       '',
@@ -69,8 +71,9 @@ export class EditProgramComponent {
 
   submitForm(): void {
     if (this.programForm.valid) {
+      const trimmedFormValues = this.formUtilityService.trimFormValues(this.programForm);
       this.apiService
-        .updateProgram(this.programForm.value, this.programId)
+        .updateProgram(trimmedFormValues, this.programId)
         .subscribe({
           next: () => {
             this.toastr.success('Programme mis à jour avec succès', 'Succès');
