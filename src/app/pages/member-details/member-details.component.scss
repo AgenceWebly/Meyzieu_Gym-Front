@@ -69,24 +69,6 @@ main {
 
       .document-link {
         text-decoration: none;
-
-        .document-button {
-          display: flex;
-          align-items: center;
-          font-size: 1em;
-          color: $color-text;
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-          transition: color 0.3s ease;
-
-          i {
-            margin-right: 0.5em;
-            font-size: 1.5em;
-            color: $color-text;
-            transition: color 0.3s ease;
-          }
-        }
       }
     }
   }
@@ -186,5 +168,23 @@ main {
 
   .red-icon {
     color: red;
+  }
+}
+
+.document-button {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  color: $color-text;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  i {
+    margin-right: 0.5em;
+    font-size: 1.5em;
+    color: $color-text;
+    transition: color 0.3s ease;
   }
 }
