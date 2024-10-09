@@ -44,10 +44,8 @@ export class ForgotPasswordComponent {
         },
         error: (err) => {
           if (err.status !== 401) {
-            this.toastr.error(
-              'Une erreur est survenue, veuillez réessayer ultérieurement',
-              'Erreur'
-            );
+            const errorMessage = err.error; 
+            this.toastr.error(errorMessage.message, 'Erreur');
           }
         },
       });

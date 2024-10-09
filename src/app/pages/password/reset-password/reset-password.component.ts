@@ -23,6 +23,7 @@ export class ResetPasswordComponent {
   showConfirmPassword: boolean = false;
 
   token!: string | null;
+  email!: string | null;
 
   private destroy$ = new Subject<void>();
 
@@ -54,6 +55,7 @@ export class ResetPasswordComponent {
 
       this.route.queryParamMap.subscribe(params => {
         this.token = params.get('token');
+        this.email = params.get('email');
       });
   }
 
@@ -106,16 +108,14 @@ export class ResetPasswordComponent {
 
   resetPassword() {
     if (this.resetPasswordForm.valid) {
-      this.authService.resetPassword(this.token, this.resetPasswordForm.value.passwords.password).subscribe({
+      this.authService.resetPassword(this.token, this.resetPasswordForm.value.passwords.password, this.email).subscribe({
         next: () => {
           this.toastr.success('Mot de passe réinitialisé', 'Succès');
           this.router.navigate(['/connexion']);
         },
         error: (err) => {
-          this.toastr.error(
-            'Une erreur est survenue, veuillez réessayer ultérieurement',
-            'Erreur'
-          );
+        const errorMessage = err.error; 
+        this.toastr.error(errorMessage.message, 'Erreur');
         },
       });
     } else {
