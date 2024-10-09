@@ -32,8 +32,6 @@ export class MemberComponent {
           this.apiService.getMemberById(this.memberId).subscribe({
             next: (member) => {
               this.member = member;
-              console.log(member);
-              
             },
             error: (err) => {
               this.toastr.error(

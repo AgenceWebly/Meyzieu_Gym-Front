@@ -1,67 +1,39 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AddressService } from '../../shared/services/address.service';
-import { CommonModule } from '@angular/common';
-import { checkEqualityValidator } from '../../shared/validators/check-equality.validator';
-import { phoneFormatValidator } from '../../shared/validators/phone-format.validator';
-import { AddressFeature } from '../../models/addressFeature.model';
-import { passwordStrengthValidator } from '../../shared/validators/password-strength.validator';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from '../../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { passwordStrengthValidator } from '../../../shared/validators/password-strength.validator';
+import { checkEqualityValidator } from '../../../shared/validators/check-equality.validator';
 
 @Component({
-  selector: 'app-sign-up',
+  selector: 'app-reset-password',
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
-  templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss',
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.scss'
 })
-export class SignUpComponent {
+export class ResetPasswordComponent {
   passwordStrengthClass = 'weak';
   passwordStrengthPercent = 0;
   passwordMessage = '';
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
+  token!: string | null;
+  email!: string | null;
+
   private destroy$ = new Subject<void>();
 
   fb = inject(FormBuilder);
-  addressService = inject(AddressService);
   authService = inject(AuthService);
   router = inject(Router);
+  route = inject(ActivatedRoute);
   toastr = inject(ToastrService);
 
-  signUpForm = this.fb.group({
-    lastname: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.pattern(/^[a-zA-Zà-ÿÀ-Ÿ\s'-]+$/),
-      ],
-    ],
-    firstname: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.pattern(/^[a-zA-Zà-ÿÀ-Ÿ\s'-]+$/),
-      ],
-    ],
-    address: ['', [Validators.required, Validators.minLength(5)]],
-    phoneNumber: [null, [Validators.required, phoneFormatValidator()]],
-    occupation: ['', [Validators.required, Validators.minLength(2)]],
-    emails: this.fb.group(
-      {
-        email: ['', [Validators.required, Validators.email]],
-        confirmEmail: ['', Validators.required],
-      },
-      {
-        validator: checkEqualityValidator('email', 'confirmEmail'),
-      }
-    ),
+  resetPasswordForm = this.fb.group({
     passwords: this.fb.group(
       {
         password: ['', [Validators.required, passwordStrengthValidator()]],
@@ -74,11 +46,16 @@ export class SignUpComponent {
   });
 
   ngOnInit(): void {
-    this.signUpForm
+    this.resetPasswordForm
       .get('passwords.password')
       ?.valueChanges.pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.checkPasswordStrength();
+      });
+
+      this.route.queryParamMap.subscribe(params => {
+        this.token = params.get('token');
+        this.email = params.get('email');
       });
   }
 
@@ -88,7 +65,7 @@ export class SignUpComponent {
   }
 
   checkPasswordStrength(): void {
-    const passwordControl = this.signUpForm.get('passwords.password');
+    const passwordControl = this.resetPasswordForm.get('passwords.password');
     if (passwordControl) {
       const value = passwordControl.value;
       const hasUpperCase = /[A-Z]+/.test(value);
@@ -129,28 +106,16 @@ export class SignUpComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  signup() {
-    if (this.signUpForm.valid) {
-      const signupForm = {
-        firstname: this.signUpForm.value.firstname,
-        lastname: this.signUpForm.value.lastname,
-        email: this.signUpForm.value.emails.email,
-        password: this.signUpForm.value.passwords.password,
-        phoneNumber: this.signUpForm.value.phoneNumber,
-        address: this.signUpForm.value.address,
-        occupation: this.signUpForm.value.occupation,
-      };
-
-      this.authService.signup(signupForm).subscribe({
+  resetPassword() {
+    if (this.resetPasswordForm.valid) {
+      this.authService.resetPassword(this.token, this.resetPasswordForm.value.passwords.password, this.email).subscribe({
         next: () => {
-          this.toastr.success('Inscription réussie', 'Succès');
+          this.toastr.success('Mot de passe réinitialisé', 'Succès');
           this.router.navigate(['/connexion']);
         },
         error: (err) => {
-          this.toastr.error(
-            'Une erreur est survenue, veuillez réessayer ultérieurement',
-            'Erreur'
-          );
+        const errorMessage = err.error; 
+        this.toastr.error(errorMessage.message, 'Erreur');
         },
       });
     } else {
