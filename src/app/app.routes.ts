@@ -32,6 +32,7 @@ import { MemberComponent } from './pages/admin/member/member/member.component';
 import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
 import { ConfirmForgotPasswordComponent } from './pages/password/confirm-forgot-password/confirm-forgot-password.component';
+import { MemberDetailsComponent } from './pages/member-details/member-details.component';
 
 export const routes: Routes = [
   {
@@ -54,7 +55,14 @@ export const routes: Routes = [
       userType: 'user',
     },
   },
-
+  {
+    path: 'adherents/:id',
+    component: MemberDetailsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'guardian',
+    },
+  },
   {
     path: 'adherents',
     component: MembersByUserComponent,
