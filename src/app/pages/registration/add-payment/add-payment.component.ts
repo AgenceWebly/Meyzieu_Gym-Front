@@ -42,7 +42,6 @@ export class AddPaymentComponent {
         this.apiService.getRegistrationById(this.registrationId).subscribe({
           next: (registration: any) => {
             this.registration = registration;
-            console.log(this.registration);
           },
           error: (err) => {
             this.toastr.error(

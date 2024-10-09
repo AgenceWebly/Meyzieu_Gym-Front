@@ -112,7 +112,6 @@ export class ResetPasswordComponent {
           this.router.navigate(['/connexion']);
         },
         error: (err) => {
-          console.log(err);
           this.toastr.error(
             'Une erreur est survenue, veuillez réessayer ultérieurement',
             'Erreur'
