@@ -29,6 +29,10 @@ import { CourseComponent } from './pages/admin/course/course/course.component';
 import { MembersByUserComponent } from './pages/members-by-user/members-by-user.component';
 import { MembersComponent } from './pages/admin/member/members/members.component';
 import { MemberComponent } from './pages/admin/member/member/member.component';
+import { ForgotPasswordComponent } from './pages/password/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/password/reset-password/reset-password.component';
+import { ConfirmForgotPasswordComponent } from './pages/password/confirm-forgot-password/confirm-forgot-password.component';
+import { MemberDetailsComponent } from './pages/member-details/member-details.component';
 
 export const routes: Routes = [
   {
@@ -51,7 +55,14 @@ export const routes: Routes = [
       userType: 'user',
     },
   },
-
+  {
+    path: 'adherents/:id',
+    component: MemberDetailsComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'guardian',
+    },
+  },
   {
     path: 'adherents',
     component: MembersByUserComponent,
@@ -286,6 +297,30 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: {
       userType: 'admin',
+    },
+  },
+  {
+    path: 'mot-de-passe-oublie',
+    component: ForgotPasswordComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'visitorOnly',
+    },
+  },
+  {
+    path: 'reinitialisation-mot-de-passe',
+    component: ResetPasswordComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'visitorOnly',
+    },
+  },
+  {
+    path: 'confirmation-mot-de-passe',
+    component: ConfirmForgotPasswordComponent,
+    canActivate: [authGuard],
+    data: {
+      userType: 'visitorOnly',
     },
   },
 ];

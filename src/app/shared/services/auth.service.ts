@@ -9,7 +9,6 @@ const AUTH_API = environment.apiUrl + '/auth';
   providedIn: 'root',
 })
 export class AuthService {
-  
   constructor(private http: HttpClient) {}
 
   signup(signupForm: any): Observable<any> {
@@ -29,5 +28,24 @@ export class AuthService {
 
   logout(): Observable<any> {
     return this.http.post(AUTH_API + '/signout', {});
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post<any>(
+      AUTH_API + '/forgot-password?email=' + email,
+      {}
+    );
+  }
+
+  resetPassword(
+    token: string | null,
+    newPassword: string,
+    email: string | null
+  ): Observable<any> {
+    return this.http.post<any>(AUTH_API + '/reset-password', {
+      token,
+      newPassword,
+      email,
+    });
   }
 }

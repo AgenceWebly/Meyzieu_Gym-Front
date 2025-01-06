@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { StorageService } from '../../shared/services/storage.service';
 import { ApiService } from '../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-members-by-user',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './members-by-user.component.html',
-  styleUrl: './members-by-user.component.scss'
+  styleUrl: './members-by-user.component.scss',
 })
 export class MembersByUserComponent {
   currentUser: any;
@@ -34,5 +34,9 @@ export class MembersByUserComponent {
         );
       },
     });
+  }
+
+  goToMemberDetails(memberId: number) {
+    this.router.navigate([`/adherents/${memberId}`]);
   }
 }
