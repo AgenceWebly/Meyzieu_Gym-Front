@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
+import { FormUtilityService } from '../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -32,6 +33,7 @@ export class SignUpComponent {
   authService = inject(AuthService);
   router = inject(Router);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   signUpForm = this.fb.group({
     lastname: [
@@ -131,14 +133,16 @@ export class SignUpComponent {
 
   signup() {
     if (this.signUpForm.valid) {
+      const trimmedFormValues = this.formUtilityService.trimFormValues(this.signUpForm);
+
       const signupForm = {
-        firstname: this.signUpForm.value.firstname,
-        lastname: this.signUpForm.value.lastname,
-        email: this.signUpForm.value.emails.email,
-        password: this.signUpForm.value.passwords.password,
-        phoneNumber: this.signUpForm.value.phoneNumber,
-        address: this.signUpForm.value.address,
-        occupation: this.signUpForm.value.occupation,
+        firstname: trimmedFormValues['firstname'],
+        lastname: trimmedFormValues['lastname'],
+        email: trimmedFormValues['emails']?.email,
+        password: trimmedFormValues['passwords']?.password,
+        phoneNumber: trimmedFormValues['phoneNumber'],
+        address: trimmedFormValues['address'],
+        occupation: trimmedFormValues['occupation'],
       };
 
       this.authService.signup(signupForm).subscribe({

@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { FormUtilityService } from '../../../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-edit-season',
@@ -19,6 +20,7 @@ export class EditSeasonComponent {
   router = inject(Router);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   seasonForm = this.fb.group({
     startDate: ['', Validators.required],
@@ -64,8 +66,9 @@ export class EditSeasonComponent {
 
   submitForm(): void {
     if (this.seasonForm.valid) {
+      const trimmedFormData = this.formUtilityService.trimFormValues(this.seasonForm);
       this.apiService
-        .updateSeason(this.seasonForm.value, this.seasonId)
+        .updateSeason(trimmedFormData, this.seasonId)
         .subscribe({
           next: () => {
             this.toastr.success(

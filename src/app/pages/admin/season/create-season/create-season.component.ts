@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormUtilityService } from '../../../../shared/services/form-utility.service';
 
 @Component({
   selector: 'app-create-season',
@@ -17,6 +18,7 @@ export class CreateSeasonComponent {
   router = inject(Router);
   apiService = inject(ApiService);
   toastr = inject(ToastrService);
+  formUtilityService = inject(FormUtilityService);
 
   seasonForm = this.fb.group({
     startDate: ['', Validators.required],
@@ -27,7 +29,9 @@ export class CreateSeasonComponent {
 
   submitForm() {
     if (this.seasonForm.valid) {
-      this.apiService.createSeason(this.seasonForm.value).subscribe({
+      const trimmedFormData = this.formUtilityService.trimFormValues(this.seasonForm);
+      
+      this.apiService.createSeason(trimmedFormData).subscribe({
         next: () => {
           this.toastr.success('La saison a été créée avec succès', 'Succès');
           this.router.navigate(['/admin/saisons']);

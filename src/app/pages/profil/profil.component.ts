@@ -74,7 +74,7 @@ export class ProfilComponent {
         },
         error: (err) => {
           console.error('Upload failed', err);
-          this.isUploading = false; // Corrected here
+          this.isUploading = false;
           this.toastr.error('Échec du téléchargement du fichier', 'Erreur');
         },
       });
