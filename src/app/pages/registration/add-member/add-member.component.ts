@@ -145,17 +145,16 @@ export class AddMemberComponent {
 
       const formData = {
         ...trimmedFormData,
-        isAllowedToLeave: trimmedFormData['authorizations']?.allowedToLeave,
-        firstAidApproved: trimmedFormData['authorizations']?.firstAidApproved,
-        transportApproved: trimmedFormData['authorizations']?.transportApproved,
-        photoApproved: trimmedFormData['authorizations']?.photoApproved,
+        isAllowedToLeave: this.addMemberForm.get('authorizations.allowedToLeave')?.value,
+        firstAidApproved: this.addMemberForm.get('authorizations.firstAidApproved')?.value,
+        transportApproved: this.addMemberForm.get('authorizations.transportApproved')?.value,
+        photoApproved: this.addMemberForm.get('authorizations.photoApproved')?.value,
       };
 
       this.apiService.createMember(this.currentUserId, formData).subscribe({
         next: (response) => {
           this.toastr.success(
-            'Merci de choisir le cours souhaité pour ' +
-            trimmedFormData['firstname'],
+            'Merci de choisir le cours souhaité pour ' + trimmedFormData['firstname'],
             'Choix du groupe'
           );
           this.router.navigate(['inscription/adherent/' + response + '/cours']);
